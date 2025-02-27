@@ -1,0 +1,205 @@
+@{
+    ViewBag.Title = "Update History";
+}
+
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Update History</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Update History</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <table id="example3" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th style="width: 10%;">
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.TBLUpdateHistory.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(0).ToString().Trim()&nbsp;
+                                            <img src="@path" width="25" />
+
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+
+                                    <td>
+                                        <center>
+                                            <div class=" justify-content-around gap-2">
+                                                <button type="button" class="btn btn-info btn-sm history-btn" data-toggle="modal" data-target="#HistoryModal" title="Update History"
+                                                        data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                        data-purchasedate="@r.ItemArray.GetValue(6).ToString().Trim()"
+                                                        data-purchasingprice="@r.ItemArray.GetValue(7).ToString().Trim()">
+                                                    <i class="fas fa-sync-alt"></i>
+                                                </button>
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                            </div>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+@*Update History*@
+<!-- Modal -->
+<div class="modal fade" id="HistoryModal" tabindex="-1" role="dialog" aria-labelledby="HistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="HistoryModalLabel">
+                    <i class="fas fa-sync-alt"></i>
+                    Update History - <b><span id="itno1"></span></b>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="HistoryForm">
+                    <input type="hidden" class="form-control" id="itno" readonly>
+
+                    <div class="form-group">
+                        <label for="purchasedate">Purchase Date</label>
+                        <input type="date" class="form-control" id="purchasedate" name="purchasedate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchasingprice">Purchasing Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rs.</span>
+                            <input type="number" class="form-control" id="purchasingprice" name="purchasingprice" step="0.01">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info col-sm-5" id="saveSpecification">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        // Ensure values are being passed to the modal
+        $(document).on('click', '.history-btn', function () {
+            var itno = $(this).data('itno');
+            var purchasedate = $(this).data('purchasedate');
+            var purchasingprice = $(this).data('purchasingprice');
+
+            $('#itno').val(itno);
+            $('#itno1').text(itno);
+
+ 
+            if (purchasedate) {
+                var inputDate = new Date(purchasedate);
+                var formattedDate = inputDate.getFullYear() + '-' +
+                    (inputDate.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                    inputDate.getDate().toString().padStart(2, '0');
+
+                $('#purchasedate').val(formattedDate);
+            } else {
+                $('#purchasedate').val(''); 
+            }
+
+            $('#purchasingprice').val(purchasingprice);
+        });
+
+        // Save data via AJAX
+        $('#saveSpecification').click(function () {
+            var specificationData = {
+                itno: $('#itno').val(),
+                purchasedate: $('#purchasedate').val(),
+                purchasingprice: $('#purchasingprice').val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveHistory", "Hardware")',
+                type: 'POST',
+                data: specificationData,
+                success: function (response) {
+                    if (response.success) {
+                        $('#HistoryModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert('Error saving history.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", error);
+                    alert('An error occurred while saving the history.');
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,390 @@
+@{
+    ViewBag.Title = "AddExsitingDEV";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+
+
+
+
+<form id="myForm" action="submitDevices" method="post">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <div class="col-sm-8">
+                    <div class="col-sm-6">
+                        <h3 class="mb-0"><b>Add Existing Devices</b></h3>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                        <li class="breadcrumb-item active">Add Existing Devices</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="row">
+
+
+
+        <div class="col-md-4">
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-outline card-success">
+                            <div class="card-body">
+
+
+                                <center>
+                                    <img src="/Content/Icon/@(Model.Item).png" alt="Device picture" width="30%" class="mr-2" /> <br />
+                                    <h4>
+                                        <label id="refNo">@Model.Item</label>
+                                </center>
+                                <br />
+                                @Html.TextBoxFor(m => m.Item, new { @type = "lable", @class = "form-control d-none", @readonly = "readonly", @id = "refNo", required = "required", })
+                                @Html.TextBoxFor(m => m.count, new { @type = "lable", @class = "form-control d-none", @readonly = "readonly", @id = "refNo", required = "required", })
+
+                                <label class="col-sm-12 col-form-label text-dark fw-bold">Invoice Reference</label>
+                                @Html.TextBoxFor(m => m.invno, new { @type = "lable", @class = "form-control", @readonly = "readonly", @id = "refNo", required = "required" })
+                                <br />
+
+                                <label class="col-sm-12 col-form-label text-dark fw-bold">Invoice No</label>
+                                @Html.TextBoxFor(m => m.invoiceNo, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "invoNo", required = "required" })
+                                <br />
+
+                                <label class="col-sm-12 col-form-label text-dark fw-bold">Description Code</label>
+                                @Html.TextBoxFor(m => m.invID, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "DesCode", required = "required" })
+                                <br />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <div class="col-md-8">
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-outline card-info">
+                            <div class="card-body">
+
+                                @if (ViewBag.ErrorMessage != null)
+                                {
+                                    <div class="alert alert-default-danger align-content-lg-around">
+                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
+                                        <strong>Warning !</strong> @ViewBag.ErrorMessage
+                                    </div>
+                                }
+                                @if (ViewBag.SuccessMessage != null)
+                                {
+
+                                    <div class="alert alert-default-success align-content-lg-around">
+                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
+                                        <strong>Success</strong>  @ViewBag.SuccessMessage
+                                    </div>
+
+                                }
+
+
+
+
+                                <div class="row">
+                                    @*@if (Model.remain > 0)
+                                        {*@
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-dark fw-bold">IT No &nbsp;<span class="text-danger">*</span></label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(m => m.IT_No, new { @type = "text", @class = "form-control", required = "required", autocomplete = "off" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-dark fw-bold">Serial No</label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(m => m.Serial_No, new { @type = "text", @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-dark fw-bold">INV No</label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(m => m.INV_No, new { @type = "text", @class = "form-control", @placeholder = "SLBFE/ITD/COM/123 or FA24-COM-000001" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-dark fw-bold">QR Code</label>
+                                            <div class="col-sm-9">
+                                                @Html.TextBoxFor(m => m.QR, new { @type = "text", @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="text-dark fw-bold col-3">Current Location</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" id="PDivisionInput" class="form-control" autocomplete="off" oninput="filterOptions()" />
+                                                <select id="PDivisionSelect" class="form-control position-absolute" size="5"
+                                                        style="max-height: 100px; overflow-y: auto; display: none; z-index: 1; width: 100%; background-color:#f2fbff;"
+                                                        onclick="selectOption()">
+                                                    @foreach (var row in Model.DivisionList)
+                                                    {
+                                                        <option value="@row.Value" text="@row.Text">@row.Text</option>
+                                                    }
+                                                </select>
+                                                @Html.TextBoxFor(m => m.Current_LocationID, new { @type = "text", @class = "form-control d-none", @id = "PurDivision", required = "required" })
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-dark fw-bold">Remarks</label>
+                                            <div class="col-sm-9">
+                                                @Html.TextAreaFor(m => m.Remarks1, new { @type = "text", @class = "form-control", id = "devicesId", style = "height: 132px;" })
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <a class="btn btn-block col-sm-6 btn-outline-danger" href="/Hardware/View_Invoice_Full?invno=@Model.invno">Cancel</a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button type="submit" class="btn btn-info col-sm-6 float-right" id="btn1">Add Device</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*}
+                                        else
+                                        {
+                                            <div class="col-12">
+                                                <div class="">
+                                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
+                                                    <strong>Warning!</strong> No more devices can be added!
+                                                </div>
+                                            </div>
+                                        }*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </div>
+
+
+    </div>
+</form>
+
+@*<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const input = document.getElementById('PDivisionInput');
+            const select = document.getElementById('PDivisionSelect');
+            const hiddenInput = document.getElementById('PurDivision');
+
+            // Load saved value from localStorage on page load
+            const savedText = localStorage.getItem('PDivisionText');
+            const savedValue = localStorage.getItem('PDivisionValue');
+
+            if (savedText && savedValue) {
+                input.value = savedText;
+                hiddenInput.value = savedValue;
+
+                // Optionally set the correct option as selected
+                for (let i = 0; i < select.options.length; i++) {
+                    if (select.options[i].value === savedValue) {
+                        select.options[i].selected = true;
+                        break;
+                    }
+                }
+            }
+        });
+
+        function filterOptions() {
+            const input = document.getElementById('PDivisionInput');
+            const filter = input.value.toLowerCase();
+            const select = document.getElementById('PDivisionSelect');
+            const options = select.options;
+
+            let hasVisibleOptions = false;
+
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                if (option.text.toLowerCase().includes(filter)) {
+                    option.style.display = '';
+                    hasVisibleOptions = true;
+                } else {
+                    option.style.display = 'none';
+                }
+            }
+
+            select.style.display = hasVisibleOptions ? 'block' : 'none';
+        }
+
+        function selectOption() {
+            const select = document.getElementById('PDivisionSelect');
+            const input = document.getElementById('PDivisionInput');
+            const hiddenInput = document.getElementById('PurDivision');
+
+            const selectedOption = select.options[select.selectedIndex];
+            input.value = selectedOption.text;
+            hiddenInput.value = selectedOption.value;
+
+            // Save to localStorage
+            localStorage.setItem('PDivisionText', selectedOption.text);
+            localStorage.setItem('PDivisionValue', selectedOption.value);
+
+            select.style.display = 'none';
+         }
+
+
+        document.getElementById('PDivisionInput').addEventListener('focus', function () {
+            document.getElementById('PDivisionSelect').style.display = 'block';
+        });
+
+        document.getElementById('PDivisionInput').addEventListener('blur', function () {
+            setTimeout(() => {
+                document.getElementById('PDivisionSelect').style.display = 'none';
+            }, 200);
+        });
+
+        document.getElementById('PDivisionSelect').addEventListener('blur', function () {
+            document.getElementById('PDivisionSelect').style.display = 'none';
+        });
+    </script>
+
+
+
+    <script>
+
+        $("#empNo").on("keyup", function () {
+            var empId = $("#empNo").val();
+            sendData = { empNo: empId };
+
+            $.ajax({
+                url: "/Hardware/getEmpName",
+                method: "POST",
+                data: sendData,
+                success: function (data) {
+                    var name = data.empName;
+                    $("#devicesId").val(name);
+                }
+            });
+        });
+
+
+        $('#PDivision').on('change', function () {
+
+            var div = $('#PDivision').val();
+            $('#PurDivision').val(div);
+
+        });
+
+        $('#CDivision').val("NRMDIV019");
+        $('#CLocation').on('change', function () {
+            var loc = $('#CLocation').val();
+            $('#CDivision').val(loc);
+        });
+    </script>*@
+
+<script>
+    function filterOptions() {
+        const input = document.getElementById('PDivisionInput');
+        const filter = input.value.toLowerCase();
+        const select = document.getElementById('PDivisionSelect');
+        const options = select.options;
+
+        let hasVisibleOptions = false;
+
+        for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            if (option.text.toLowerCase().includes(filter)) {
+                option.style.display = '';
+                hasVisibleOptions = true;
+            } else {
+                option.style.display = 'none';
+            }
+        }
+
+        select.style.display = hasVisibleOptions ? 'block' : 'none';
+    }
+
+    function selectOption() {
+        const select = document.getElementById('PDivisionSelect');
+        const input = document.getElementById('PDivisionInput');
+        const hiddenInput = document.getElementById('PurDivision');
+
+
+
+        const selectedOption = select.options[select.selectedIndex];
+        input.value = selectedOption.text;
+        hiddenInput.value = selectedOption.value;
+        select.style.display = 'none';
+    }
+
+    document.getElementById('PDivisionInput').addEventListener('focus', function () {
+        document.getElementById('PDivisionSelect').style.display = 'block';
+    });
+
+    document.getElementById('PDivisionInput').addEventListener('blur', function () {
+        setTimeout(() => {
+            document.getElementById('PDivisionSelect').style.display = 'none';
+        }, 200);
+    });
+
+    document.getElementById('PDivisionSelect').addEventListener('blur', function () {
+        document.getElementById('PDivisionSelect').style.display = 'none';
+    });
+
+
+    document.getElementById("submitDevices").addEventListener("submit", function (e) {
+        var divisionInput = document.getElementById("PDivisionInput");
+        var divisionValue = document.getElementById("PurDivision").value;
+
+        if (divisionInput.value.trim() === "" && divisionValue === "") {
+            e.preventDefault();  // Prevent form submission if the field is empty
+            alert("Purchased Division is required.");
+        }
+    });
+
+</script>
+
+<script>
+
+    $("#empNo").on("keyup", function () {
+        var empId = $("#empNo").val();
+        sendData = { empNo: empId };
+
+        $.ajax({
+            url: "/Hardware/getEmpName",
+            method: "POST",
+            data: sendData,
+            success: function (data) {
+                var name = data.empName;
+                $("#devicesId").val(name);
+            }
+        });
+    });
+
+
+    $('#PDivision').on('change', function () {
+
+        var div = $('#PDivision').val();
+        $('#PurDivision').val(div);
+
+    });
+
+    $('#CDivision').val("NRMDIV019");
+    $('#CLocation').on('change', function () {
+        var loc = $('#CLocation').val();
+        $('#CDivision').val(loc);
+    });
+</script>

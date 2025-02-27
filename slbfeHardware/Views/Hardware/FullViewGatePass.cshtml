@@ -1,0 +1,798 @@
+@{
+    ViewBag.Title = "FullViewGatePass";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Devices in Gate Pass</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Devices in Gate Pass</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-success">
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Gate Pass No</th>
+                                <th>Company Name</th>
+                                <th>Sent Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.GatepassNo</td>
+                                <td>@Model.RCompanyName</td>
+                                <td>@Model.RSentDate</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*@Html.TextBoxFor(m => m.GatepassNo, new { @class = "form-control", @readonly = "readonly" })*@
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-success">
+                <div class="card-body">
+                    <div class="text-end">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Item Type</th>
+                                    <th>IT No</th>
+                                    <th>Serial No</th>
+                                    <th>INV No</th>
+                                    <th>QR Code</th>
+                                    <th>Current Location</th>
+                                    <th>Device Remaks</th>
+                                    <th>Repair Request Date</th>
+                                    <th>Repair Complete Date</th>
+                                    <th width="300">
+                                        <center>Action</center>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (System.Data.DataRow r in Model.DinGatePass.Rows)
+                                {
+                                    string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+
+                                    <tr>
+                                        <td>
+                                            <center>
+                                                <img src="@path" width="25" />&nbsp;
+                                                @r.ItemArray.GetValue(0).ToString().Trim()
+                                            </center>
+                                        </td>
+                                        <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                        <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                        <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                        <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                        <td>@r.ItemArray.GetValue(10).ToString().Trim()</td>
+                                        <td>@r.ItemArray.GetValue(9).ToString().Trim()</td>
+                                        <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                        <td>@r.ItemArray.GetValue(20).ToString().Trim()</td>
+                                        <td>
+                                            <center>
+
+                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EstimateModal" title="Estimate"
+                                                        data-eid="@r.ItemArray.GetValue(29).ToString().Trim()"
+                                                        data-eitno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                        data-edate="@r.ItemArray.GetValue(11).ToString().Trim()"
+                                                        data-esolution="@r.ItemArray.GetValue(12).ToString().Trim()"
+                                                        data-eprice="@r.ItemArray.GetValue(13).ToString().Trim()"
+                                                        data-ewarranty="@r.ItemArray.GetValue(14).ToString().Trim()"
+                                                        data-eremarks="@r.ItemArray.GetValue(15).ToString().Trim()">
+                                                    <i class="fas fa-file-medical-alt"></i>
+                                                </button>
+                                                &nbsp;
+                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ApprovalModal" title="Approval"
+                                                        data-aid="@r.ItemArray.GetValue(29).ToString().Trim()"
+                                                        data-aitno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                        data-aldate="@r.ItemArray.GetValue(16).ToString().Trim()"
+                                                        data-astatus="@r.ItemArray.GetValue(17).ToString().Trim()"
+                                                        data-arreson="@r.ItemArray.GetValue(18).ToString().Trim()"
+                                                        data-ainformd="@r.ItemArray.GetValue(19).ToString().Trim()">
+                                                    <i class="fas fa-clipboard-check"></i>
+                                                </button>
+                                                &nbsp;
+                                                @if (string.IsNullOrWhiteSpace(r.ItemArray.GetValue(20).ToString().Trim()))
+                                                {
+
+                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ReceiveModal" title="Received"
+                                                            data-rid="@r.ItemArray.GetValue(29).ToString().Trim()"
+                                                            data-ritno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-rcdate="@r.ItemArray.GetValue(20).ToString().Trim()"
+                                                            data-rremaks="@r.ItemArray.GetValue(21).ToString().Trim()"
+                                                            data-rrornot="@r.ItemArray.GetValue(22).ToString().Trim()"
+                                                            data-rdutyid="@r.ItemArray.GetValue(30).ToString().Trim()">
+                                                        <i class="far fa-calendar-check"></i>
+                                                    </button>
+
+                                                }
+                                                &nbsp;
+
+                                                @if (r.ItemArray.GetValue(22).ToString().Trim() == "Not Repaired")
+                                                {
+
+                                                    <button type="button" class="btn btn-success btn-sm outside-repair" data-toggle="modal" title="Outside Repair Again"
+                                                            data-id="@r.ItemArray.GetValue(29).ToString().Trim()"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-dutyid="@r.ItemArray.GetValue(30).ToString().Trim()">
+                                                        <i class="fas fa-tools"></i>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-danger btn-sm request-dispose" data-toggle="modal" title="Request Dispose"
+                                                            data-did="@r.ItemArray.GetValue(29).ToString().Trim()"
+                                                            data-ditno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-ddutyid="@r.ItemArray.GetValue(30).ToString().Trim()">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                }
+
+
+                                                &nbsp;
+
+                                                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#PaymentModal" title="Invoice & Payment"
+                                                        data-pid="@r.ItemArray.GetValue(29).ToString().Trim()"
+                                                        data-pitno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                        data-pinvdate="@r.ItemArray.GetValue(26).ToString().Trim()"
+                                                        data-pinvno="@r.ItemArray.GetValue(25).ToString().Trim()"
+                                                        data-pvoudate="@r.ItemArray.GetValue(27).ToString().Trim()"
+                                                        data-pvouno="@r.ItemArray.GetValue(28).ToString().Trim()">
+                                                    <i class="fas fa-file-powerpoint"></i>
+                                                </button>
+
+                                                &nbsp;
+
+
+
+                                                <a href="@Url.Action("DevicesFullView", "Hardware", new { itNO = r.ItemArray.GetValue(1).ToString().Trim() })"
+                                                   class="btn btn-warning btn-sm"
+                                                   data-bs-toggle="tooltip"
+                                                   data-bs-placement="top"
+                                                   title="View"
+                                                   target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Item Type</th>
+                                    <th>IT No</th>
+                                    <th>Serial No</th>
+                                    <th>INV No</th>
+                                    <th>QR Code</th>
+                                    <th>Current Location</th>
+                                    <th>Device Remaks</th>
+                                    <th>Repair Request Date</th>
+                                    <th>Repair Complete Date</th>
+                                    <th>
+                                        <center>Action</center>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*Estimate Update*@
+<div class="modal fade" id="EstimateModal" tabindex="-1" role="dialog" aria-labelledby="EstimateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="EstimateModalLabel">
+                    <i class="fas fa-file-medical-alt"></i>
+                    Update Estimate - <b><span id="Eitno1"></span></b>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="EstimateForm">
+                    <input type="hidden" id="Eitno" name="Eitno">
+                    <input type="hidden" id="Eid" name="Eid">
+
+                    <div class="form-group">
+                        <label for="Edate">Estimate received date &nbsp;<span style="color: red;">*</span></label>
+                        <input type="date" class="form-control" id="Edate" name="Edate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Esolution">Description of Items &nbsp;<span style="color: red;">*</span></label>
+                        <textarea class="form-control" id="Esolution" name="Esolution" required></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Eprice">Amount &nbsp;<span style="color: red;">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rs.</span>
+                                    <input type="number" class="form-control" id="Eprice" name="Eprice" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Ewarranty">Warranty</label>
+                                <select class="form-control" id="Ewarranty" name="Ewarranty">
+                                    <option value="1 Month">1 Month</option>
+                                    <option value="3 Months">3 Months</option>
+                                    <option value="4 Months">4 Months</option>
+                                    <option value="6 Months">6 Months</option>
+                                    <option value="1 Year">1 Year</option>
+                                    <option value="2 Years">2 Years</option>
+                                    <option value="3 Years">3 Years</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ERemarks">Remarks</label>
+                        <textarea class="form-control" id="ERemarks" name="ERemarks"></textarea>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info col-sm-5" id="saveEstimate">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Estimate Update*@
+<script>
+    $(document).ready(function () {
+        $('#EstimateModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            $('#Eitno').val(button.data('eitno'));
+            $('#Eitno1').text(button.data('eitno'));
+            $('#Eid').val(button.data('eid'));
+
+            var inputDate = new Date(button.data('edate'));
+            var day = inputDate.getDate().toString().padStart(2, '0');
+            var month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+            var year = inputDate.getFullYear();
+
+            var formattedDate = year + '-' + month + '-' + day;
+
+            $('#Edate').val(formattedDate);
+
+            $('#Esolution').val(button.data('esolution'));
+            $('#Eprice').val(button.data('eprice'));
+            $('#Ewarranty').val(button.data('ewarranty'));
+            $('#ERemarks').val(button.data('eremarks'));
+        });
+
+        $('#saveEstimate').click(function () {
+
+            if ($('#ERemarks').val().trim() === '') {
+                $('#ERemarks').val(null); // Set to null if empty
+            }
+
+
+            var formData = $('#EstimateForm').serialize();
+            console.log('Form Data:', formData);
+            $.ajax({
+                url: '@Url.Action("UpdateEstimate", "Hardware")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.error('AJAX Error:', xhr.responseText);
+                    alert('An error occurred. Please check the server logs for details.');
+                }
+            });
+        });
+
+
+    });
+</script>
+
+@*Approval Update*@
+<div class="modal fade" id="ApprovalModal" tabindex="-1" role="dialog" aria-labelledby="ApprovalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title" id="ApprovalModalLabel">
+                    <i class="fas fa-clipboard-check"></i>
+                    Update Approval - <b><span id="Aitno1"></span></b>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="ApprovalForm">
+                    <input type="hidden" id="Aitno" name="Aitno">
+                    <input type="hidden" id="Aid" name="Aid">
+
+                    <div class="form-group">
+                        <label for="Aldate">Approval letter date  &nbsp;<span style="color: red;">*</span></label>
+                        <input type="date" class="form-control" id="Aldate" name="Aldate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Astatus">Approval Status  &nbsp;<span style="color: red;">*</span></label>
+                        <select class="form-control" id="Astatus" name="Astatus" required>
+                            <option value="Approved">Approved</option>
+                            <option value="Not Approved">Not Approved</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Arreson">Approval Remarks</label>
+                        <textarea class="form-control" id="Arreson" name="Arreson"></textarea>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <label for="Ainformd">Approval inform date to Company</label>
+                        <input type="date" class="form-control" id="Ainformd" name="Ainformd">
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary col-sm-5" id="saveApproval">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Approval Update*@
+<script>
+    $(document).ready(function () {
+        $('#ApprovalModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            $('#Aitno').val(button.data('aitno'));
+            $('#Aitno1').text(button.data('aitno'));
+            $('#Aid').val(button.data('aid'));
+
+            var inputDateAldate = new Date(button.data('aldate'));
+            var dayAldate = inputDateAldate.getDate().toString().padStart(2, '0');
+            var monthAldate = (inputDateAldate.getMonth() + 1).toString().padStart(2, '0');
+            var yearAldate = inputDateAldate.getFullYear();
+            var formattedDateAldate = yearAldate + '-' + monthAldate + '-' + dayAldate;
+            $('#Aldate').val(formattedDateAldate);
+
+            var inputDateAinformd = new Date(button.data('ainformd'));
+            var dayAinformd = inputDateAinformd.getDate().toString().padStart(2, '0');
+            var monthAinformd = (inputDateAinformd.getMonth() + 1).toString().padStart(2, '0');
+            var yearAinformd = inputDateAinformd.getFullYear();
+            var formattedDateAinformd = yearAinformd + '-' + monthAinformd + '-' + dayAinformd;
+            $('#Ainformd').val(formattedDateAinformd);
+
+            $('#Astatus').val(button.data('astatus'));
+            $('#Arreson').val(button.data('arreson'));
+        });
+
+        $('#saveApproval').click(function () {
+            var formData = $('#ApprovalForm').serialize();
+            console.log('Form Data:', formData);
+            $.ajax({
+                url: '@Url.Action("UpdateApproval", "Hardware")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.error('AJAX Error:', xhr.responseText);
+                    alert('An error occurred. Please check the server logs for details.');
+                }
+            });
+        });
+
+
+    });
+</script>
+
+@*Receive Update*@
+<div class="modal fade" id="ReceiveModal" tabindex="-1" role="dialog" aria-labelledby="ReceiveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title" id="ReceiveModalLabel">
+                    <i class="far fa-calendar-check"></i>
+                    Update Received - <b><span id="Ritno1"></span></b>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="ReceiveForm">
+                    <input type="hidden" id="Ritno" name="Ritno">
+                    <input type="hidden" id="Rid" name="Rid">
+                    <input type="hidden" id="Rdutyid" name="Rdutyid">
+
+                    <div class="form-group">
+                        <label for="Rcdate">Repair Complete date  &nbsp;<span style="color: red;">*</span></label>
+                        <input type="date" class="form-control" id="Rcdate" name="Rcdate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Rrornot">Repaired Or Not  &nbsp;<span style="color: red;">*</span></label>
+                        <select class="form-control" id="Rrornot" name="Rrornot" required>
+                            <option value="Repaired">Repaired</option>
+                            <option value="Not Repaired">Not Repaired</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Rremaks">Repaired Remarks</label>
+                        <textarea class="form-control" id="Rremaks" name="Rremaks"></textarea>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success col-sm-5" id="saveReceive">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Receive Update*@
+<script>
+    $(document).ready(function () {
+        $('#ReceiveModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            $('#Ritno').val(button.data('ritno'));
+            $('#Ritno1').text(button.data('ritno'));
+            $('#Rid').val(button.data('rid'));
+
+            var inputDateRcdate = new Date(button.data('rcdate'));
+            var dayRcdate = inputDateRcdate.getDate().toString().padStart(2, '0');
+            var monthRcdate = (inputDateRcdate.getMonth() + 1).toString().padStart(2, '0');
+            var yearRcdate = inputDateRcdate.getFullYear();
+            var formattedDateRcdate = yearRcdate + '-' + monthRcdate + '-' + dayRcdate;
+            $('#Rcdate').val(formattedDateRcdate);
+
+            $('#Rremaks').val(button.data('rremaks'));
+            $('#Rrornot').val(button.data('rrornot'));
+            $('#Rdutyid').val(button.data('rdutyid'));
+
+        });
+
+        $('#saveReceive').click(function () {
+            var formData = $('#ReceiveForm').serialize();
+            console.log('Form Data:', formData);
+            $.ajax({
+                url: '@Url.Action("UpdateReceive", "Hardware")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.error('AJAX Error:', xhr.responseText);
+                    alert('An error occurred. Please check the server logs for details.');
+                }
+            });
+        });
+
+
+    });
+</script>
+
+@*Invoice & Payment Update*@
+<div class="modal fade" id="PaymentModal" tabindex="-1" role="dialog" aria-labelledby="PaymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-secondary">
+                <h5 class="modal-title" id="PaymentModalLabel">
+                    <i class="fas fa-file-powerpoint"></i>
+                    Update Invoice & Payment - <b><span id="Pitno1"></span></b>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="PaymentForm">
+                    <input type="hidden" id="Pitno" name="Pitno">
+                    <input type="hidden" id="Pid" name="Pid">
+                    <input type="hidden" id="Rdutyid" name="Rdutyid">
+
+                    <div class="form-group">
+                        <label for="Pinvdate">Invoice Date &nbsp;<span style="color: red;">*</span></label>
+                        <input type="date" class="form-control" id="Pinvdate" name="Pinvdate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Pinvno">Invoice Number &nbsp;<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="Pinvno" name="Pinvno" required>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <label for="Pvoudate">Voucher Date</label>
+                        <input type="date" class="form-control" id="Pvoudate" name="Pvoudate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Pvouno">Voucher Number</label>
+                        <input type="text" class="form-control" id="Pvouno" name="Pvouno">
+                    </div>
+
+
+
+                </form>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-dark col-sm-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary col-sm-5" id="savePayment">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Invoice & Payment Update*@
+<script>
+    $(document).ready(function () {
+        $('#PaymentModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            $('#Pitno').val(button.data('pitno'));
+            $('#Pitno1').text(button.data('pitno'));
+            $('#Pid').val(button.data('pid'));
+
+            var inputDatePinvdate = new Date(button.data('pinvdate'));
+            var dayPinvdate = inputDatePinvdate.getDate().toString().padStart(2, '0');
+            var monthPinvdate = (inputDatePinvdate.getMonth() + 1).toString().padStart(2, '0');
+            var yearPinvdate = inputDatePinvdate.getFullYear();
+            var formattedDatePinvdate = yearPinvdate + '-' + monthPinvdate + '-' + dayPinvdate;
+            $('#Pinvdate').val(formattedDatePinvdate);
+
+            var inputDatePvoudate = new Date(button.data('pvoudate'));
+            var dayPvoudate = inputDatePvoudate.getDate().toString().padStart(2, '0');
+            var monthPvoudate = (inputDatePvoudate.getMonth() + 1).toString().padStart(2, '0');
+            var yearPvoudate = inputDatePvoudate.getFullYear();
+            var formattedDatePvoudate = yearPvoudate + '-' + monthPvoudate + '-' + dayPvoudate;
+            $('#Pvoudate').val(formattedDatePvoudate);
+
+            $('#Pinvno').val(button.data('pinvno'));
+            $('#Pvouno').val(button.data('pvouno'));
+
+        });
+
+        $('#savePayment').click(function () {
+            var formData = $('#PaymentForm').serialize();
+            console.log('Form Data:', formData);
+            $.ajax({
+                url: '@Url.Action("UpdatePayment", "Hardware")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.error('AJAX Error:', xhr.responseText);
+                    alert('An error occurred. Please check the server logs for details.');
+                }
+            });
+        });
+
+
+    });
+</script>
+
+
+
+@*Request Dispose*@
+<script>
+    $(document).ready(function () {
+        $('.request-dispose').on('click', function () {
+            const itno = $(this).data('ditno');
+            const dutyID = $(this).data('ddutyid');
+            const ORID = $(this).data('did');
+
+            Swal.fire({
+                title: 'Do you want to dispose this item?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, Request to Dispose!',
+                cancelButtonColor: '#d33',
+                input: 'textarea',
+                inputPlaceholder: 'Enter reason for disposal...',
+                inputAttributes: {
+                    'aria-label': 'Enter reason for disposal'
+                },
+                inputValidator: (value) => {
+                    if (!value.trim()) {
+                        return 'Dispose reason is required!';
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        itno: itno,
+                        dutyID: dutyID,
+                        ORID: ORID,
+                        reason: result.value.trim()
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/RequestDisposeFromOut',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + xhr.responseText,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+@*Repair Outside Again*@
+<script>
+    $(document).ready(function () {
+        $('.outside-repair').on('click', function () {
+            const id = $(this).data('id');
+            const itno = $(this).data('itno');
+            const dutyID = $(this).data('dutyid');
+
+            Swal.fire({
+                title: 'Are you sure you want to repair again?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, Request Outside Repair!',
+                cancelButtonColor: '#d33',
+                input: 'textarea',
+                inputPlaceholder: 'Enter reason for Outside Repair...',
+                inputAttributes: {
+                    'aria-label': 'Enter reason for Outside Repair'
+                },
+                inputValidator: (value) => {
+                    if (!value.trim()) {
+                        return 'Repair reason is required!';
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        id: id,
+                        itno: itno,
+                        dutyID: dutyID,
+                        Rreason: result.value.trim()
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/OutsideRepairAgain',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('Error!', response.message, 'error');
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + (xhr.responseText || xhr.statusText),
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+

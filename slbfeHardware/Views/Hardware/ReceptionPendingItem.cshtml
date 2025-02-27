@@ -1,0 +1,280 @@
+﻿@{
+    ViewBag.Title = "Received to IT";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Filter Received to IT</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Filter Received to IT</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <i class="fas fa-filter"></i>&nbsp;&nbsp;
+                    <a href="/Hardware/ReceptionPendingItem?status=41" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "41" ? "active" : "")">To Repair</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ReceptionPendingItem?status=42" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "42" ? "active" : "")">Permenantly Handover</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ReceptionPendingItem?status=All" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "All" ? "active" : "")">Search All</a>&nbsp;&nbsp;
+
+                    <hr />
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Location</th>
+                                <th>Sent Type</th>
+                                <th>Reason</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.ReceptionPTable.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string statusValue = r.ItemArray.GetValue(14).ToString().Trim();
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(0).ToString().Trim()&nbsp;
+                                            <img src="@path" width="25" />
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(9).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(11).ToString().Trim()</td>
+                                    <td>
+                                        <center>
+                                            <div class="d-flex justify-content-around gap-2">
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                &nbsp
+
+                                                @if (statusValue == "41" || statusValue == "42")
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#THreceivedModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Recived"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-hoid="@r.ItemArray.GetValue(12).ToString().Trim()"
+                                                            data-hotype="@r.ItemArray.GetValue(14).ToString().Trim()">
+
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                }
+
+                                            </div>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Location</th>
+                                <th>Sent Type</th>
+                                <th>Reason</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<div class="modal fade" id="THreceivedModal" tabindex="-1" role="dialog" aria-labelledby="THreceivedModalLabel" aria-hidden="true">
+    <form id="THreceivedModalForm" action='/Hardware/THreceivedModal' method="post">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title" id="THreceivedModalLabel">
+                        <i class="fas fa-tools"></i>&nbsp; Received to IT - <span id="itemLabel"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" id="itNo2" name="itNo" class="d-none" readonly />
+                                <input type="text" id="hoId2" name="hoId" class="d-none" readonly />
+                                <input type="text" id="hoType2" name="hoType" class="d-none" readonly />
+
+                                <input type="text" id="employeeNoTextbox" name="employeeNoTextbox" class="d-none" readonly />
+                                <input type="text" id="employeeNameTextbox" name="employeeNameTextbox" class="d-none" readonly />
+
+
+                                <div class="form-group">
+                                    <label for="ItemReciveDate">Receive Date &nbsp;<span style="color: red;">*</span></label>
+                                    <input type="date" class="form-control" id="ItemReciveDate" name="ItemReciveDate" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="reason">Item Receive Remarks</label>
+                                    <textarea class="form-control" id="ItemReciveRemaks" name="ItemReciveRemaks" rows="5"></textarea>
+                                </div>
+
+                                <hr />
+
+                                <div class="form-group d-flex align-items-center">
+                                    <label for="reason" class="mr-2">Assign Officer:</label>
+
+                                    <h4 id="employeeNameLabel" class="text-danger" placeholder="Employee Name"></h4>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="width: 200px;">Received to IT</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+      $(document).ready(function () {
+    $('#THreceivedModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var itNo = button.data('itno');
+        var hoId = button.data('hoid');
+        var hoType = button.data('hotype');
+
+
+        var modal = $(this);
+
+        modal.find('#itNo2').val(itNo);
+        modal.find('#hoId2').val(hoId);
+        modal.find('#hoType2').val(hoType);
+        modal.find('#itemLabel').text(itNo);
+
+        $.ajax({
+            url: '@Url.Action("GetRepairAssignment", "Hardware")',
+            type: 'GET',
+            data: { itemNo: itNo, hoid: hoId, hotype: hoType },
+            success: function (data) {
+
+                modal.find('#resultContent').empty();
+
+                modal.find('#employeeNoTextbox').val('');
+                modal.find('#employeeNameTextbox').val('');
+
+                if (data.length > 0) {
+                    var empNos = [];
+                    var names = [];
+
+                    $.each(data, function (index, item) {
+                        modal.find('#resultContent').append('<div>' + item.EmpNo + ': ' + item.NameWithIni + '</div>');
+
+                        empNos.push(item.EmpNo);
+                        names.push(item.NameWithIni);
+                    });
+
+                    modal.find('#employeeNoTextbox').val(empNos.join(', '));
+                    modal.find('#employeeNameTextbox').val(names.join(', '));
+                    modal.find('#employeeNameLabel').text(names.join(', '));
+
+                } else {
+                    modal.find('#resultContent').text('No data found.');
+                }
+            },
+            error: function () {
+                modal.find('#resultContent').text('Error retrieving data.');
+            }
+        });
+    });
+});
+
+
+        $('#THreceivedModalForm').on('submit', function (event) {
+            event.preventDefault();
+
+            $('#modalMessage').hide().removeClass('alert-success alert-danger');
+
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '/Hardware/THreceivedModal', // Your form submission URL
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        $('#THreceivedModal').modal('hide');
+                        location.reload();
+                        $('#modalMessage').text(response.message).addClass('alert alert-success').show();
+                    } else {
+                        $('#modalMessage').text(response.message).addClass('alert alert-danger').show();
+                        $('#THreceivedModal').modal('hide');
+                        location.reload();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#modalMessage').text('Error: ' + error).addClass('alert alert-danger').show();
+                }
+            });
+        });
+    });
+</script>

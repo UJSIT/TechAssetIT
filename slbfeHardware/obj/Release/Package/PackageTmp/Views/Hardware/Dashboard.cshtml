@@ -1,0 +1,160 @@
+﻿@model slbfeHardware.Models.EnterItemsModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+<style>
+    .cardDesing {
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+    .cardDesing:hover {
+        transform: translateY(-5px);
+    }
+
+
+
+    .btn-square-md {
+        width: 150px !important;
+        max-width: 150% !important;
+        max-height: 150% !important;
+        height: 150px !important;
+        text-align: center;
+        padding: 0px;
+        font-size: 18px;
+    }
+
+    .col {
+        flex: 0 0 0%;
+    }
+
+    .customW {
+        width: auto;
+    }
+
+</style>
+
+<div class="container">
+    <br><br><br>
+    <center>
+        <!-- Light -->
+        <img class="" src="@Url.Content("~/Content/Mylayout/dist/img/TechAssets.png")" alt="Logo" height="50%" width="60%" />
+        <!-- Dark -->
+        @*<img class="" src="@Url.Content("~/Content/Mylayout/dist/img/TechAssetsDark.png")" alt="Logo" height="50%" width="60%" />*@
+    </center>
+    <br><br><br>
+
+
+    <hr />
+    <div class=" d-flex align-items-center justify-content-between">
+        <!-- Left Side (Text) -->
+        <div class="info-box-content">
+            <strong>
+                <a href="">Date Today</a>
+                <h1 id="todayDate"></h1>
+                <a href="">&copy; SLBFE IT</a>
+            </strong>
+        </div>
+        <!-- Right Side (Image) -->
+        <div class="info-box-icon">
+            <img src="@Url.Content("~/Content/Mylayout/dist/img/DayIcon.gif")" alt="DayIcon" class="img-fluid" style="width: 90px; height: 100px;" />
+        </div>
+    </div>
+
+
+    
+    <script>
+        document.getElementById("todayDate").textContent = new Date().toISOString().split('T')[0];
+    </script>
+
+    <hr />
+
+    <section class="content">
+        <div class="container-fluid">
+            <br />
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 cardDesing">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-store"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">
+                                <h3>
+                                    @Model.InITCount
+                                </h3>
+                            </span>
+                            <span class="info-box-number">
+                                In IT Stores
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3 cardDesing">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tools"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">
+                                <h3>
+                                    @Model.ProcessInITCount
+                                </h3>
+                            </span>
+                            <span class="info-box-number">
+                                Process in IT
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix hidden-md-up"></div>
+                <div class="col-12 col-sm-6 col-md-3 cardDesing">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dolly"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">
+                                <h3>
+                                    @Model.ProcessOutsideCount
+                                </h3>
+                            </span>
+                            <span class="info-box-number">
+                                Process in outside
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3 cardDesing">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-trash-alt"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">
+                                <h3>
+                                    @Model.DisposeCount
+                                </h3>
+                            </span>
+                            <span class="info-box-number">
+                                Pending Dispose
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <br />
+    <hr />
+
+</div>
+
+
+
+@*<script>
+    localStorage.setItem('InvoiceNO', "");
+
+    localStorage.setItem('InvoiceDate', "");
+
+    localStorage.setItem('PONo', "");
+</script>*@

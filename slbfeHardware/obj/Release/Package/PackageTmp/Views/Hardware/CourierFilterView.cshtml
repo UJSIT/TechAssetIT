@@ -1,0 +1,514 @@
+﻿@{
+    ViewBag.Title = "Manage Courier";
+}
+
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <h3 class="mb-0">
+                    <b> Filter Courier </b>
+                </h3>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Manage Courier</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+                    <i class="fas fa-filter"></i>&nbsp;&nbsp;
+                    <a href="/Hardware/CourierFilterView?status=11" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "11" ? "active" : "")">Courier - Recommend</a>&nbsp;&nbsp;
+                    <a href="/Hardware/CourierFilterView?status=12" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "12" ? "active" : "")">Courier - Approved</a>&nbsp;&nbsp;
+                    <a href="/Hardware/CourierFilterView?status=17" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "17" ? "active" : "")">Courier - Pickup</a>&nbsp;&nbsp;
+                    @*<a href="/Hardware/CourierFilterView?status=18" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "18" ? "active" : "")">Courier - Complete</a>&nbsp;&nbsp;*@
+
+                    <hr />
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th>Purchased Division</th>
+                                <th>Courier Location</th>
+                                <th>Current Status</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.CFilter.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string statusValue = r.ItemArray.GetValue(8).ToString().Trim();
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" />&nbsp;
+                                            @r.ItemArray.GetValue(0).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+
+                                    <td>
+                                        <center>
+                                            <div class="d-flex justify-content-around gap-2">
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                &nbsp
+
+                                                @if (statusValue == "12")
+                                                {
+
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#CourierReModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Courier Sticker"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()" data-clocation="@r.ItemArray.GetValue(6).ToString().Trim()" data-itemtype="@r.ItemArray.GetValue(0).ToString().Trim()" data-serialNo="@r.ItemArray.GetValue(2).ToString().Trim()" data-invNo="@r.ItemArray.GetValue(3).ToString().Trim()" data-qr="@r.ItemArray.GetValue(4).ToString().Trim()" data-id="@r.ItemArray.GetValue(10).ToString().Trim()">
+                                                        <i class="fas fa-x-ray"></i>
+                                                    </button>
+
+                                                }
+
+                                                else if (statusValue == "17")
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#CourierPiModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Courier Pickup"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()" data-clocation="@r.ItemArray.GetValue(6).ToString().Trim()" data-itemtype="@r.ItemArray.GetValue(0).ToString().Trim()" data-serialNo="@r.ItemArray.GetValue(2).ToString().Trim()" data-invNo="@r.ItemArray.GetValue(3).ToString().Trim()" data-qr="@r.ItemArray.GetValue(4).ToString().Trim()" data-id="@r.ItemArray.GetValue(10).ToString().Trim()" data-clocationid="@r.ItemArray.GetValue(13).ToString().Trim()" data-hoid="@r.ItemArray.GetValue(9).ToString().Trim()" data-thoid="@r.ItemArray.GetValue(12).ToString().Trim()">
+                                                        <i class="fas fa-truck"></i>
+                                                    </button>
+                                                }
+
+                                                @*else if (statusValue == "18")
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#CourierComModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Courier Complete"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()" data-clocation="@r.ItemArray.GetValue(6).ToString().Trim()" data-itemtype="@r.ItemArray.GetValue(0).ToString().Trim()" data-serialNo="@r.ItemArray.GetValue(2).ToString().Trim()" data-invNo="@r.ItemArray.GetValue(3).ToString().Trim()" data-qr="@r.ItemArray.GetValue(4).ToString().Trim()" data-id="@r.ItemArray.GetValue(10).ToString().Trim()" data-hoid="@r.ItemArray.GetValue(9).ToString().Trim()" data-dutyid="@r.ItemArray.GetValue(11).ToString().Trim()" data-thoid="@r.ItemArray.GetValue(12).ToString().Trim()" data-clocationid="@r.ItemArray.GetValue(13).ToString().Trim()">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                }*@
+
+                                                @*else if (statusValue == "13")
+                                                {
+                                                    <strong>13</strong>
+                                                }*@
+
+                                            </div>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th>Purchased Division</th>
+                                <th>Current Status</th>
+                                <th>Current Location</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*Courier Sticker Update*@
+<div class="modal fade" id="CourierReModal" tabindex="-1" role="dialog" aria-labelledby="CourierReModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="CourierReModalLabel">
+                    <i class="fas fa-x-ray"></i>
+                    Courier Sticker Update
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="courierSticker" method="post">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+                                <h3>
+                                    <center>
+                                        <label for="CLocation">Courier Location - </label>
+                                        <span id="CLocationRe"></span>
+                                    </center>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itemType">Item Type - </label>
+                                <span id="itemTypeRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itNo">IT Number - </label>
+                                <span id="itNoRe"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="inv_no">INV Number - </label>
+                                <span id="inv_noRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="serialNumber">Serial Number - </label>
+                                <span id="serialNumberRe"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="qr_code">QR - </label>
+                                <span id="qr_codeRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="CompanySelectList">Company Name</label>&nbsp;<span style="color: red;">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            @*@Html.DropDownListFor(model => model.CompanySelectList, Model.CCategory, "Select Courier", new { @class = "form-control", style = "width: 100%", required = "required" })*@
+                            @Html.DropDownListFor(model => model.SelectedCompany, Model.CCategory, "Select Courier",
+                            new { @class = "form-control", style = "width: 100%", required = "required" })
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="StickerDate">Sticker Date</label>&nbsp;<span style="color: red;">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="StickerDate" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="StickerNo">Sticker Number</label>&nbsp;<span style="color: red;">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="StickerNo" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="CRemarks2" class="form-label">Additional Information</label>
+                        <textarea class="form-control" name="CRemarks2"></textarea>
+                    </div>
+
+                    <input type="hidden" id="itNumberRe" name="IT_No" />
+                    <input type="hidden" id="idRe" name="id" />
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info col-sm-5">Submit Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@*Courier Pickup Modal*@
+<div class="modal fade" id="CourierPiModal" tabindex="-1" role="dialog" aria-labelledby="CourierPiModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header  bg-info">
+                <h5 class="modal-title" id="CourierPiModalLabel">
+                    <i class="fas fa-truck"></i>
+                    Courier Pickup
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="PickupCourier" method="post">
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+                                <h3>
+                                    <center>
+                                        <label for="CLocation">Courier Location - </label>
+                                        <span id="CLocationPi"></span>
+                                    </center>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itemType">Item Type - </label>
+                                <span id="itemTypePi"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itNo">IT Number - </label>
+                                <span id="itNoPi"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="inv_no">INV Number - </label>
+                                <span id="inv_noPi"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="serialNumber">Serial Number - </label>
+                                <span id="serialNumberPi"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="qr_code">QR - </label>
+                                <span id="qr_codePi"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="PickupDate">Pickup Date</label>&nbsp;<span style="color: red;">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="PickupDate" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="AddInfo">Additional Information</label>
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="AdditionalInfo1"></textarea>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="idPi" name="id" />
+                    <input type="hidden" id="itNumberPi" name="IT_No" />
+                    <input type="hidden" id="clocationidCom" name="clocationid" />
+                    <input type="hidden" id="thoIdPi" name="thoIdPi" />
+                    <input type="hidden" id="hoIdPi" name="hoIdPi" />
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info col-sm-5">Submit Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        // Handler for the 'CourierReModal' modal
+        $('#CourierReModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var itno = button.data('itno');
+            var clocation = button.data('clocation');
+            var itemtype = button.data('itemtype');
+            var serialNo = button.data('serialno');
+            var invNo = button.data('invno');
+            var qr = button.data('qr');
+            var id = button.data('id');
+
+            // Set the IT_No value in the hidden input field
+            $('#itNumberRe').val(itno); // Make sure this ID is unique for this modal
+            $('#clocationNRe').val(clocation); // Make sure this ID is unique
+            $('#itemtypeNRe').val(itemtype);
+            $('#serialRe').val(serialNo);
+            $('#invRe').val(invNo);
+            $('#qrcodeRe').val(qr);
+            $('#idRe').val(id);
+
+            // Set the IT_No in the modal title and other text fields
+            $('#itNoRe').text(itno); // Make sure these IDs are unique
+            $('#CLocationRe').text(clocation);
+            $('#itemTypeRe').text(itemtype);
+            $('#serialNumberRe').text(serialNo);
+            $('#inv_noRe').text(invNo);
+            $('#qr_codeRe').text(qr);
+            $('#qr_idRe').text(id);
+
+            // Modify the form's action URL to include the IT_No
+            var form = $('#courierSticker');
+            form.attr('action', '/Hardware/ShippingCourier?IT_No=' + itno);
+        });
+
+        // Handler for the 'CourierPiModal' modal
+        $('#CourierPiModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var itno = button.data('itno');
+            var clocation = button.data('clocation');
+            var itemtype = button.data('itemtype');
+            var serialNo = button.data('serialno');
+            var invNo = button.data('invno');
+            var qr = button.data('qr');
+            var id = button.data('id');
+            var clocationid = button.data('clocationid');
+            var thoid = button.data('thoid');
+            var hoid = button.data('hoid');
+
+            // Set the IT_No value in the hidden input field
+            $('#itNumberPi').val(itno);
+            $('#cLocationPi').val(clocation);// Ensure this ID is unique for this modal
+            $('#idPi').val(id);
+            $('#clocationidCom').val(clocationid);
+            $('#thoIdPi').val(thoid);
+            $('#hoIdPi').val(hoid);
+
+
+            // Set the IT_No and other details in the modal
+            $('#itNoPi').text(itno); // Ensure these IDs are unique
+            $('#CLocationPi').text(clocation);
+            $('#itemTypePi').text(itemtype);
+            $('#serialNumberPi').text(serialNo);
+            $('#inv_noPi').text(invNo);
+            $('#qr_codePi').text(qr);
+            $('#idPi').text(id);
+            $('#clocationidCom').text(clocationid);
+            $('#thoIdPi').text(thoid);
+            $('#hoIdPi').text(hoid);
+
+            // Modify the form's action URL to include the IT_No
+            var form = $('#PickupCourier');
+            form.attr('action', '/Hardware/PickupCourier?IT_No=' + itno);
+        });
+    </script>
+}
+
+
+<script>
+ $(document).ready(function() {
+     $('#EmpNo').on('input', function() {
+         var empNo = $(this).val();
+         var submitButton = $('#addUserForm button[type="submit"]'); 
+
+         if (empNo) {
+             $.ajax({
+                 url: '@Url.Action("GetEmployeeName", "Hardware")',
+                 type: 'GET',
+                 data: { empNo: empNo },
+                 success: function(data) {
+                     $('#EmployeeName').val(data || 'Not found');
+                     if (data) {
+                         submitButton.show(); 
+                     } else {
+                         submitButton.hide(); 
+                     }
+                 },
+                 error: function() {
+                     $('#EmployeeName').val('Error retrieving name');
+                     submitButton.hide(); 
+                 }
+             });
+         } else {
+             $('#EmployeeName').val('');
+             submitButton.hide();
+         }
+     });
+ });
+</script>

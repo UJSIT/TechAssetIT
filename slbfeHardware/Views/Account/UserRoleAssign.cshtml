@@ -1,0 +1,422 @@
+﻿
+@model IEnumerable<slbfeHardware.Models.RegisterModel>
+    <style>
+        .role-checkbox {
+            transform: scale(1.5); /* Increase checkbox size */
+            margin-right: 5px; /* Adjust spacing */
+        }
+    </style>
+
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <div class="col-sm-8">
+                    <div class="col-sm-6">
+                        <h3 class="mb-0"><b>User Role Assign</b></h3>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("UserRegister", "Account")">Role Management</a></li>
+                        <li class="breadcrumb-item active">User Role Assign</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline card-success">
+
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="30%">Employee Number</th>
+                                    <th>Employee Name</th>
+                                    <th>Employee Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> @ViewBag.EmpNo</td>
+                                    <td>  @ViewBag.UserName</td>
+                                    <td> @ViewBag.UserType</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+
+    <section class="content">
+        <div class="row">
+
+           
+
+            <div class="col-md-12">
+                <div class="card card-outline card-info">
+                   
+                    <div class="card-header">
+                       
+                            <button id="selectAllBtn" class="btn btn-success">Select All</button>
+                            <button id="unselectAllBtn" class="btn btn-danger">Unselect All</button>
+
+                        @if (ViewBag.SuccessMessage != null)
+                        {
+                            <div class="alert alert-success">
+                                @ViewBag.SuccessMessage
+                            </div>
+                        }
+                    </div>
+                    <div class="card-body">
+
+
+                        @{
+                            ViewBag.Title = "User Role Assignment";
+                        }
+
+
+                        @{
+                            bool reception = true;
+                            bool Invoice = true;
+                            bool Supplier = true;
+                            bool Task = true;
+                            bool Courier = true;
+                            bool Orepair = true;
+                            bool Dispose = true;
+                            bool ActionU = true;
+                        }
+
+
+
+
+                        <ul class="todo-list" data-widget="todo-list">
+                            @foreach (var role in Model)
+                            {
+
+                                if (role.ProgramId.StartsWith("A"))
+                                {
+                                    <li>
+                                        <span class="handle">
+                                            <i class="fas fa-laptop-house"></i>
+                                        </span>
+                                        <div class="d-inline ml-2">
+                                            <label><strong><h4>Find Devices</h4></strong></label>
+                                        </div>
+                                    </li>
+                                }
+
+                                else if (role.ProgramId.StartsWith("B"))
+                                {
+                                    if (reception)
+                                    {
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-university"></i>
+                                            </span>
+                                            <div class="d-inline ml-2">
+                                                <label><strong><h4>Reception</h4></strong></label>
+                                            </div>
+                                        </li>
+                                        reception = false;
+                                    }
+                                }
+
+
+                                else if (role.ProgramId.StartsWith("C"))
+                                {
+                                    if (Invoice)
+                                    {
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-file-invoice"></i>
+                                            </span>
+                                            <div class="d-inline ml-2">
+                                                <label><strong><h4>Invoice</h4></strong></label>
+                                            </div>
+                                        </li>
+                                        Invoice = false;
+                                    }
+                                }
+
+                                else if (role.ProgramId.StartsWith("D"))
+                                {
+                                    if (Supplier)
+                                    {
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-walking"></i>
+                                            </span>
+                                            <div class="d-inline ml-2">
+                                                <label><strong><h4>Supplier</h4></strong></label>
+                                            </div>
+                                        </li>
+                                        Supplier = false;
+                                    }
+                                }
+
+                                else if (role.ProgramId.StartsWith("E"))
+                                {
+                                    if (Task)
+                                    {
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-tasks"></i>
+                                            </span>
+                                            <div class="d-inline ml-2">
+                                                <label><strong><h4>Task</h4></strong></label>
+                                            </div>
+                                        </li>
+                                        Task = false;
+                                    }
+                                }
+
+
+                                else if (role.ProgramId.StartsWith("F"))
+                                {
+                                    if (Courier)
+                                    {
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-truck-loading"></i>
+                                            </span>
+                                            <div class="d-inline ml-2">
+                                                <label><strong><h4>Courier</h4></strong></label>
+                                            </div>
+                                        </li>
+                                        Courier = false;
+                                    }
+                                }
+
+
+
+                                else if (role.ProgramId.StartsWith("G"))
+                                {
+                                    if (Orepair)
+                                    {
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-tools"></i>
+                                            </span>
+                                            <div class="d-inline ml-2">
+                                                <label><strong><h4>Outside Repair</h4></strong></label>
+                                            </div>
+                                        </li>
+                                        Orepair = false;
+                                    }
+                                }
+
+
+
+                                else if (role.ProgramId.StartsWith("H"))
+                                {
+                                    if (Dispose)
+                                    {
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-trash"></i>
+                                            </span>
+                                            <div class="d-inline ml-2">
+                                                <label><strong><h4>Dispose</h4></strong></label>
+                                            </div>
+                                        </li>
+                                        Dispose = false;
+                                    }
+                                }
+
+
+
+                                if (role.ProgramId.StartsWith("I"))
+                                {
+                                    <li>
+                                        <span class="handle">
+                                            <i class="fas fa-vote-yea"></i>
+                                        </span>
+                                        <div class="d-inline ml-2">
+                                            <label><strong><h4>Parts in Stores</h4></strong></label>
+                                        </div>
+                                    </li>
+                                }
+
+
+                                if (role.ProgramId.StartsWith("J"))
+                                {
+                                    <li>
+                                        <span class="handle">
+                                            <i class="fas fa-folder-plus"></i>
+                                        </span>
+                                        <div class="d-inline ml-2">
+                                            <label><strong><h4>Assests Request</h4></strong></label>
+                                        </div>
+                                    </li>
+                                }
+
+
+                                else if (role.ProgramId.StartsWith("X"))
+                                {
+                                    if (ActionU)
+                                    {
+                                        <li>
+                                            <span class="handle">
+                                                <i class="fas fa-thumbs-up"></i>
+                                            </span>
+                                            <div class="d-inline ml-2">
+                                                <label><strong><h4>Actions</h4></strong></label>
+                                            </div>
+                                        </li>
+                                        ActionU = false;
+                                    }
+                                }
+
+
+
+                                else if (role.ProgramId.StartsWith("W"))
+                                {
+
+                                    <li>
+                                        <span class="handle">
+                                            <i class="nav-icon fas fa-user"></i>
+                                        </span>
+                                        <div class="d-inline ml-2">
+                                            <label><strong><h4>User Role</h4></strong></label>
+                                        </div>
+                                    </li>
+                                }
+
+                                <li>
+                                    <span class="handle">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <i class="fas fa-ellipsis-v"></i>
+                                        <i class="fas fa-ellipsis-v"></i>
+
+                                    </span>
+
+
+
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="d-inline ml-2">
+                                        <input type="checkbox" class="form-check-input role-checkbox"
+                                               id="roleSwitch_@role.ProgramId"
+                                               data-empno="@ViewBag.EmpNo"
+                                               data-programid="@role.ProgramId"
+                                               @(role.RoleStatus ? "checked" : "")>
+                                        <label class="form-check-label" for="roleSwitch_@role.ProgramId">&nbsp; @role.UserName1</label>
+                                    </div>
+
+                                </li>
+
+
+
+                            }
+
+                        </ul>
+
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </section>
+
+
+
+
+    <!-- /.card-body -->
+    <script>
+        $(document).ready(function() {
+            $('.role-checkbox').change(function() {
+                const empNo = $(this).data('empno');
+                const programId = $(this).data('programid');
+                const isEnabled = $(this).is(':checked');
+
+                console.log(programId);
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UpdateUserRole", "Account")',
+                    data: { empNo: empNo, programId: programId, isEnabled: isEnabled },
+                    success: function(response) {
+                        if (response.success) {
+
+                            //alert("Role status updated successfully!");
+                        } else {
+                            alert("Failed to update role status: " + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert("An error occurred while updating the role status.");
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+    $(document).ready(function () {
+        $('.role-checkbox').change(function () {
+            updateRoleStatus($(this));
+        });
+
+        function updateRoleStatus(checkbox) {
+            const empNo = checkbox.data('empno');
+            const programId = checkbox.data('programid');
+            const isEnabled = checkbox.is(':checked');
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateUserRole", "Account")',
+                data: { empNo: empNo, programId: programId, isEnabled: isEnabled },
+                success: function (response) {
+                    if (!response.success) {
+                        alert("Failed to update role status: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while updating the role status.");
+                }
+            });
+        }
+
+        // Select All
+        $("#selectAllBtn").click(function () {
+            $(".role-checkbox").each(function () {
+                if (!$(this).is(":checked")) {
+                    $(this).prop("checked", true).trigger("change");
+                }
+            });
+        });
+
+        // Unselect All
+        $("#unselectAllBtn").click(function () {
+            $(".role-checkbox").each(function () {
+                if ($(this).is(":checked")) {
+                    $(this).prop("checked", false).trigger("change");
+                }
+            });
+        });
+    });
+    </script>

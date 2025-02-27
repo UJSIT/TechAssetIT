@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "AddBrand";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Brands</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Brands</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">               
+                <div class="card-body">
+
+
+
+                    <form action="SubmitAddBrand">
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Item Code :</label>
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.Item_Type, new { @type = "text", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Brand Code :</label>
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.BrandCode, new { @type = "text", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Brand Name:</label>
+                            <div class="col">
+
+                                @Html.TextBoxFor(m => m.BrandName, new { @type = "text", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a class="btn btn-block col-sm-6  btn-outline-danger" a href="/Hardware/Dashboard">Cancel</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info col-sm-6 float-right" id="btn1">Submit</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <input type="hidden" value=@ViewBag.RedirectType name="RedirectType">
+                        <input type="hidden" value=@Model.invno name="invno">
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+<div class="p-4 mt-1 container bg-light1 text-dark">
+    <div class="col-12 col-md-10 col-lh-6 mx-auto">
+        
+    </div>
+</div>

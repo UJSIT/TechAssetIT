@@ -1,0 +1,300 @@
+@{
+    ViewBag.Title = "Dispose Bulk";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Dispose Bulk</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Dispose Bulk</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <i class="fas fa-filter"></i>&nbsp;&nbsp;
+                    <a href="/Hardware/ViewDisposeBulk?status=1" class="btn btn-outline-primary btn-sm @(ViewBag.DisCurrentStatus == "1" ? "active" : "")">Proccess in IT</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ViewDisposeBulk?status=0" class="btn btn-outline-primary btn-sm @(ViewBag.DisCurrentStatus == "0" ? "active" : "")">Old Dispose Bulk</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ViewDisposeBulk?status=All" class="btn btn-outline-primary btn-sm @(ViewBag.DisCurrentStatus == "All" ? "active" : "")">Search All</a>&nbsp;&nbsp;
+                    <hr />
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Dispose Bulk ID</th>
+                                <th>Start Date</th>
+                                <th><center>Number of items in this bulk</center></th>
+                                <th style="width: 100px; text-align: center;">More</th>
+                                <th style="width: 100px; text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.DisposeBulkTBL.Rows)
+
+                            {
+                                string statusValue = r.ItemArray.GetValue(2).ToString().Trim();
+                                <tr>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(4).ToString().Trim()
+                                        </center>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#DetailModal" title="Update Bulk Data"
+                                                data-bid="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                data-infdate="@r.ItemArray.GetValue(6).ToString().Trim()"
+                                                data-infremaks="@r.ItemArray.GetValue(7).ToString().Trim()"
+                                                data-takendate="@r.ItemArray.GetValue(5).ToString().Trim()"
+                                                data-takencom="@r.ItemArray.GetValue(8).ToString().Trim()"
+                                                data-takeremaks="@r.ItemArray.GetValue(9).ToString().Trim()"
+                                                data-comremaks="@r.ItemArray.GetValue(10).ToString().Trim()">
+                                            <i class="fas fa-file-signature"></i>
+                                        </button>
+
+                                        &nbsp;
+
+                                        <a href="/Hardware/FullViewDisposeItems?DispodeBulk=@r.ItemArray.GetValue(1)&company=@r.ItemArray.GetValue(3)&sdate=@r.ItemArray.GetValue(2)"
+                                           class="btn btn-warning btn-sm"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="View items"
+                                           target="_blank">
+                                            <i class="fas fa-laptop-house"></i>
+                                        </a>
+
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        @if (statusValue == "1")
+                                        {
+                                            <a href="#" class="btn btn-primary btn-sm taken-away" data-bs-toggle="tooltip" data-bs-placement="top"
+                                               data-iddis="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                               title="Taken Away">
+                                                <i class="fas fa-truck-moving"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*Detail Update*@
+<div class="modal fade" id="DetailModal" tabindex="-1" role="dialog" aria-labelledby="DetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="DetailModalLabel">
+                    <i class="fas fa-file-signature"></i>
+                    Update Bulk Data -<b> &nbsp;<span id="Ebid1"></span></b>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="DDetailForm">
+                    <input type="hidden" id="Ebid" name="Dbid">
+
+                    <div class="form-group">
+                        <label for="Einfdate">Comity inform date</label>
+                        <input type="date" class="form-control" id="Einfdate" name="Dinfdate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Einfremaks">Comity inform remaks</label>
+                        <textarea class="form-control" id="Einfremaks" name="Dinfremaks"></textarea>
+                    </div>
+
+                    <hr />
+
+
+                    <div class="form-group">
+                        <label for="Etakendate">Company taken date</label>
+                        <input type="date" class="form-control" id="takendate" name="Dtakendate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Etakencom">Taken company name</label>
+                        <input type="text" class="form-control" id="Etakencom" name="Dtakencom">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Etakeremaks">Taken Remaks</label>
+                        <textarea class="form-control" id="Etakeremaks" name="Dtakeremaks"></textarea>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <label for="Ecomremaks">Common Remarks</label>
+                        <textarea class="form-control" id="Ecomremaks" name="Dcomremaks"></textarea>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info col-sm-5" id="saveDDetails">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@*Bulk Data*@
+<script>
+    $(document).ready(function () {
+        $('#DetailModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            $('#Ebid').val(button.data('bid'));
+            $('#Ebid1').text(button.data('bid'));
+
+            var inputDate = new Date(button.data('infdate'));
+            var day = inputDate.getDate().toString().padStart(2, '0');
+            var month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+            var year = inputDate.getFullYear();
+
+            var formattedDate = year + '-' + month + '-' + day;
+
+            $('#Einfdate').val(formattedDate);
+            $('#Einfremaks').val(button.data('infremaks'));
+
+
+            var TinputDate = new Date(button.data('takendate'));
+            var Tday = TinputDate.getDate().toString().padStart(2, '0');
+            var Tmonth = (TinputDate.getMonth() + 1).toString().padStart(2, '0');
+            var Tyear = TinputDate.getFullYear();
+
+            var TformattedDate = Tyear + '-' + Tmonth + '-' + Tday;
+
+            $('#Etakendate').val(TformattedDate);
+            $('#Etakencom').val(button.data('takencom'));
+            $('#Etakeremaks').val(button.data('takeremaks'));
+
+            $('#Ecomremaks').val(button.data('comremaks'));
+        });
+
+        $('#saveDDetails').click(function () {
+
+            var formData = $('#DDetailForm').serialize();
+            console.log('Form Data:', formData);
+            $.ajax({
+                url: '@Url.Action("UpdateDdetails", "Hardware")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.error('AJAX Error:', xhr.responseText);
+                    alert('An error occurred. Please check the server logs for details.');
+                }
+            });
+        });
+
+
+    });
+</script>
+
+
+
+
+
+@*Takenaway Dispose*@
+<script>
+    $(document).ready(function () {
+        $('.taken-away').on('click', function () {
+            const iddis = $(this).data('iddis');
+
+            Swal.fire({
+                title: 'Is this stock taken away?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, Taken Away!',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        iddis: iddis
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/DisposeTakenAway',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + xhr.responseText,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

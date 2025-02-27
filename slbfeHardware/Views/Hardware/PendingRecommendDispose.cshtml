@@ -1,0 +1,248 @@
+﻿@{
+    ViewBag.Title = "Dispose Recommend";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Recommend to Dispose</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active"> Recommend to Dispose</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Duty ID</th>
+                                <th>Purchased Division</th>
+                                <th>Current Location</th>
+                                <th>Request Date</th>
+                                <th>Request User</th>
+                                <th>Dispose Reson</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.dt11.Rows)
+                            {
+
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(6).ToString().Trim() + ".png";
+                                <tr>
+
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" /> &nbsp;
+                                            @r.ItemArray.GetValue(6).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(0).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td><span class="text-danger">@r.ItemArray.GetValue(9).ToString().Trim()</span></td>
+                                    <td>
+                                        <center>
+                                            <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(0).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            |
+                                            <a href="#" class="btn btn-success btn-sm approve-btn" data-itno="@r.ItemArray.GetValue(0).ToString()" data-dpno="@r.ItemArray.GetValue(8).ToString()" data-dutyno="@r.ItemArray.GetValue(3).ToString()" data-bs-toggle="tooltip" data-bs-placement="top" title="Recommend">
+                                                <i class="fas fa-check-circle"></i>
+                                            </a>
+                                            |
+                                            <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Reject" data-toggle="modal" data-target="#rejectModal" onclick="setRejectModalData('@r.ItemArray.GetValue(0).ToString()')">
+                                                <i class="fas fa-times-circle"></i>
+                                            </a>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- Modal Structure -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Reject Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="rejectForm">
+                    <div class="form-group">
+                        <label for="reason">Reason for Not Approve</label>
+                        <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+                    </div>
+                    <input type="hidden" id="itNo" name="itNo" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="saveReject">Not Approve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        new DataTable('#example');
+    });
+</script>
+
+
+
+
+@*<script>
+        $(document).ready(function() {
+            $('.approve-btn').on('click', function(event) {
+                event.preventDefault();
+                var itNo = $(this).data('itno');
+                var dpNo = $(this).data('dpno');
+                var dutyNo = $(this).data('dutyno');
+
+                $.ajax({
+                    url: '@Url.Action("RecommendedDispose", "Hardware")',
+                    type: 'POST',
+                    data: { IT_No: itNo, DisposeID: dpno, dutyID: dutyno},
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'Recommend',
+                            text: 'The Dispose request has been recommended successfully!',
+                            icon: 'success'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Optionally reload the page or redirect
+                                location.reload();
+                    }
+                });
+            },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An error occurred while Recommending.',
+                        icon:  'error'
+                    });
+                }
+        });
+        });
+        });
+    </script>*@
+
+<script>
+    $(document).ready(function() {
+        $('.approve-btn').on('click', function(event) {
+            event.preventDefault();
+
+            // Extract data attributes
+            var itNo = $(this).data('itno');
+            var dpNo = $(this).data('dpno');
+            var dutyNo = $(this).data('dutyno');
+
+            // Perform AJAX request
+            $.ajax({
+                url: '@Url.Action("RecommendedDispose", "Hardware")',
+                type: 'POST',
+                contentType: 'application/json', // Define content type
+                data: JSON.stringify({ IT_No: itNo, DisposeID: dpNo, dutyID: dutyNo }),
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Recommend',
+                        text: 'The Dispose request has been recommended successfully!',
+                        icon: 'success'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Optionally reload the page or redirect
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An error occurred while recommending.',
+                        icon: 'error'
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<script>
+    function setRejectModalData(itNo) {
+        document.getElementById('itNo').value = itNo;
+    }
+
+    document.getElementById('saveReject').addEventListener('click', function() {
+        var itNo = document.getElementById('itNo').value;
+        var reason = document.getElementById('reason').value;
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AORejectDispose", "Hardware")',
+        data: {
+            IT_No: itNo,
+            RecRemarks: reason
+        },
+        success: function(response) {
+            $('#rejectModal').modal('hide');
+            location.reload(); // Reload the page to see the changes
+        },
+        error: function() {
+            alert("An error occurred while rejecting the item.");
+        }
+    });
+});
+</script>
+
+

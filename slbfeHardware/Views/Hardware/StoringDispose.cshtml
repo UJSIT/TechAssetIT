@@ -1,0 +1,388 @@
+﻿@{
+    ViewBag.Title = "Storing Dispose";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Storing - Dispose</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Storing - Dispose</li>
+                </ol>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-danger">
+                <div class="card-body">
+                    <div class="text-end">
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DBulkModal">
+                            <i class="fas fa-warehouse"></i> &nbsp;
+                            Create Dispose Bulk
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+@*Create Dispose Bulk*@
+<div class="modal fade" id="DBulkModal" tabindex="-1" aria-labelledby="DBulkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">
+                    <i class="fas fa-warehouse"></i> &nbsp;  Create Dispose Bulk
+                </h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="DBulks" enctype="multipart/form-data" method="post">
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Dispose Bulk No</label>
+                        <div class="col-12 col-lg-8 d-flex align-items-center gap-2">
+                            @Html.TextBoxFor(m => m.DisposeBulkNo, new { @type = "text", @class = "form-control", @readonly = "readonly", @style = "color: red;" })
+                            @Html.DropDownListFor(m => m.DisposeBulkL, new SelectList(new[] { "A", "B", "C", "D" }), "Select an option", new { @class = "form-control" })
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-secondary" style="width: 200px;" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="submitFormButton" class="btn btn-danger col-sm-5">Create Dispose Bulk</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR Code</th>
+                                <th>Current Location</th>
+                                <th>D Letter Date</th>
+                                <th>Dispose Reson</th>
+                                <th style="width: 150px; text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.DApproval.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(7).ToString().Trim() + ".png";
+                                string itNo = r.ItemArray.GetValue(1).ToString().Trim();
+                                string statusValue = r.ItemArray.GetValue(5).ToString().Trim();
+
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" />&nbsp;
+                                            @r.ItemArray.GetValue(7).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@itNo</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(13).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(8).ToString().Trim()</td>
+                                    <td>
+                                        <center>
+                                            <span class="text-danger">@r.ItemArray.GetValue(12).ToString().Trim()</span>
+                                        </center>
+                                    </td>
+                                    <td>
+
+                                        @*    <td>@r.ItemArray.GetValue().ToString().Trim()</td>*@
+                                        <div class="d-flex justify-content-around gap-2">
+                                            <center>
+
+                                                @if (string.IsNullOrWhiteSpace(r.ItemArray.GetValue(8).ToString().Trim()))
+                                                {
+
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#DpLetterModal" title="Dispose Letter"
+                                                            data-itno1="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-dpno1="@r.ItemArray.GetValue(9).ToString().Trim()">
+                                                        <i class="fas fa-file-export"></i>
+                                                    </button>
+
+                                                }
+
+
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DpStickerModal" title="Sticker"
+                                                        data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                        data-dpno="@r.ItemArray.GetValue(9).ToString().Trim()"
+                                                        data-scode="@r.ItemArray.GetValue(11).ToString().Trim()">
+                                                    <i class="fas fa-ticket-alt"></i>
+                                                </button>
+
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </center>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR Code</th>
+                                <th>Current Location</th>
+                                <th>D Letter Date</th>
+                                <th>Dispose Reson</th>
+                                <th><center>Action</center></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@*Dispose Sticker*@
+<div class="modal fade" id="DpStickerModal" tabindex="-1" role="dialog" aria-labelledby="THreceivedModalLabel" aria-hidden="true">
+    <form id="AddgatepassModalForm" action='/Hardware/AddDisposeSticker' method="post">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title" id="THreceivedModalLabel">
+                        <i class="fas fa-ticket-alt"></i>&nbsp;&nbsp;Add Sticker to - <span id="itnolable" style="color: red;"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body d-flex align-items-center">
+
+                    <select id="orBulkNoDropdown" name="BulkNo1" class="form-control me-2" style="width: auto;">
+                        <option value="">Loading...</option>
+                    </select>
+                    <span>&nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;&nbsp;</span>
+                    <input type="text" id="scode" name="scode" class="form-control me-2" style="width: 100px;" readonly>
+                    <input type="text" name="ITDisposeNo" class="form-control" style="width: auto;">
+                </div>
+
+
+                <input type="text" id="itno" name="itno" class="form-control" hidden>
+                <input type="text" id="dpno" name="dpno" class="form-control" hidden>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" style="width: 200px;">Add Sticker</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+<!-- Modal for Request Letter -->
+<div class="modal fade" id="DpLetterModal" tabindex="-1" role="dialog" aria-labelledby="DpLetterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="requestLetterModalLabel">
+                    Dispose Inform Letter Update - <strong><span id="itNo1"></span></strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="disposeLetterForm" method="post">
+                    <input type="hidden" id="itNumber1" name="IT_No" />
+                    <input type="hidden" id="dpNumber1" name="dpNumber" />
+
+                    <div class="form-group">
+                        <label for="letterDate">Letter Submit Date</label>
+                        <input type="date" class="form-control" id="letterDate" name="RLetterDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="additionalInfo" class="form-label">Additional Information</label>
+                        <textarea class="form-control" id="additionalInfo" name="RLetterRemarks"></textarea>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info col-sm-5">Update Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#DpLetterModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            var itNo = button.data('itno1');
+            var dpNo = button.data('dpno1');
+
+            $('#itNo1').text(itNo);
+            $('#itNumber1').val(itNo);
+            $('#dpNumber1').val(dpNo);
+        });
+    });
+</script>
+
+
+@*Find Bulk Number to droupdown*@
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Hardware/GetDisposeBulk',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    var dropdown = $('#orBulkNoDropdown');
+                    dropdown.empty();
+
+                    $.each(data, function (index, value) {
+                        dropdown.append('<option value="' + value + '">' + value + '</option>');
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error: ' + status + ' - ' + error);
+            }
+        });
+    });
+</script>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // When the button is clicked
+        $('[data-toggle="modal"]').click(function () {
+            const itno = $(this).data('itno');
+            const dpno = $(this).data('dpno');
+            const scode = $(this).data('scode');
+
+            $('#itno').val(itno);
+            $('#dpno').val(dpno);
+            $('#scode').val(scode);
+
+            $('#itnolable').text(itno);
+            var form = $('#disposeLetterForm');
+            form.attr('action', '/Hardware/DRequestLetterUpdate?DP_No=' + dpno);
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*StoringDisposeBulk*@
+<script>
+    $(document).ready(function () {
+        $("#submitFormButton").click(function (e) {
+            e.preventDefault();
+
+            var form = document.getElementById('DBulks');
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: '@Url.Action("StoringDisposeBulk", "Hardware")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Completed!',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        alert(response.error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error occurred while submitting the request: " + error);
+                    alert("An error occurred while submitting the form.");
+                }
+            });
+        });
+    });
+</script>

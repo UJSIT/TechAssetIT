@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "ItemsDataView";
+}
+
+<style>
+    body {
+        background-image:url("../../Content/images/bur1.jpg");
+        background-size:cover;
+    }
+</style>
+
+<div class="w-100 p-3" style="background-color:rgba(163, 160, 160, 0.80)">
+    <h2 class="text-center text-bold skippy text-dark">Invoice Items</h2>
+</div>
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-bordered table-primary">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Item Code</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Capacity</th>
+                    <th>Warranty Period</th>          
+                    <th>Qty</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Action 1</th>
+                    <th>Action 2</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow r in Model.dt2.Rows)
+                {
+                    <tr>
+                        <td>@r.ItemArray.GetValue(0).ToString()</td>
+                        <td>@r.ItemArray.GetValue(1).ToString()</td>
+                        <td>@r.ItemArray.GetValue(2).ToString()</td>
+                        <td>@r.ItemArray.GetValue(3).ToString()</td>
+                        <td>@r.ItemArray.GetValue(4).ToString()</td> 
+                        <td>@r.ItemArray.GetValue(5).ToString()</td>
+                        <td>@r.ItemArray.GetValue(6).ToString()</td>
+                        <td>@r.ItemArray.GetValue(7).ToString()</td>
+                        <td>@r.ItemArray.GetValue(8).ToString()</td>
+                        <td><a href="/Hardware/AddItems/@r.ItemArray.GetValue(0).ToString()">Add Another Item</a></td>
+                        <td><a href="/Hardware/AddItems/@r.ItemArray.GetValue(0).ToString()">Remove Item</a></td>
+                        
+                    </tr> 
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+

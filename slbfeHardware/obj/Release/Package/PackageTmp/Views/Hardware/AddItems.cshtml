@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "AddItems";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+<div class="w-100 p-3" style="background-color:rgba(163, 160, 160, 0.80)">
+    <h2 class="text-center text-bold skippy text-dark">Invoice Items</h2>
+</div> 
+
+<div class=" p-3 mt-3 container bg-light1 text-dark">
+    <div class="col-12 col-md-10 col-lh-6 mx-auto">
+        <form action="SubmitAddBrand">
+            <div  class="row mb-3">
+                <label class="col-2">Item:</label>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.Item, new { @type ="text", @class="form-control", required="required" })
+                </div>
+
+            <div class="col-2">
+                    <label class="form-label">Item Code:</label>
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.Item_Code, new { @type="text", @class="form-control", required="required"})
+            </div>
+
+            </div>
+
+            <div class="row mb-3">
+                
+
+                <div class="col-2">
+                    <label class="form-label">Qty:</label>
+                </div>
+                <div class="col-4">
+                    @Html.TextBoxFor(m => m.Qty, new {@type="text", @class="form-control", required="required" })
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2">Rate:</label>
+                <div class="col-4">
+                    @Html.TextBoxFor(m => m.Rate, new { @type="text", @class="form-control", required="requried"})
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2">Amount:</label>
+                <div class="col-4">
+                    @Html.TextBoxFor(m => m.Amount, new { @type="text", @class="form-control", required="requried"})
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2">Brand:</label>
+                <div class="col-4">
+                    @Html.TextBoxFor(m => m.Brand, new { @type="text", @class="form-control", required="requried"})
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2">Model:</label>
+                <div class="col-4">
+                    @Html.TextBoxFor(m => m.Model, new { @type="text", @class="form-control", required="requried"})
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2">Capacity:</label>
+                <div class="col-4">
+                    @Html.TextBoxFor(m => m.Capacity, new { @type="text", @class="form-control", required="requried"})
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2">Warranty Period:</label>
+                <div class="col-4">
+                    @Html.TextBoxFor(m => m.Warranty_Period, new { @type="text", @class="form-control", required="requried"})
+                </div>
+
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-success" id="btn1" type="submit" >Submit</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

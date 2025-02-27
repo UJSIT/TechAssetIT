@@ -1,0 +1,349 @@
+﻿@{
+    ViewBag.Title = "model";
+}
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+@*<link href="../../Content/ajax(search).css" rel="stylesheet" />
+
+<link href="../../Content/datatableview.css" rel="stylesheet" />
+
+<script src="../../Content/jquert371.js"></script>
+
+<script src="../../Content/bootstrap530.js"></script>
+
+<script src="../../Content/datatable202.js"></script>
+
+<script src="../../Content/bootstrap5dt.js"></script>
+
+<script src="../../Content/ajax1.js"></script>
+
+<script src="../../Content/ajax2.js"></script>*@
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Items, Brands & Models</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Items, Brands & Models</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-header">
+                    <h3 class="card-title">
+                    </h3>
+                </div>
+                <div class="card-body">
+
+
+
+                    <form action="submitModel" id="myForm" enctype="multipart/form-data" class="form-horizontal">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="card-body">
+
+
+
+
+
+
+                            <div class="row mb-3">
+                                <label class="text-dark fw-bold col-3">Item Type :</label>
+                                <div class="col">
+                                    @Html.DropDownListFor(m => m.Item_Type_Code, Model.ItemTypeList, "-- select --", new { @class = "form-select", @id = "ItemVal", @style = "width: 100%;" })
+                                </div>
+
+                                <div class="col-1">
+                                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="modal">Add</a>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="text-dark fw-bold col-3">Brand :</label>
+                                <div class="col">
+                                    @Html.DropDownListFor(m => m.BrandCode, Model.BrandList, "-- select the Brand --", new { @type = "text", @class = "form-select", @style = "width: 100%;" })
+                                </div>
+
+                                <div class="col-1">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" id="modal1">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 d-none">
+                                <label class="text-dark fw-bold col-3">Mode Code :</label>
+                                <div class="col">
+                                    @Html.TextBoxFor(m => m.ModelCode, new { @type = "text", @class = "form-control", required = "required", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="text-dark fw-bold col-3">Model Name :</label>
+                                <div class="col">
+                                    @Html.TextBoxFor(m => m.ModelName, new { @type = "text", @class = "form-control", required = "required", autocomplete = "off" })
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="card-footer">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-block col-sm-6  btn-outline-danger" a href="/Hardware/InvDataView">Back to Invoices</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-info col-sm-6 float-right" id="btnSubmit">Submit</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- Modal1 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tap11">Enter New Item Here</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/Hardware/NItemSubmit" method="post">
+                    <div class="row mb-2">
+                        <label for="ItemCode" class="text-dark fw-bold col-12 col-lg-4">Item Code</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.Item_Type_Code, new { @type = "text", @class = "form-control", required = "required", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="ref" class="text-dark fw-bold col-12 col-lg-4">Item Name</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.Item_Type, new { @type = "text", @class = "form-control", required = "required", autocomplete = "off" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="ref" class="text-dark fw-bold col-12 col-lg-4">Short Code</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.ShortCode, new { @type = "text", @class = "form-control", required = "required", autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Add Here</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+
+            <!-- Modal2 -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Enter New Brand Here</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/Hardware/NBrandSubmit" method="post">
+
+                                <div class="row mb-2">
+                                    <label class="text-dark fw-bold col-12 col-lg-4">Brand Code</label>
+                                    <div class="col-12 col-lg-8">
+                                        @Html.TextBoxFor(m => m.BrandCode, new { @type = "text", @class = "form-control", required = "required", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="row mb-2">
+                                    <label class="text-dark fw-bold col-12 col-lg-4">Brand Name</label>
+                                    <div class="col-12 col-lg-8">
+                                        @Html.TextBoxFor(m => m.BrandName, new { @type = "text", @class = "form-control", required = "required", autocomplete = "off" })
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <script>
+                $("#btnPop").click(function () {
+                    var data = $("#ref").val();
+                    var sendData = { invoiceRef: data };
+
+                    $.ajax({
+                        url: "/Hardware/invoiceItemNumber",
+                        methods: "POST",
+                        data: sendData,
+                        success: function (data) {
+                            var invoiceNo = data.newItemNo;
+                            $("#invoiceCode").val(invoiceNo);
+                        }
+                    });
+                });
+
+                function getSelectedOptionData(inputId, datalistId) {
+                    var inputValue = $(inputId).val();
+                    var selectedOption = $(datalistId + ' option').filter(function () {
+                        return $(this).val() === inputValue;
+                    });
+
+                    if (selectedOption.length) {
+                        return {
+                            text: selectedOption.attr('text'),
+                            value: selectedOption.val()
+                        };
+                    } else {
+                        return null;
+                    }
+                }
+
+                $("#btn1").click(function () {
+                    var modelCode = $('#modelname').val();
+                    var modelName = $('#modelInput').val();
+
+                    var brandData = getSelectedOptionData('#brandInput', '#browsers'); // Correct datalist ID
+                    var itemData = getSelectedOptionData('#itemInput', '#tap'); // Correct datalist ID
+
+                    // Log data to understand what's going wrong
+                    console.log("Brand Input Value: ", $('#brandInput').val());
+                    console.log("Item Input Value: ", $('#itemInput').val());
+                    console.log("Brand Data: ", brandData);
+                    console.log("Item Data: ", itemData);
+
+                    //if (!brandData || !itemData) {
+                    //    console.log("Brand or Item data not found.");
+                    //    return;
+                    //}
+
+                    var send = {
+                        itemCode: itemData.text,
+                        modelCode: modelCode,
+                        brandCode: brandData.text,
+                        modelName: modelName,
+                    };
+
+                    console.log(send);
+                });
+            </script>
+
+
+            <script>
+                $("#btnPop").click(function () {
+                    var data = $("#ref").val();
+                    //alert(data);
+
+                    var sendData = { invoiceRef: data }
+
+                    $.ajax({
+                        url: "/Hardware/invoiceItemNumber",
+                        methods: "POST",
+                        data: sendData,
+                        success: function (data) {
+                            var invoiceNo = data.newItemNo;
+                            $("#invoiceCode").val(invoiceNo);
+                        }
+                    })
+
+                })
+            </script>
+
+            <script>
+                document.getElementById('btn1').addEventListener('click', function () {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            </script>
+
+
+            <script>
+                // Wait for the document to load
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Handle form submission
+                    document.getElementById("btnSubmit").addEventListener("click", function () {
+                        // Perform your validation here
+                        var modelName = document.getElementById("ModelName").value.trim();
+
+                        if (modelName === "") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Please fill out the fields!'
+                            });
+                            return;
+                        }
+
+                        // If validation passes, submit the form
+                        document.getElementById("myForm").submit();
+
+                        // Show success message after form submission (optional)
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    });
+                });
+            </script>
+
+
+

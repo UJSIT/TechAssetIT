@@ -1,0 +1,273 @@
+﻿@{
+    ViewBag.Title = "Add New Supplier";
+}
+
+@model slbfeHardware.Models.suppliersmodel
+<style>
+    #error-message {
+        font-size: 0.9rem;
+        color: red;
+        margin-top: 5px;
+        display: block;
+    }
+</style>
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Add New Supplier</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Add New Supplier</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+
+                    @if (ViewBag.SuccessMessage != null)
+                    {
+                        <div class="alert alert-success">
+                            @ViewBag.SuccessMessage
+                        </div>
+                    }
+
+
+
+                    <form action="SuppDataSubmit" id="myForm" onsubmit="return validateCheckboxes()">
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-7 left">
+
+                                    <div class="row mb-3">
+                                        <label class="text-dark fw-bold col-3">Name of Supplier&nbsp;<span style="color: red;">*</span></label>
+                                        <div class="col">
+                                            @Html.TextBoxFor(m => m.Name_of_Supplier, new { @type = "text", @class = "form-control", @onkeypress = "checkSupplierName(event)", required = "required", @id = "supName" })
+                                            <div id="supplierExistsMessageContainer"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                        <label class="text-dark fw-bold col-3">Registration Status&nbsp;<span style="color: red;">*</span></label>
+                                        <div class="col">
+
+                                            <div class="row">
+                                                &nbsp &nbsp   &nbsp &nbsp  <div class="text-dark fw-bold col-12 col-lg-4">@Html.RadioButtonFor(m => m.Registration_Status, "Reg", new { @type = "radio", @class = "form-check-input ps-0 ms-0", required = "required" }) Registered</div>
+                                                <div class="text-dark fw-bold col-12 col-lg-4">@Html.RadioButtonFor(m => m.Registration_Status, "Unreg", new { @type = "radio", @class = "form-check-input ps-0", required = "required" }) Unregistered</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="text-dark fw-bold col-3">Registration Year&nbsp;<span style="color: red;">*</span></label>
+                                        <div class="col">
+                                            @Html.TextBoxFor(m => m.Registration_Year, new { @type = "number", @class = "form-control", required = "required" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="text-dark fw-bold col-3">Address&nbsp;<span style="color: red;">*</span></label>
+                                        <div class="col">
+                                            @Html.TextBoxFor(m => m.Address_of_Dealer, new { @type = "text", @class = "form-control", required = "required" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="text-dark fw-bold col-3">Email</label>
+                                        <div class="col">
+                                            @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="text-dark fw-bold col-3">Fax</label>
+                                        <div class="col">
+                                            @Html.TextBoxFor(m => m.fax, new { @type = "text", @class = "form-control", maxlength = "10", oninput = "this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="text-dark fw-bold col-3">Telephone</label>
+                                        <div class="col">
+                                            @Html.TextBoxFor(m => m.Telephone, new { @type = "text", @class = "form-control", maxlength = "10", oninput = "this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" })
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <hr />
+                                 
+
+
+                                    <div class="row mb-3">
+                                        <label for="CCategory" class="text-dark fw-bold col-3">Company Category&nbsp;<span style="color: red;">*</span></label>
+                                        <div class="col">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="CCategory1" id="1" value="1">
+                                                <label class="form-check-label" for="Vendor">Vendor</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="CCategory2" id="1" value="1">
+                                                <label class="form-check-label" for="Courier">Courier</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="CCategory3" id="1" value="1">
+                                                <label class="form-check-label" for="Repair">Repair</label>
+                                            </div>
+                                            <span id="error-message"></span>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                                <div class="col-md-1">
+
+                                </div>
+
+                                <div class="col-md-4 right">
+
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="text-dark fw-bold col">Contact Person 1 - Name:</label>
+                                            @Html.TextBoxFor(m => m.Contact_Person1, new { @type = "text", @class = "form-control" })
+                                            <label class="text-dark fw-bold col">Contact No</label>
+                                            @Html.TextBoxFor(m => m.Contact_Person1_Phone, new { @type = "text", @class = "form-control", maxlength = "10", oninput = "this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="text-dark fw-bold col">Contact Person 2 - Name:</label>
+                                            @Html.TextBoxFor(m => m.Contact_Person2, new { @type = "text", @class = "form-control" })
+                                            <label class="text-dark fw-bold col">Contact No:</label>
+                                            @Html.TextBoxFor(m => m.Contact_Person2_Phone, new { @type = "text", @class = "form-control", maxlength = "10", oninput = "this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <hr />
+                                    <div class="row mb-3">
+                                        <label class="text-dark fw-bold col-3">Status</label>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="text-dark fw-bold col-12 col-lg-4">
+                                                    @Html.RadioButtonFor(m => m.status, "Active", new { @type = "radio", @class = "form-check-input ps-0 ms-0", required = "required" }) Active
+                                                </div>
+                                                <div class="text-dark fw-bold col-12 col-lg-4">
+                                                    @Html.RadioButtonFor(m => m.status, "Inactive", new { @type = "radio", @class = "form-check-input ps-0", required = "required" }) Inactive
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" value="@Model.RedirectType" name="RedirectType" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card-footer">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a class="btn btn-block col-sm-6  btn-outline-danger" a href="/Hardware/Dashboard">Cancel</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info col-sm-6 float-right" id="btn1">Submit</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function validateCheckboxes() {
+        // Get checkboxes by their specific names
+        const checkbox1 = document.querySelector('input[name="CCategory1"]');
+        const checkbox2 = document.querySelector('input[name="CCategory2"]');
+        const checkbox3 = document.querySelector('input[name="CCategory3"]');
+        const errorSpan = document.getElementById("error-message");
+
+        // Check if at least one is selected
+        if (checkbox1.checked || checkbox2.checked || checkbox3.checked) {
+            errorSpan.textContent = ""; // Clear the error message
+            return true; // Validation passed
+        } else {
+            errorSpan.textContent = "Please select at least one category.";
+            errorSpan.style.color = "red"; // Set error message color
+            return false; // Validation failed
+        }
+    }
+</script>
+
+
+
+
+
+
+
+<script src="/Scripts/Hardware/AddSupplier.js"></script>
+
+<script>
+    function checkSupplierName(event) {
+        var input = event.target;
+        var supplierName = input.value + String.fromCharCode(event.which);
+
+        $.ajax({
+            url: "/Hardware/CheckSupplierName",
+            type: 'GET',
+            data: { supplierName: supplierName },
+            success: function (response) {
+                $('#supplierExistsMessageContainer').empty();
+
+                console.log(response)
+                if (response.exists) {
+                    var messageDiv = $('<div></div>').text('This supplier name already exists in the database.')
+                        .css('color', 'red')
+                        .attr('id', 'supplierExistsMessage');
+                    $('#supplierExistsMessageContainer').append(messageDiv);
+
+                }
+                else {
+                    var messageDiv = $('<div></div>').text('Valid Supplier Name')
+                        .css('color', 'green')
+                        .attr('id', 'supplierExistsMessage');
+                    $('#supplierExistsMessageContainer').append(messageDiv);
+                }
+            }
+        });
+    }
+
+</script>

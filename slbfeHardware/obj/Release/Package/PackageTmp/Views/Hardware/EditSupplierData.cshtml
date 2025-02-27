@@ -1,0 +1,239 @@
+﻿@{
+    ViewBag.Title = "EditSupplierData";
+}
+
+@model slbfeHardware.Models.suppliersmodel
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Edit Supplier</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Edit Supplier</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">               
+                <div class="card-body">
+
+                    <form action="UpdateSupplierData" id="myForm" enctype="multipart/form-data" class="form-horizontal" onsubmit="return validateCheckboxes()">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        @Html.TextBoxFor(m => m.SupplierID, new { @type = "hidden", @class = "form-control", @onkeypress = "checkSupplierName(event)", required = "required", @id = "supName", @Model.SupplierID })
+
+                    <div class="card-body">
+
+
+
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Name of Supplier :</label>
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.Name_of_Supplier, new { @type = "text", @class = "form-control", @onkeypress = "checkSupplierName(event)", required = "required", @id = "supName", @Model.Name_of_Supplier })
+                                <div id="supplierExistsMessageContainer"></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="CCategory" class="text-dark fw-bold col-3">Company Category&nbsp;<span style="color: red;">*</span></label>
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="CCategory1" id="Vendor" value="1" @(Model.CCategory1 == "0" ? "" : "Checked")>
+                                    <label class="form-check-label" for="Vendor">Vendor</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="CCategory2" id="Courier" value="1" @(Model.CCategory2 == "0" ? "" : "Checked")>
+                                    <label class="form-check-label" for="Courier">Courier</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="CCategory3" id="Repair" value="1" @(Model.CCategory3 == "0" ? "" : "Checked")>
+                                    <label class="form-check-label" for="Repair">Repair</label>
+                                </div>
+                                <span id="error-message"></span>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Registration Type :</label>
+                            <div class="col">
+                                <div class="row">
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="text-dark fw-bold col-12 col-lg-4">@Html.RadioButtonFor(m => m.Registration_Status, "Reg", new { @type = "radio", @class = "form-check-input ps-0 ms-0", required = "required" }) Registered</div>
+                                    <div class="text-dark fw-bold col-12 col-lg-4">@Html.RadioButtonFor(m => m.Registration_Status, "Unreg", new { @type = "radio", @class = "form-check-input ps-0", required = "required" }) Unregistered</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Registration Year :</label>
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.Registration_Year, new { @type = "number", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Address :</label>
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.Address_of_Dealer, new { @type = "text", @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Telephone :</label>
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.Telephone, new { @type = "text", @class = "form-control", maxlength = "10", oninput = "this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <!-- Left Div -->
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="text-dark fw-bold col">Email :</label>
+                                            @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Div -->
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="text-dark fw-bold col">Fax :</label>
+                                            @Html.TextBoxFor(m => m.fax, new { @type = "text", @class = "form-control", maxlength = "10", oninput = "this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <hr />
+
+
+
+                        <div class="row">
+                            <!-- Left Div -->
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="text-dark fw-bold col">Contact Person 1 - Name:</label>
+                                            @Html.TextBoxFor(m => m.Contact_Person1, new { @type = "text", @class = "form-control" })
+                                            <label class="text-dark fw-bold col">Contact No:</label>
+                                            @Html.TextBoxFor(m => m.Contact_Person1_Phone, new { @type = "text", @class = "form-control", maxlength = "10", oninput = "this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Div -->
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="text-dark fw-bold col">Contact Person 2 - Name:</label>
+                                            @Html.TextBoxFor(m => m.Contact_Person2, new { @type = "text", @class = "form-control" })
+                                            <label class="text-dark fw-bold col">Contact No:</label>
+                                            @Html.TextBoxFor(m => m.Contact_Person2_Phone, new { @type = "text", @class = "form-control", maxlength = "10", oninput = "this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" })
+                                        </div>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<h1>Vendor  <span>@Model.CCategory1</span></h1>
+        <h1>Courier  <span>@Model.CCategory2</span></h1>
+        <h1>Repair  <span>@Model.CCategory2</span></h1>*@
+
+
+                        <hr />
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Acctive Status :</label>
+                            <div class="col">
+                                <div class="row">
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <div class="text-dark fw-bold col-12 col-lg-4">@Html.RadioButtonFor(m => m.status, "Active", new { @type = "radio", @class = "form-check-input ps-0 ms-0", required = "required" }) Active</div>
+                                    <div class="text-dark fw-bold col-12 col-lg-4">@Html.RadioButtonFor(m => m.status, "Inactive", new { @type = "radio", @class = "form-check-input ps-0", required = "required" }) Inactive</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <input type="hidden" value="@ViewBag.RedirectType" name="RedirectType" />
+
+
+                        <div class="card-footer">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a class="btn btn-block col-sm-6  btn-outline-danger" a href="/Hardware/Dashboard">Cancel</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info col-sm-6 float-right" id="btn1">Save Changes</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<script>
+    function validateCheckboxes() {
+        // Get checkboxes by their specific names
+        const checkbox1 = document.querySelector('input[name="CCategory1"]');
+        const checkbox2 = document.querySelector('input[name="CCategory2"]');
+        const checkbox3 = document.querySelector('input[name="CCategory3"]');
+        const errorSpan = document.getElementById("error-message");
+
+        // Check if at least one is selected
+        if (checkbox1.checked || checkbox2.checked || checkbox3.checked) {
+            errorSpan.textContent = ""; // Clear the error message
+            return true; // Validation passed
+        } else {
+            errorSpan.textContent = "Please select at least one category.";
+            errorSpan.style.color = "red"; // Set error message color
+            return false; // Validation failed
+        }
+    }
+</script>

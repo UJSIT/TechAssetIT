@@ -1,0 +1,578 @@
+﻿@{
+    ViewBag.Title = "HandoverFilterView";
+}
+
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <h3 class="mb-0">
+                    <b> Filter Handover </b>
+                </h3>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Courier Filter</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <i class="fas fa-filter"></i>&nbsp;&nbsp;
+                    <a href="/Hardware/HandoverFilterView?status=10" class="btn btn-primary btn-sm @(ViewBag.CurrentStatus == "10" ? "active" : "")">Handover - Recommend</a>&nbsp;&nbsp;
+                    <a href="/Hardware/HandoverFilterView?status=4" class="btn btn-primary btn-sm @(ViewBag.CurrentStatus == "4" ? "active" : "")">Ready To Sent</a>&nbsp;&nbsp;
+                    <a href="/Hardware/HandoverFilterView?status=All" class="btn btn-primary btn-sm @(ViewBag.CurrentStatus == "All" ? "active" : "")">Search All</a>&nbsp;&nbsp;
+
+                    <hr />
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Current Location</th>
+                                <th>Handover Location</th>
+                                <th>Authorized Officer</th>
+                                <th>Handover Remaks</th>
+                                <th>Current Status</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.CFilter.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string statusValue = r.ItemArray.GetValue(10).ToString().Trim();
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" />&nbsp;
+                                            @r.ItemArray.GetValue(0).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(8).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(9).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(11).ToString().Trim()</td>
+
+                                    <td>
+                                        <center>
+                                            <div class="d-flex justify-content-around gap-2">
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+
+
+
+                                                &nbsp
+
+                                                @if (statusValue == "4")
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#HandoverReModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Handover Complete"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-hlocation="@r.ItemArray.GetValue(7).ToString().Trim()"
+                                                            data-itemtype="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                            data-serialNo="@r.ItemArray.GetValue(2).ToString().Trim()"
+                                                            data-invNo="@r.ItemArray.GetValue(3).ToString().Trim()"
+                                                            data-qr="@r.ItemArray.GetValue(4).ToString().Trim()"
+                                                            data-aofficer="@r.ItemArray.GetValue(8).ToString().Trim()"
+                                                            data-hlocationID="@r.ItemArray.GetValue(12).ToString().Trim()">
+
+                                                        <i class="fas fa-handshake"></i>
+                                                    </button>
+                                                }
+
+                                                &nbsp
+
+                                                @if (statusValue == "4")
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#CourierReModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Courier Request"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()">
+                                                        <i class="fas fa-truck-loading"></i>
+                                                    </button>
+                                                }
+
+
+                                            </div>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Current Location</th>
+                                <th>Handover Location</th>
+                                <th>Authorized Officer</th>
+                                <th>Handover Remaks</th>
+                                <th>Current Status</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*Handover Shipping Modal *@
+<div class="modal fade" id="HandoverReModal" tabindex="-1" role="dialog" aria-labelledby="HandoverReModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="HandoverReModalLabel">
+                    <i class="fas fa-handshake"></i>
+                    <strong>  Handover Completion</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Form Post -->
+                <form id="CompleteHandover" method="post">
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+                                <h3>
+                                    <center>
+                                        <label for="HLocation">Handover Location - </label>
+                                        <span id="HLocationRe"></span>
+                                    </center>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itemType">Item Type - </label>
+                                <span id="itemTypeRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itNo">IT Number - </label>
+                                <span id="itNoRe"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="inv_no">INV Number - </label>
+                                <span id="inv_noRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="serialNumber">Serial Number - </label>
+                                <span id="serialNumberRe"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="qr_code">QR - </label>
+                                <span id="qr_codeRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+                                <label for="AOfficer">Authorized Officer - </label>
+                                <span id="AOfficerRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="StickerDate">Handover Date &nbsp;<span style="color: red;">*</span> </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="HOComDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="EmpNo" >Employee Number</label>
+                            <input type="number" class="form-control" name="EmpNo" id="EmpNo" placeholder="Enter Employee Number">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="EmployeeName">Employee Name</label>
+                            <input type="text" class="form-control" id="EmployeeName" name="EmployeeName" readonly>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="mb-3">
+                        <label for="HOComRemarks" class="form-label">Additional Information</label>
+                        <textarea class="form-control" name="HOComRemarks"></textarea>
+                    </div>
+
+                    <input type="hidden" id="itNumberRe" name="IT_No" />
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info col-sm-5">Complete Handover</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@*courier model*@
+<div class="modal fade" id="CourierReModal" tabindex="-1" role="dialog" aria-labelledby="CourierReModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="requestLetterModalLabel">
+                    <i class="fas fa-truck-loading"></i>
+                    Courier Request Form
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="SubmitCourier" method="post">
+
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+                                <h3>
+                                    <center>
+                                        <label for="HLocation">Courier Location - </label>
+                                        <span id="CLocation"></span>
+                                    </center>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="letterDate">Item Type - </label>
+                                <span id="itemType"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="letterDate">IT Number - </label>
+                                <span id="itNo"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="letterDate">INV Number - </label>
+                                <span id="inv_no"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="letterDate">Serial Number - </label>
+                                <span id="serialNumber"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="letterDate">QR - </label>
+                                <span id="qr_code"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <hr />
+
+                    <input type="hidden" id="hOLocationID" name="hOLocationID" />
+                    <input type="hidden" id="current_Status" name="current_Status" />
+                    <input type="hidden" id="id" name="id" />
+                    <input type="hidden" id="itNumber" name="IT_No" />
+
+
+
+                    <div class="form-group">
+                        <label for="letterDate">Request Date&nbsp;<span style="color: red;">*</span></label>
+                        <input type="date" class="form-control" id="CReqDate" name="CReqDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="additionalInfo" class="form-label">Additional Information</label>
+                        <textarea class="form-control" id="CReqRemarks" name="CReqRemarks"></textarea>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info col-sm-5">Request to Courier</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        // Handler for the 'HandoverReModal' modal
+        $('#HandoverReModal').on('shown.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var itno = button.data('itno');
+            var hlocation = button.data('hlocation');
+            var clocation = button.data('clocation');
+            var hlocationID = button.data('hlocationid');
+            var aofficer = button.data('aofficer');
+            var itemtype = button.data('itemtype');
+            var serialNo = button.data('serialno');
+            var invNo = button.data('invno');
+            var qr = button.data('qr');
+
+            // Set the IT_No value in the hidden input field
+            $('#itNumberRe').val(itno);
+            $('#hlocationNRe').val(hlocation);
+            $('#clocationNRe').val(clocation);
+            $('#hlocationIDNRe').val(hlocationID);
+            $('#aofficerNRe').val(aofficer);
+            $('#itemtypeNRe').val(itemtype);
+            $('#serialRe').val(serialNo);
+            $('#invRe').val(invNo);
+            $('#qrcodeRe').val(qr);
+
+            // Set the IT_No in the modal title and other text fields
+            $('#itNoRe').text(itno);
+            $('#HLocationRe').text(hlocation);
+            $('#CLocationRe').text(clocation)
+            $('#HLocationIDRe').text(hlocationID);
+            $('#AOfficerRe').text(aofficer);
+            $('#itemTypeRe').text(itemtype);
+            $('#serialNumberRe').text(serialNo);
+            $('#inv_noRe').text(invNo);
+            $('#qr_codeRe').text(qr);
+
+            // Modify the form's action URL to include the IT_No
+            var form = $('#CompleteHandover');
+            form.attr('action', '/Hardware/CompleteHandover?IT_No=' + encodeURIComponent(itno) +
+                '&DCurrentLocation=' + encodeURIComponent(hlocation) +
+                '&DAuthorized=' + encodeURIComponent(aofficer) +
+                '&COLid=' + encodeURIComponent(clocation) +
+                '&HOLid=' + encodeURIComponent(hlocationID));
+
+        });
+    </script>
+}
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // Event handler for when the modal is about to be shown
+        $('#CourierReModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var itno = button.data('itno'); // Extract IT No from data attribute
+
+            // Make an AJAX request to fetch courier data
+            $.ajax({
+                url: '@Url.Action("GetCourierData", "Hardware")', // URL of the controller action
+                type: 'GET',
+                data: { itNo: itno }, // Send IT No as a query parameter
+                success: function (result) {
+                    if (result) {
+                        // Populate modal fields with the returned data
+                        $('#CLocation').text(result.CourierLocation);
+                        $('#itemType').text(result.ItemType);
+                        $('#itNo').text(result.IT_No);
+                        $('#inv_no').text(result.INV_No);
+                        $('#serialNumber').text(result.Serial_No);
+                        $('#qr_code').text(result.QR);
+                        $('#hOLocationID').text(result.HOLocationID);
+                        $('#current_Status').text(result.Current_Status);
+                        $('#id').text(result.id);
+
+                        // Populate hidden inputs for form submission
+                        $('#clocationN').val(result.CourierLocation);
+                        $('#itemtypeN').val(result.ItemType);
+                        $('#itNumber').val(result.IT_No);
+                        $('#inv').val(result.INV_No);
+                        $('#serial').val(result.Serial_No);
+                        $('#qrcode').val(result.QR);
+                        $('#hOLocationID').val (result.HOLocationID);
+                        $('#current_Status').val(result.Current_Status);
+                        $('#id').val(result.id);
+
+
+                        // Note: HOLocationID and Current_Status are already populated above
+
+                        // Set form action for submission
+                        $('#SubmitCourier').attr('action', '/Hardware/SubmitCourier?IT_No=' + encodeURIComponent(result.IT_No));
+                    } else {
+                        alert('No data found for the specified IT No.'); // Alert if no data found
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching data:', error); // Log the error
+                    alert('An error occurred while fetching the data.'); // Alert user of the error
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+<script>
+$(document).ready(function () {
+    $('#SubmitCourier').submit(function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        $.ajax({
+            url: '@Url.Action("SubmitCourier", "Hardware")', // Adjust the URL as needed
+            type: 'POST',
+            data: $(this).serialize(), // Serialize the form data
+            success: function (response) {
+
+            $('#CourierReModal').modal('hide');
+            location.reload();
+            },
+            error: function (xhr, status, error) {
+            console.error('Error submitting courier request:', error);
+            alert('An error occurred while submitting the courier request.');
+            }
+        });
+    });
+});
+
+</script>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#EmpNo').on('input', function() {
+            var empNo = $(this).val();
+            var submitButton = $('#addUserForm button[type="submit"]'); // Select the submit button
+
+            if (empNo) {
+                $.ajax({
+                    url: '@Url.Action("GetEmployeeName", "Hardware")',
+                    type: 'GET',
+                    data: { empNo: empNo },
+                    success: function(data) {
+                        $('#EmployeeName').val(data || 'Not found');
+                        if (data) {
+                            submitButton.show(); // Show the button if data is found
+                        } else {
+                            submitButton.hide(); // Hide the button if no data found
+                        }
+                    },
+                    error: function() {
+                        $('#EmployeeName').val('Error retrieving name');
+                        submitButton.hide(); // Hide the button on error
+                    }
+                });
+            } else {
+                $('#EmployeeName').val('');
+                submitButton.hide(); // Hide the button if EmpNo is empty
+            }
+        });
+    });
+</script>

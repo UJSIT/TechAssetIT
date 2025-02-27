@@ -1,0 +1,256 @@
+@{
+    ViewBag.Title = "Fault Solution";
+}
+
+
+
+@model slbfeHardware.Models.EnterItemsModel
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Fault & Solutions</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Fault & Solutions</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+
+
+
+                    <div style="margin-bottom: 10px; text-align: right;">
+                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#FSModal" id="modal">Add New Fault & Solution</a>
+                    </div>
+
+
+                    <table id="example" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Fault & Solution</th>
+                                <th>Type</th>
+                                <th><center>Action</center></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.faultSolutions.Rows)
+                            {
+                                <tr>
+                                    <td>@r.ItemArray.GetValue(0).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+
+                                    <td>
+
+                                        @*<a class="btn btn-primary btn-sm" href="/Hardware/EditFnS?FSid=@Model.FSid" data-bs-toggle="modal" data-bs-target="#FSEditModal" id="modal2"><i class="fas fa-pencil-alt"></i></a>*@
+
+                                        <center>
+                                            <button type="button" class="btn btn-danger btn-sm"
+                                                    data-toggle="modal"
+                                                    data-target="#DeleteModal"
+                                                    data-id="@r.ItemArray.GetValue(0).ToString().Trim()">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </center>                                      
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Fault & Solution</th>
+                                <th>Type</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="modal fade" id="FSModal" tabindex="-1" aria-labelledby="FSModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="FSModalLabel">Add New Fault & Solution</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form or content for Fault & Solution -->
+                <form action="/Hardware/SubmitNewFnS" method="post">
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Category</label>
+                        <div class="col-12 col-lg-8">
+                            <div class="form-check form-check-inline">
+                                @Html.RadioButtonFor(m => m.FaultType, "Fault", new { id = "faultRadioModal", @class = "form-check-input", required = "required" })
+                                <label class="form-check-label" for="faultRadioModal">Fault</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.RadioButtonFor(m => m.FaultType, "Solution", new { id = "solutionRadioModal", @class = "form-check-input", required = "required" })
+                                <label class="form-check-label" for="solutionRadioModal">Solution</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Item Type</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.FaultItem, Model.ItemTypeList, "-- select --", new { id = "itemTypeIDModal", @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Fault/Solution</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextAreaFor(m => m.Fault_Solution, new { id = "faultSolutionModal", @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="FSEditModal" tabindex="-1" aria-labelledby="FSEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="FSEditModalLabel">Add New Fault & Solution</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form or content for Fault & Solution -->
+                <form action="/Hardware/UpdateFnS" method="post">
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Category</label>
+                        <div class="col-12 col-lg-8">
+                            <div class="form-check form-check-inline">
+                                @Html.RadioButtonFor(m => m.FaultType, "Fault", new { id = "faultRadioModal", @class = "form-check-input", required = "required" })
+                                <label class="form-check-label" for="faultRadioModal">Fault</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.RadioButtonFor(m => m.FaultType, "Solution", new { id = "solutionRadioModal", @class = "form-check-input", required = "required" })
+                                <label class="form-check-label" for="solutionRadioModal">Solution</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Item Type</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.FaultItem, Model.ItemTypeList, "-- select --", new { id = "itemTypeIDModal", @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Fault/Solution</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextAreaFor(m => m.Fault_Solution, new { id = "faultSolutionModal", @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteModalLabel">Remove F&S</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/Hardware/DeleteFnS" method="post">
+                    <div class="modal-body">
+                        Are you sure you want to remove this F&S?
+                        <strong><span id="fsid"></span></strong>
+                    </div>
+                    <input type="hidden" id="idNo" name="FSid" />
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger col-sm-5">Remove</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    // Using jQuery
+    $(document).on('click', '[data-target="#DeleteModal"]', function () {
+        var id = $(this).data('id'); // Get the data-id from the button
+        $('#fsid').text(id);        // Set the ID in the <span> element
+        $('#idNo').val(id);         // Set the ID in the hidden input field
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        new DataTable('#example');
+    });
+
+    document.getElementById()
+
+</script>
+
+

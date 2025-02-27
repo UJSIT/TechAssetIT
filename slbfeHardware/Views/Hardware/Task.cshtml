@@ -1,0 +1,1259 @@
+﻿@{
+    ViewBag.Title = "My Task";
+}
+<style>
+    .cardDesing {
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+        .cardDesing:hover {
+            transform: translateY(-5px);
+        }
+
+    .footer1 {
+        background-color: #f0f1f2;
+        min-height: 100px;
+    }
+
+    .footer2 {
+        background-color: #f0f1f2;
+    }
+
+
+    .select2-container--default .select2-selection--multiple {
+        border: 1px solid #007bff;
+        border-radius: 4px;
+    }
+
+
+    .select2-dropdown {
+        border: 1px solid #007bff;
+        border-radius: 4px;
+    }
+
+
+    .select2-results__option--highlighted {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .select2-selection__choice {
+        background-color: #007bff !important;
+    }
+</style>
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Pending Task</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Pending Task</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*SpecialTask*@
+
+@if (Model.CardTBL != null && Model.CardTBL.Rows.Count > 0)
+{
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Special Task
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row">
+
+                            @foreach (System.Data.DataRow r in Model.CardTBL.Rows)
+                            {
+
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string itNO = r.ItemArray.GetValue(1).ToString().Trim();
+                                string THandoverType = r.ItemArray.GetValue(18).ToString().Trim();
+
+                                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column cardDesing">
+                                    <div class="card bg-light d-flex flex-fill">
+                                        <div class="footer1 modal-footer justify-content-between">
+                                            <div>
+                                                <h5 class="mb-0 lead font-weight-bold">@r.ItemArray.GetValue(3).ToString().Trim() -   <span class="lead font-weight-bold text-primary">@r.ItemArray.GetValue(1).ToString().Trim()</span> </h5>
+                                                <ul class="ml-1 mb-0 fa-ul text-muted">
+                                                    <li class="small"> @r.ItemArray.GetValue(7).ToString().Trim() - @r.ItemArray.GetValue(8).ToString().Trim() </li>
+                                                    <li class="small text-danger">@r.ItemArray.GetValue(12).ToString().Trim()</li>
+                                                </ul>
+                                            </div>
+
+
+                                            <a href="/Hardware/DevicesFullView?itNO=@itNO" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+
+
+
+                                        </div>
+                                        <div class="card-body pt-0">
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <ul class="ml-7 mb- fa-ul text-muted">
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> @r.ItemArray.GetValue(2).ToString().Trim() </li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> @r.ItemArray.GetValue(4).ToString().Trim() </li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> @r.ItemArray.GetValue(6).ToString().Trim()</li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="col-5 text-center">
+                                                    <img src="@path" alt="user-avatar" class="img-fluid" width="50%">
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fas fa-cogs"></i></span> @r.ItemArray.GetValue(5).ToString().Trim() </li>
+                                            </ul>
+                                        </div>
+
+
+
+
+                                        <div class="footer2 modal-footer justify-content-lg-start">
+                                            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                            <div>
+
+                                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                   data-target="#TechnicalAssesmentModal"
+                                                   data-itNo="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                   data-TechnicalAssesment="@r.ItemArray.GetValue(13).ToString().Trim()"
+                                                   data-DutyID="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                   data-ItemType="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                   data-ItemTypeCode="@r.ItemArray.GetValue(20).ToString().Trim()"
+                                                   data-FaultTypeIDs="@r.ItemArray.GetValue(19).ToString().Trim()"
+                                                   title="Technical Assesment">
+                                                    <i class="fas fa-cogs"></i>
+                                                </a>
+
+
+                                                @if (!string.IsNullOrEmpty(r.ItemArray.GetValue(13).ToString().Trim()) || !string.IsNullOrEmpty(r.ItemArray.GetValue(19).ToString().Trim()))
+                                                {
+
+                                                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                       data-target="#SolutionModal"
+                                                       data-itno1="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                       data-solution="@r.ItemArray.GetValue(14).ToString().Trim()"
+                                                       data-dutyid1="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                       data-itemtype1="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                       data-itemtypecode1="@r.ItemArray.GetValue(20).ToString().Trim()"
+                                                       data-solutiontypeids="@r.ItemArray.GetValue(21).ToString().Trim()"
+                                                       title="Technical Solution">
+                                                        <i class="fas fa-stethoscope"></i>
+                                                    </a>
+                                                }
+                                            </div>
+                                            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+
+                                            @if (!string.IsNullOrEmpty(r.ItemArray.GetValue(13).ToString().Trim()) ||
+                                                !string.IsNullOrEmpty(r.ItemArray.GetValue(19).ToString().Trim()))
+                                            {
+
+                                                <div class="dropup">
+                                                    <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Request To
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
+                                                        <li>
+                                                            <a href="#" class="dropdown-item outside-repair" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                               data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                               data-dutyid="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                               title="Request Outside Repair">
+                                                                <i class="fas fa-tools"></i> Outside Repair
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="#" class="dropdown-item text-primary request-warranty" data-bs-toggle="tooltip" data-bs-placement="top" data-toggle="modal"
+                                                               data-target="#WarrantyModal"
+                                                               data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                               data-dutyid="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                               title="Warranty Call">
+                                                                <i class="fas fa-phone-volume"></i> Warranty
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="#" class="dropdown-item text-success request-transferIT" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                               data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                               data-dutyid="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                               title="Transfer IT">
+                                                                <i class="fas fa-download"></i> Transfer IT
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="#" class="dropdown-item text-danger request-dispose" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                               data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                               data-dutyid="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                               title="Request To Dispose">
+                                                                <i class="fas fa-trash-alt"></i> Dispose
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            }
+
+
+                                            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+
+                                            @if ((!string.IsNullOrEmpty(r.ItemArray.GetValue(13).ToString().Trim()) ||
+                                            !string.IsNullOrEmpty(r.ItemArray.GetValue(19).ToString().Trim())) &&
+                                            (!string.IsNullOrEmpty(r.ItemArray.GetValue(14).ToString().Trim()) ||
+                                            !string.IsNullOrEmpty(r.ItemArray.GetValue(21).ToString().Trim())) &&
+                                            r.ItemArray.GetValue(18).ToString().Trim() == "41")
+
+                                            {
+                                                <a href="#" class="btn btn-success btn-sm w-25 justify-content-lg-end" data-toggle="modal" data-itno="@r.ItemArray.GetValue(1).ToString().Trim()" data-DutyID="@r.ItemArray.GetValue(15).ToString().Trim()" title="Task Complete">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                            }
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+}
+
+@*Task*@
+
+@if (Model.CardTBL1 != null && Model.CardTBL1.Rows.Count > 0)
+{
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Task
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row">
+
+                            @foreach (System.Data.DataRow r in Model.CardTBL1.Rows)
+                            {
+
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string itNO = r.ItemArray.GetValue(1).ToString().Trim();
+                                string THandoverType = r.ItemArray.GetValue(18).ToString().Trim();
+
+                                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column cardDesing">
+                                    <div class="card bg-light d-flex flex-fill">
+                                        <div class="footer1 modal-footer justify-content-between">
+                                            <div>
+                                                <h5 class="mb-0 lead font-weight-bold">@r.ItemArray.GetValue(3).ToString().Trim() -   <span class="lead font-weight-bold text-primary">@r.ItemArray.GetValue(1).ToString().Trim()</span> </h5>
+                                                <ul class="ml-1 mb-0 fa-ul text-muted">
+                                                    <li class="small"> @r.ItemArray.GetValue(7).ToString().Trim()  </li>
+                                                    <li class="small text-danger">@r.ItemArray.GetValue(12).ToString().Trim()</li>
+                                                </ul>
+                                            </div>
+
+
+                                            <a href="/Hardware/DevicesFullView?itNO=@itNO" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+
+
+
+                                        </div>
+                                        <div class="card-body pt-0">
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <ul class="ml-7 mb- fa-ul text-muted">
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> @r.ItemArray.GetValue(2).ToString().Trim() </li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> @r.ItemArray.GetValue(4).ToString().Trim() </li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> @r.ItemArray.GetValue(6).ToString().Trim()</li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="col-5 text-center">
+                                                    <img src="@path" alt="user-avatar" class="img-fluid" width="50%">
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fas fa-cogs"></i></span> @r.ItemArray.GetValue(5).ToString().Trim() </li>
+                                            </ul>
+                                        </div>
+
+
+
+
+                                        <div class="footer2 modal-footer justify-content-lg-start">
+                                            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                            <div>
+
+                                                <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                   data-target="#TechnicalAssesmentModal"
+                                                   data-itNo="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                   data-TechnicalAssesment="@r.ItemArray.GetValue(13).ToString().Trim()"
+                                                   data-DutyID="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                   data-ItemType="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                   data-ItemTypeCode="@r.ItemArray.GetValue(20).ToString().Trim()"
+                                                   data-FaultTypeIDs="@r.ItemArray.GetValue(19).ToString().Trim()"
+                                                   title="Technical Assesment">
+                                                    <i class="fas fa-cogs"></i>
+                                                </a>
+
+
+                                                @if (!string.IsNullOrEmpty(r.ItemArray.GetValue(13).ToString().Trim()) || !string.IsNullOrEmpty(r.ItemArray.GetValue(19).ToString().Trim()))
+                                                {
+
+                                                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                       data-target="#SolutionModal"
+                                                       data-itno1="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                       data-solution="@r.ItemArray.GetValue(14).ToString().Trim()"
+                                                       data-dutyid1="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                       data-itemtype1="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                       data-itemtypecode1="@r.ItemArray.GetValue(20).ToString().Trim()"
+                                                       data-solutiontypeids="@r.ItemArray.GetValue(21).ToString().Trim()"
+                                                       title="Technical Solution">
+                                                        <i class="fas fa-stethoscope"></i>
+                                                    </a>
+                                                }
+                                            </div>
+                                            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+
+                                            @if (!string.IsNullOrEmpty(r.ItemArray.GetValue(13).ToString().Trim()) ||
+                                                !string.IsNullOrEmpty(r.ItemArray.GetValue(19).ToString().Trim()))
+                                            {
+
+                                                <div class="dropup">
+                                                    <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Request To
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
+                                                        <li>
+                                                            <a href="#" class="dropdown-item outside-repair" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                               data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                               data-dutyid="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                               title="Request Outside Repair">
+                                                                <i class="fas fa-tools"></i> Outside Repair
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="#" class="dropdown-item text-primary request-warranty" data-bs-toggle="tooltip" data-bs-placement="top" data-toggle="modal"
+                                                               data-target="#WarrantyModal"
+                                                               data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                               data-dutyid="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                               title="Warranty Call">
+                                                                <i class="fas fa-phone-volume"></i> Warranty
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="#" class="dropdown-item text-success request-transferIT" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                               data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                               data-dutyid="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                               title="Transfer IT">
+                                                                <i class="fas fa-download"></i> Transfer IT
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="#" class="dropdown-item text-danger request-dispose" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                               data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                               data-dutyid="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                               title="Request To Dispose">
+                                                                <i class="fas fa-trash-alt"></i> Dispose
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            }
+
+
+                                            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+
+                                            @if ((!string.IsNullOrEmpty(r.ItemArray.GetValue(13).ToString().Trim()) ||
+                                            !string.IsNullOrEmpty(r.ItemArray.GetValue(19).ToString().Trim())) &&
+                                            (!string.IsNullOrEmpty(r.ItemArray.GetValue(14).ToString().Trim()) ||
+                                            !string.IsNullOrEmpty(r.ItemArray.GetValue(21).ToString().Trim())) &&
+                                            r.ItemArray.GetValue(18).ToString().Trim() == "41")
+
+                                            {
+                                                <a href="#" class="btn btn-success btn-sm w-25 justify-content-lg-end" data-toggle="modal" data-itno="@r.ItemArray.GetValue(1).ToString().Trim()" data-DutyID="@r.ItemArray.GetValue(15).ToString().Trim()" title="Task Complete">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                            }
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+}
+
+
+@if (Model.CardTBL2 != null && Model.CardTBL2.Rows.Count > 0)
+{
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline card-green">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Comple Task
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row">
+
+                            @foreach (System.Data.DataRow r in Model.CardTBL2.Rows)
+                            {
+
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string itNO = r.ItemArray.GetValue(1).ToString().Trim();
+
+                                <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch flex-column cardDesing">
+                                    <div class="card bg-light d-flex flex-fill">
+                                        <div class="footer modal-footer justify-content-between">
+                                            <div>
+                                                <h5 class="mb-0 lead font-weight-bold"> <span class="lead font-weight-bold text-primary">@r.ItemArray.GetValue(1).ToString().Trim()</span> </h5>
+                                                <ul class="ml-1 mb-0 fa-ul text-muted">
+                                                    <li class="small text-danger">@r.ItemArray.GetValue(4).ToString().Trim()</li>
+                                                </ul>
+                                            </div>
+
+                                            <a href="/Hardware/DevicesFullView?itNO=@itNO" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+
+                                        </div>
+                                        <div class="card-body pt-0">
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <ul class="ml-7 mb- fa-ul text-muted">
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> @r.ItemArray.GetValue(2).ToString().Trim() </li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> @r.ItemArray.GetValue(3).ToString().Trim() </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-5 text-center">
+                                                    <img src="@path" alt="user-avatar" class="img-fluid" width="50%">
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <span class="text-info">@r.ItemArray.GetValue(22).ToString().Trim()</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+}
+
+
+
+
+@*Technical Assesment*@
+<div class="modal fade" id="TechnicalAssesmentModal" tabindex="-1" role="dialog" aria-labelledby="TechnicalAssesmentModalLabel" aria-hidden="true">
+    <form id="TechnicalAssesmentModalForm" action='/Hardware/TASubmit' method="post">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title" id="TechnicalAssesmentModalLabel">
+                        <i class="fas fa-tools"></i>&nbsp; Technical Assesment on - <span id="itNOLabel"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="d-flex">
+                                    <input type="hidden" class="form-control " id="DutyID" name="DutyID" />
+                                    <input type="hidden" class="form-control" id="ItemType" name="ItemType" />
+                                    <input type="hidden" class="form-control" id="ItemTypeCode" name="ItemTypeCode" />
+                                    <input type="hidden" class="form-control" id="FaultTypeIDs" name="FaultTypeIDs" />
+                                    <input type="hidden" class="form-control" id="SFaultTypeIDs" name="SFaultTypeIDs" />
+                                </div>
+
+                                <label for="reason">Technical Assesment &nbsp;<span style="color: red;">*</span></label>
+                                <select class="select2" id="faultList" name="FaultList" multiple required></select>
+                                <br />
+
+                                <div class="form-group">
+                                    <label for="reason">Other Assesment</label>
+                                    <textarea class="form-control" id="TechnicalAssesment" name="TechnicalAssesment" rows="7"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="width: 200px;">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@*Technical Solution*@
+<div class="modal fade" id="SolutionModal" tabindex="-1" role="dialog" aria-labelledby="SolutionModalLabel" aria-hidden="true">
+    <form id="SolutionModalForm" action='/Hardware/Solution' method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title" id="TechnicalAssesmentModalLabel">
+                        <i class="fas fa-tools"></i>&nbsp; Technical Solution on - <span id="itNOLabel1"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="d-flex">
+                                    <input type="hidden" class="form-control" id="DutyID1" name="DutyID1" />
+                                    <input type="hidden" class="form-control" id="ItemType1" name="ItemType1" />
+                                    <input type="hidden" class="form-control" id="ItemTypeCode1" name="ItemTypeCode1" />
+                                    <input type="hidden" class="form-control" id="SolutionTypeIDs" name="SolutionTypeIDs" />
+                                    <input type="hidden" class="form-control" id="SSolutionTypeIDs" name="SSolutionTypeIDs" />
+                                </div>
+
+                                <label for="reason">Technical Solution &nbsp;<span style="color: red;">*</span></label>
+                                <select class="select2" id="solutionList" name="SolutionList" multiple required></select>
+                                <br />
+
+                                <div class="form-group">
+                                    <label for="reason">Other Solution</label>
+                                    <textarea class="form-control" id="Solution" name="Solution" rows="7"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="width: 200px;">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@*Request Warranty*@
+<div class="modal fade" id="WarrantyModal" tabindex="-1" role="dialog" aria-labelledby="WarrantyModalLabel" aria-hidden="true">
+    <form id="WarrantyModalForm" action='/Hardware/AddWarranty' method="post">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title" id="WarrantyModalLabel">
+                        <i class="fas fa-phone-volume"></i>&nbsp;&nbsp;Call warranty to - <span id="witno" style="color: blue;"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="txtWitno" name="Witno" hidden>
+                    <input type="text" class="form-control" id="txtWdutyid" name="Wdutyid" hidden>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="reason">Warranty Call date &nbsp;<span style="color: red;">*</span></label>
+                        <input type="date" class="form-control" name="WcallDate" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company Name &nbsp;<span style="color: red;">*</span></label>
+                        <div>
+                            <input type="text" id="WcompanyInput" class="form-control" autocomplete="off" oninput="filterCompanyOptions()" required />
+                            <select id="WcompanySelect" class="form-control position-absolute" size="5" style="max-height: 100px; overflow-y: auto; display: none; z-index: 1; width: 100%; background-color:#f2fbff;" onclick="selectCompanyOption()">
+                            </select>
+                            <input type="text" id="Wcompany" class="form-control d-none" name="Wcompany" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reason">Contact Person </label>
+                        <input type="text" class="form-control" name="WcontactP" />
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason for call warranty &nbsp;<span style="color: red;">*</span></label>
+                        <textarea class="form-control" name="Wremaks" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="width: 200px;">Complete</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+@*Technical Assesment*@
+<script>
+
+    $(document).ready(function () {
+        $('#TechnicalAssesmentModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var itNo = button.data('itno');
+            var technicalAssessment = button.data('technicalassesment');
+            var dutyID = button.data('dutyid');
+            var faultTypeIDs = button.data('faulttypeids');
+            var itemType = button.data('itemtype');
+            var itemTypeCode = button.data('itemtypecode');
+
+            $('#SFaultTypeIDs').val('');
+            $('#itNOLabel').text(itNo);
+            $('#TechnicalAssesment').val(technicalAssessment);
+            $('#DutyID').val(dutyID);
+            $('#FaultTypeIDs').val(faultTypeIDs);
+            $('#ItemType').val(itemType);
+            $('#ItemTypeCode').val(itemTypeCode);
+
+
+            loadFaultList(itemType, dutyID, faultTypeIDs, itemTypeCode);
+        });
+
+        function loadFaultList(itemType, dutyID, faultTypeIDs, itemTypeCode) {
+            $.ajax({
+                url: '/Hardware/GetFaultList',
+                type: 'POST',
+                data: { itemType: itemType, dutyID: dutyID, itemTypeCode: itemTypeCode },
+                success: function (data) {
+                    var list = data.data;
+                    var dropdown = $('#faultList');
+                    dropdown.empty();
+
+                    if (list && list.length > 0) {
+
+                        $.each(list, function (index, fault) {
+                            var option = $('<option></option>').val(fault.Value).text(fault.Text);
+                            dropdown.append(option);
+                        });
+
+                        if (faultTypeIDs) {
+
+                            var faultTypeArray;
+
+                            if (typeof faultTypeIDs === 'string' && faultTypeIDs.includes(',')) {
+                                faultTypeArray = faultTypeIDs.split(',').map(function (id) { return id.trim(); });
+                                faultTypeArray.forEach(function (faultId) {
+                                    dropdown.find('option').each(function () {
+                                        var optionValue = $(this).val().trim();
+                                        if (optionValue === faultId) {
+                                            $(this).prop('selected', true);
+                                        }
+                                    });
+                                });
+                            }
+
+                            else {
+                                dropdown.find('option').each(function () {
+                                    var optionValue = $(this).val().trim();
+                                    console.log('Option Value:', optionValue, 'faultTypeIDs:', faultTypeIDs);
+                                    if (String(optionValue) === String(faultTypeIDs)) {
+                                        $(this).prop('selected', true);
+                                    }
+                                });
+                                $('#SFaultTypeIDs').val(faultTypeIDs);
+                            }
+
+                            $('#SFaultTypeIDs').val(faultTypeArray.join(','));
+                        }
+
+                    } else {
+                        dropdown.append('<option value="">No Fault available</option>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Error fetching fault list. Please try again.');
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+
+        $('#faultList').change(function () {
+            var selectedValues = $(this).val();
+            $('#SFaultTypeIDs').val(selectedValues ? selectedValues.join(',') : '');
+        });
+
+
+        $('#TechnicalAssesmentModalForm').submit(function (e) {
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Hardware/TASubmit',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+
+                        $('#TechnicalAssesmentModal').modal('hide');
+                        location.reload();
+                    } else {
+                        location.reload();
+
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while submitting the form.");
+                }
+            });
+        });
+    });
+
+</script>
+
+
+@*Technical Solution*@
+<script>
+    $(document).ready(function () {
+        $('#SolutionModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var itNo1 = button.data('itno1');
+            var solution = button.data('solution');
+            var dutyID1 = button.data('dutyid1');
+            var solutionTypeIDs = button.data('solutiontypeids');
+            var itemType1 = button.data('itemtype1');
+            var itemTypeCode1 = button.data('itemtypecode1');
+
+            $('#SSolutionTypeIDs').val('');
+            $('#itNOLabel1').text(itNo1);
+            $('#Solution').val(solution);
+            $('#DutyID1').val(dutyID1);
+            $('#SolutionTypeIDs').val(solutionTypeIDs);
+            $('#ItemType1').val(itemType1);
+            $('#ItemTypeCode1').val(itemTypeCode1);
+
+            loadSolutionList(itemType1, dutyID1, solutionTypeIDs, itemTypeCode1);
+        });
+
+        function loadSolutionList(itemType1, dutyID1, solutionTypeIDs, itemTypeCode1) {
+            $.ajax({
+                url: '/Hardware/GetSolutionList',
+                type: 'POST',
+                data: { itemType1: itemType1, dutyID1: dutyID1, itemTypeCode1: itemTypeCode1 },
+                success: function (data) {
+                    var list = data.data;
+                    var dropdown = $('#solutionList');
+                    dropdown.empty();
+
+                    if (list && list.length > 0) {
+                        $.each(list, function (index, solution) {
+                            var option = $('<option></option>').val(solution.Value).text(solution.Text);
+                            dropdown.append(option);
+                        });
+
+                        if (solutionTypeIDs) {
+                            var solutionTypeArray;
+
+                            if (typeof solutionTypeIDs === 'string' && solutionTypeIDs.includes(',')) {
+                                solutionTypeArray = solutionTypeIDs.split(',').map(function (id) { return id.trim(); });
+                                solutionTypeArray.forEach(function (solutionId) {
+                                    dropdown.find('option').each(function () {
+                                        var optionValue = $(this).val().trim();
+                                        if (optionValue === solutionId) {
+                                            $(this).prop('selected', true);
+                                        }
+                                    });
+                                });
+                            } else {
+                                dropdown.find('option').each(function () {
+                                    var optionValue = $(this).val().trim();
+                                    if (String(optionValue) === String(solutionTypeIDs)) {
+                                        $(this).prop('selected', true);
+                                    }
+                                });
+                                $('#SSolutionTypeIDs').val(solutionTypeIDs);
+                            }
+
+                            $('#SSolutionTypeIDs').val(solutionTypeArray.join(','));
+                        }
+
+                    } else {
+                        dropdown.append('<option value="">No Solution available</option>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Error fetching solution list. Please try again.');
+                    console.error('Error fetching data:', error);
+                }
+            });
+
+            $('#solutionList').change(function () {
+                var selectedValues = $(this).val();
+                $('#SSolutionTypeIDs').val(selectedValues ? selectedValues.join(',') : '');
+            });
+        }
+
+        // Form submission
+        $('#SolutionModalForm').submit(function (e) {
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Hardware/SoSubmit',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        $('#SolutionModal').modal('hide');
+                        location.reload();
+                    } else {
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while submitting the form.");
+                }
+            });
+        });
+    });
+</script>
+
+
+@*Repair Complete*@
+<script>
+    $(document).ready(function () {
+        $('.btn-success').on('click', function () {
+            const itno = $(this).data('itno');
+            const dutyID = $(this).data('dutyid');
+
+            Swal.fire({
+                title: 'Have you completed this task?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, the task is complete!',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        itno: itno,
+                        dutyID: dutyID
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/TaskComplete',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            Swal.fire({
+                                title: 'Completed!',
+                                text: 'Task has been completed successfully.',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload();
+                            });
+
+                        },
+                        error: function (error) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred while completing the task.',
+                                'error'
+                            );
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+@*Repair Request Outside*@
+<script>
+    $(document).ready(function () {
+        $('.outside-repair').on('click', function () {
+            const itno = $(this).data('itno');
+            const dutyID = $(this).data('dutyid');
+
+            Swal.fire({
+                title: 'Are you sure you want to repair outside?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, Request Outside Repair!',
+                cancelButtonColor: '#d33',
+                input: 'textarea',
+                inputPlaceholder: 'Enter reason for Outside Repair...',
+                inputAttributes: {
+                    'aria-label': 'Enter reason for Outside Repair'
+                },
+                inputValidator: (value) => {
+                    if (!value.trim()) {
+                        return 'Repair reason is required!';
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        itno: itno,
+                        dutyID: dutyID,
+                        Rreason: result.value.trim()
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/OutsideRepair',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('Error!', response.message, 'error');
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + (xhr.responseText || xhr.statusText),
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+@*Request Dispose*@
+<script>
+    $(document).ready(function () {
+        $('.request-dispose').on('click', function () {
+            const itno = $(this).data('itno');
+            const dutyID = $(this).data('dutyid');
+            const DisposeID = $(this).data('disposeid');
+
+            Swal.fire({
+                title: 'Do you want to dispose this item?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, Request to Dispose!',
+                cancelButtonColor: '#d33',
+                input: 'textarea',
+                inputPlaceholder: 'Enter reason for disposal...',
+                inputAttributes: {
+                    'aria-label': 'Enter reason for disposal'
+                },
+                inputValidator: (value) => {
+                    if (!value.trim()) {
+                        return 'Dispose reason is required!';
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        itno: itno,
+                        dutyID: dutyID,
+                        DisposeID: DisposeID,
+                        reason: result.value.trim()
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/RequestDispose',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + xhr.responseText,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+@*Request TransferIT*@
+<script>
+    $(document).ready(function () {
+        $('.request-transferIT').on('click', function () {
+            const itno = $(this).data('itno');
+            const dutyID = $(this).data('dutyid');
+            const DisposeID = $(this).data('DisposeID');
+
+            Swal.fire({
+                title: 'Do you want transfer this item to IT?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, Transfer to IT!',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        itno: itno,
+                        dutyID: dutyID,
+                        DisposeID: DisposeID
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/RequestTransferIT',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + xhr.responseText,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+<script>
+    function filterCompanyOptions() {
+        const input = document.getElementById('WcompanyInput');
+        const filter = input.value.toLowerCase();
+        const select = document.getElementById('WcompanySelect');
+        const options = select.options;
+
+        let hasVisibleOptions = false;
+
+        for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            if (option.text.toLowerCase().includes(filter)) {
+                option.style.display = '';
+                hasVisibleOptions = true;
+            } else {
+                option.style.display = 'none';
+            }
+        }
+
+        select.style.display = hasVisibleOptions ? 'block' : 'none';
+    }
+
+    function selectCompanyOption() {
+        const select = document.getElementById('WcompanySelect');
+        const input = document.getElementById('WcompanyInput');
+        const hiddenInput = document.getElementById('Wcompany');
+
+        const selectedOption = select.options[select.selectedIndex];
+        input.value = selectedOption.text;
+        hiddenInput.value = selectedOption.value;
+        select.style.display = 'none';
+    }
+
+    document.getElementById('WcompanyInput').addEventListener('focus', function () {
+        document.getElementById('WcompanySelect').style.display = 'block';
+    });
+
+    document.getElementById('WcompanyInput').addEventListener('blur', function () {
+        setTimeout(() => {
+            document.getElementById('WcompanySelect').style.display = 'none';
+        }, 200);
+    });
+
+    document.getElementById('WcompanySelect').addEventListener('blur', function () {
+        document.getElementById('WcompanySelect').style.display = 'none';
+    });
+
+    $(".request-warranty").click(function () {
+        var witno = $(this).attr("data-itno");
+        var wdutyid = $(this).attr("data-dutyid");
+
+        $("#txtWitno").val(witno);
+        $("#txtWdutyid").val(wdutyid);
+        $("#witno").text(witno);
+
+
+        $("#WarrantyModalForm").submit(function (e) {
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: '/Hardware/AddWarranty',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+
+                        $('#WarrantyModal').modal('hide');
+                        location.reload();
+                    } else {
+                        location.reload();
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error submitting warranty data: " + error);
+                }
+            });
+        });
+
+
+
+        $.ajax({
+            url: '/Hardware/GetCompanyNames',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var companyDropdown = $("#WcompanySelect");
+                companyDropdown.empty();
+
+                $.each(data, function (index, company) {
+                    companyDropdown.append('<option value="' + company + '">' + company + '</option>');
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching company names: " + error);
+            }
+        });
+    });
+
+</script>

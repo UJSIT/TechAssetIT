@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "ItemTypeDataView";
+}
+@model slbfeHardware.Models.EnterItemsModel
+
+<style>
+    body {
+        background-image:url("../../Content/images/bur1.jpg");
+        background-size:cover;
+    }
+</style>
+
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" /> *@
+<!--<link href="../../Content/ajax(search).css" rel="stylesheet" />-->
+
+@*<link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css" /> *@
+<!--<link href="../../Content/datatableview.css" rel="stylesheet" />-->
+
+@*<script src="https://code.jquery.com/jquery-3.7.1.js"></script>*@
+<!--<script src="../../Content/jquert371.js"></script>-->
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>*@
+<!--<script src="../../Content/bootstrap530.js"></script>-->
+
+@*<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>*@
+<!--<script src="../../Content/datatable202.js"></script>-->
+
+@*<script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>*@
+<!--<script src="../../Content/bootstrap5dt.js"></script>-->
+
+
+<div class="w-100 p-3" style="background-color:rgba(163, 160, 160, 0.80)">
+    <h2 class="text-center text-bold skippy text-dark">Item Types</h2>
+</div></br>
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-bordered table-success table-striped" id="example">
+            <thead>
+                <tr>
+                    <th>Item Type Code</th> 
+                    <th>Item Type</th>                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow r in Model.dt4.Rows)
+                {
+                    <tr>
+                        <td>@r.ItemArray.GetValue(0).ToString()</td> 
+                        <td>@r.ItemArray.GetValue(1).ToString()</td>
+                                               
+                    </tr> 
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

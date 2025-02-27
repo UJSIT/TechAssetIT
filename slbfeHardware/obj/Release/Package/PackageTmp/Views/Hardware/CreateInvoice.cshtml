@@ -1,0 +1,308 @@
+﻿@{
+    ViewBag.Title = "Create Invoice";
+}
+@model slbfeHardware.Models.InvoicenGRNModel
+
+<style>
+    .custom-file-upload {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+        .custom-file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            margin-bottom: 0px;
+        }
+
+        .custom-file-upload .btn {
+            display: inline-block;
+            width: 100%;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 0px;
+        }
+
+            .custom-file-upload .btn:hover {
+                background-color: #0056b3;
+            }
+
+    .file-name {
+        margin-top: 5px;
+        font-style: italic;
+        color: #555;
+    }
+</style>
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <h3 class="mb-0"><b>Create Invoice</b></h3>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Create Invoice</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+<form method="post" action="Submit_Invoice_Data" enctype="multipart/form-data" class="form-horizontal" id="invoice-form">
+
+
+    <section class="content">
+        <div class="row">
+            <!-- Left Section -->
+            <div class="col-md-6">
+                <div class="card card-outline card-info">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="card-title">
+                            <b>Invoice Details</b>
+                        </h3>
+                        <div style="text-align: right;">
+                            <a href="Suppliers?RedirectType=InvoiceNewSupplier" class="btn btn-block btn-outline-dark">
+                                <i class="fas fa-cart-plus"></i>&nbsp; Add New Supplier
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 d-none">
+                        <label class="text-dark fw-bold col-2">Invoice Reference No</label>
+                        <div class="col-4">
+                            @Html.TextBoxFor(m => m.Invoice_Reference, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "ref1" })
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">Company Name&nbsp;<span style="color: red;">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Name_of_Supplier, new { @list = "browsers", @type = "text", @class = "form-control", required = "required", @id = "supName", autocomplete = "off" })
+                                <datalist id="browsers">
+                                    @foreach (var row in Model.CompanySelectList)
+                                    {
+                                        <option value="@row.Text"></option>
+                                    }
+                                </datalist>
+                                <!-- Error message element -->
+                                <span id="supplier-error" style="color: red; display: none;">Company not in the list.</span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">Invoice No&nbsp;<span style="color: red;">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Invoice_No, new { @type = "text", @class = "form-control", required = "required", @id = "invoNo", autocomplete = "off" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">Invoice Date&nbsp;<span style="color: red;">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Invoice_Date, new { @type = "date", @class = "form-control", @id = "invoDate", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">Total Amount</label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Total_Amount, new { @type = "number", @step = "any", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">Vat</label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Vat, new { @type = "number", @step = "any", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">Discount Amount</label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Dicount_Amount, new { @type = "number", @step = "any", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">Invoice PDF&nbsp;<span style="color: red;">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="custom-file-upload">
+                                    <label class="btn btn-block btn-outline-dark">
+                                        <i class="fas fa-file-upload"></i> &nbsp; Choose File
+                                        <input type="file" name="InvImgfile" accept="application/pdf" required onchange="showFileName(event)">                                       
+                                    </label>
+                                </div>
+                                <div class="custom-file-upload">
+                                    <div class="file-name" id="file-name">No file chosen - </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Right Section -->
+            <div class="col-md-6">
+                <div class="card card-outline card-info">
+                    <div class="card-header">
+                        <h3 class="card-title"><b>GRN Details</b></h3>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">GRN Number&nbsp;<span style="color: red;">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.GRN_No, new { @type = "text", @class = "form-control", id = "grnNo", autocomplete = "off", required = "required" })
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">GRN Date&nbsp;<span style="color: red;">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.GRN_Date, new { @type = "date", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+
+
+                        <hr />
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="text-dark fw-bold">P.O No&nbsp;<span style="color: red;">*</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.PO_No, new { @type = "text", @class = "form-control", @id = "poNo", autocomplete = "off", required = "required" })
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="card card-outline card-info">
+                    <div class="card-header">
+                        <h3 class="card-title"><b>Remaks</b></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(m => m.Remarks, new { @type = "text", @class = "form-control", @style = "height: 140px;" })
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="card">
+            <div class="card-footer ">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <a class="btn btn-block col-sm-6 btn-outline-danger" href="/Hardware/Dashboard">Cancel</a>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-info col-sm-6 float-right" id="btn1">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+       
+</form>
+
+<script>
+    function showFileName(event) {
+        var input = event.target;
+        var file = input.files.length > 0 ? input.files[0] : null;
+        var fileNameDisplay = document.getElementById('file-name');
+
+        if (file) {
+            if (file.type !== "application/pdf") {
+                alert("Please select a valid PDF file.");
+                input.value = ""; // Reset the input field
+                fileNameDisplay.innerText = "No file chosen"; // Reset displayed name
+            } else {
+                fileNameDisplay.innerText = file.name;
+            }
+        } else {
+            fileNameDisplay.innerText = "No file chosen";
+        }
+    }
+</script>
+
+<script>
+    //function showFileName(event) {
+    //    var input = event.target;
+    //    var fileName = input.files.length > 0 ? input.files[0].name : 'No file chosen';
+    //    document.getElementById('file-name').innerText = fileName;
+    //}
+
+    document.getElementById('invoice-form').addEventListener('submit', function (event) {
+        var supplierInput = document.getElementById('supName').value;
+        var suppliers = Array.from(document.getElementById('browsers').options).map(option => option.value);
+
+        if (!suppliers.includes(supplierInput)) {
+            event.preventDefault(); // Prevent form submission
+            var errorElement = document.getElementById('supplier-error');
+            errorElement.innerText = "Company not in the list.";
+            errorElement.style.display = 'block';
+
+            // Hide the error message automatically after 5 seconds
+            setTimeout(function () {
+                errorElement.style.display = 'none';
+            }, 3000);
+        } else {
+            document.getElementById('supplier-error').style.display = 'none'; // Hide error message
+        }
+    });
+</script>

@@ -1,0 +1,1692 @@
+﻿@{
+    ViewBag.Title = "Device Details";
+
+}
+
+<script>
+    $(document).ready(function () {
+        var table = $("#HanTBL").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "order": [[0, 'desc']],
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "dom": 'Bfrtip', 
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        });
+
+        table.buttons().container().appendTo('#HanTBL_wrapper .col-md-6:eq(0)');
+    });
+
+    $(document).ready(function () {
+        var table = $("#TaskTBL").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "order": [[0, 'desc']],
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "dom": 'Bfrtip', 
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        });
+
+        table.buttons().container().appendTo('#HanTBL_wrapper .col-md-6:eq(0)');
+    });
+
+    $(document).ready(function () {
+        var table = $("#OReTBL").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "order": [[0, 'desc']],
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "dom": 'Bfrtip', 
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        });
+
+        table.buttons().container().appendTo('#HanTBL_wrapper .col-md-6:eq(0)');
+    });
+
+    $(document).ready(function () {
+        var table = $("#COTBL").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "order": [[0, 'desc']],
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "dom": 'Bfrtip',
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        });
+
+        table.buttons().container().appendTo('#HanTBL_wrapper .col-md-6:eq(0)');
+    });
+
+    $(document).ready(function () {
+        var table = $("#DISTBL").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "order": [[0, 'desc']],
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "dom": 'Bfrtip', 
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        });
+
+        table.buttons().container().appendTo('#HanTBL_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
+<style>
+    .custom-badge {
+        font-size: 18px;
+    }
+</style>
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Device Details - <span class="text-danger">@ViewBag.ItNO</span> </b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Device Details</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- /.card -->
+<div class="col-12 col-sm-12">
+    <div class="card card-info card-outline card-tabs">
+        <div class="card-header p-0 pt-1 border-bottom-0">
+
+            <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-four-1-tab" data-toggle="pill" href="#custom-tabs-four-1" role="tab" aria-controls="custom-tabs-four-1" aria-selected="true">Device</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-2-tab" data-toggle="pill" href="#custom-tabs-three-2" role="tab" aria-controls="custom-tabs-three-2" aria-selected="false">Location</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-3-tab" data-toggle="pill" href="#custom-tabs-three-3" role="tab" aria-controls="custom-tabs-three-3" aria-selected="false">Invoice</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-9-tab" data-toggle="pill" href="#custom-tabs-three-9" role="tab" aria-controls="custom-tabs-three-9" aria-selected="false">Specification</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-4-tab" data-toggle="pill" href="#custom-tabs-three-4" role="tab" aria-controls="custom-tabs-three-4" aria-selected="false">Permanent Handover</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-5-tab" data-toggle="pill" href="#custom-tabs-three-5" role="tab" aria-controls="custom-tabs-three-5" aria-selected="false">Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-10-tab" data-toggle="pill" href="#custom-tabs-three-10" role="tab" aria-controls="custom-tabs-three-10" aria-selected="false">Outside Repair</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-8-tab" data-toggle="pill" href="#custom-tabs-three-8" role="tab" aria-controls="custom-tabs-three-8" aria-selected="false">Courier</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-6-tab" data-toggle="pill" href="#custom-tabs-three-6" role="tab" aria-controls="custom-tabs-three-6" aria-selected="false">Dispose</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-7-tab" data-toggle="pill" href="#custom-tabs-three-7" role="tab" aria-controls="custom-tabs-three-7" aria-selected="false">In Process</a>
+                </li>
+            </ul>
+
+        </div>
+
+
+
+        <div class="card-body">
+            <div class="tab-content" id="custom-tabs-three-tabContent">
+
+                <!-- Device start -->
+                <div class="tab-pane fade show active" id="custom-tabs-four-1" role="tabpanel" aria-labelledby="custom-tabs-four-1-tab">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="col-12">
+                                <center>
+                                    <br />
+                                    <img src="/Content/Icon/@(Model.Item_Type).png" alt="Device picture" width="50%" />
+                                    <h5><strong>@Model.Item_Type</strong>
+                                </center>
+                                </h5>
+                                </center>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-12 col-sm-6">
+                            <br />
+                            <Center><h5 class="text-primary"><strong>Device Details</strong></h5></Center><br />
+                            <div class="table-responsive">
+                                <center>
+                                    <table class="table">
+
+                                        @foreach (System.Data.DataRow r in Model.Dinfor.Rows)
+                                        {
+                                            <tr>
+                                                <th>IT No</th>
+                                                <td>@r.ItemArray.GetValue(0).ToString().Trim()</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Serial No</th>
+                                                <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                            </tr>
+                                            <tr>
+                                                <th>INV No</th>
+                                                <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                            </tr>
+                                            <tr>
+                                                <th>QR</th>
+                                                <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Current Status</th>
+
+                                                <td>
+                                                    <span class="badge badge-success custom-badge">
+                                                        <strong>@r.ItemArray.GetValue(8).ToString().Trim()</strong>
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+
+                                        }
+
+                                    </table>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End -->
+                <!-- Location start -->
+                <div class="tab-pane fade" id="custom-tabs-three-2" role="tabpanel" aria-labelledby="custom-tabs-three-2-tab">
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+
+                        <div class="col-md-6">
+                            <br />
+
+                            <Center><h5 class="text-primary"><strong>Location Details</strong></h5class="text-primary"></Center><br />
+                            <div class="table-responsive">
+
+                                <table class="table">
+
+                                    @foreach (System.Data.DataRow r in Model.Dinfor.Rows)
+                                    {
+                                        <tr>
+                                            <th>Purchased Division</th>
+                                            <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Current Location</th>
+                                            <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Authorized Officer</th>
+                                            <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Installation Date</th>
+                                            <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                        </tr>
+
+
+
+                                    }
+
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End -->
+                <!-- Invoice start -->
+                <div class="tab-pane fade" id="custom-tabs-three-3" role="tabpanel" aria-labelledby="custom-tabs-three-3-tab">
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+
+                        <div class="col-md-6">
+                            <br />
+                            <Center><h5 class="text-primary"><strong>Invoice Details</strong></h5></Center><br />
+                            <div class="table-responsive">
+
+                                @{
+                                    DateTime? purchaseDate = null;
+                                    string purchasingPrice = string.Empty;
+                                    
+                                    if (Model.UPHTbl.Rows.Count > 0)
+                                    {
+                                        System.Data.DataRow firstRow = Model.UPHTbl.Rows[0];
+                                        purchaseDate = DateTime.Parse(firstRow.ItemArray.GetValue(0).ToString().Trim());
+                                        purchasingPrice = firstRow.ItemArray.GetValue(1).ToString().Trim();
+                                    }
+                                }
+
+                                <table class="table">
+                                    @foreach (System.Data.DataRow r in Model.InvTbl.Rows)
+                                    {
+                                        string companyName = r.ItemArray.GetValue(6).ToString().Trim();
+                                        string invoiceNo = r.ItemArray.GetValue(3).ToString().Trim();
+                                        DateTime invoiceDate = purchaseDate ?? DateTime.Parse(r.ItemArray.GetValue(4).ToString().Trim()); // Override if UPHTbl has data
+                                        string poNo = r.ItemArray.GetValue(5).ToString().Trim();
+                                        string grnNo = r.ItemArray.GetValue(7).ToString().Trim();
+                                        DateTime grnDate = DateTime.Parse(r.ItemArray.GetValue(8).ToString().Trim());
+                                        string unitPrice = !string.IsNullOrEmpty(purchasingPrice) ? purchasingPrice : r.ItemArray.GetValue(10).ToString().Trim(); // Override if UPHTbl has data
+                                        string warrantyPeriod = r.ItemArray.GetValue(9).ToString().Trim();
+                                        DateTime today = DateTime.Today;
+                                        DateTime warrantyEndDate = invoiceDate;
+                                        string warrantyStatus = "No Warranty";
+
+                                        if (warrantyPeriod != "None")
+                                        {
+                                            switch (warrantyPeriod)
+                                            {
+                                                case "3 Months":
+                                                    warrantyEndDate = invoiceDate.AddMonths(3);
+                                                    break;
+                                                case "6 Months":
+                                                    warrantyEndDate = invoiceDate.AddMonths(6);
+                                                    break;
+                                                case "1 Year":
+                                                    warrantyEndDate = invoiceDate.AddYears(1);
+                                                    break;
+                                                case "2 Year":
+                                                    warrantyEndDate = invoiceDate.AddYears(2);
+                                                    break;
+                                                case "3 Year":
+                                                    warrantyEndDate = invoiceDate.AddYears(3);
+                                                    break;
+                                            }
+                                            warrantyStatus = (today <= warrantyEndDate) ? "Under Warranty" : "Not Under Warranty";
+                                        }
+
+                                        <tr>
+                                            <th>Company Name</th>
+                                            <td>@companyName</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Invoice No</th>
+                                            <td>@invoiceNo</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Invoice Date</th>
+                                            <td>@invoiceDate.ToString("yyyy-MM-dd")</td>
+                                        </tr>
+                                        <tr>
+                                            <th>PO No</th>
+                                            <td>@poNo</td>
+                                        </tr>
+                                        <tr>
+                                            <th>GRN No</th>
+                                            <td>@grnNo</td>
+                                        </tr>
+                                        <tr>
+                                            <th>GRN Date</th>
+                                            <td>@grnDate.ToString("yyyy-MM-dd")</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Unit Price</th>
+                                            <td>@unitPrice</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Warranty Period</th>
+                                            <td>@warrantyPeriod</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Warranty Status</th>
+                                            @if (warrantyStatus == "Under Warranty")
+                                            {
+                                                <td>
+                                                    <span class="badge badge-success custom-badge">
+                                                        <strong>@warrantyStatus</strong>
+                                                    </span>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>@warrantyStatus</td>
+                                            }
+                                        </tr>
+                                    }
+                                </table>
+                             </div>
+
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End -->
+                <!-- Specification start -->
+                <div class="tab-pane fade" id="custom-tabs-three-9" role="tabpanel" aria-labelledby="custom-tabs-three-9-tab">
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+
+                        <div class="col-md-6">
+                            <br />
+                            <Center><h5 class="text-primary"><strong>Specification</strong></h5></Center><br />
+                            <div class="table-responsive">
+
+                                <table class="table">
+                                    @foreach (System.Data.DataRow r in Model.SpecTbl.Rows)
+                                    {
+                                        string Item_Type = r.ItemArray.GetValue(1).ToString().Trim();
+                                        string ShortCode = r.ItemArray.GetValue(2).ToString().Trim();
+                                        string BrandName = r.ItemArray.GetValue(3).ToString().Trim();
+                                        string Model_Name = r.ItemArray.GetValue(4).ToString().Trim();
+                                        string Processor = r.ItemArray.GetValue(5).ToString().Trim();
+                                        string ProcessorSpeed = r.ItemArray.GetValue(6).ToString().Trim();
+                                        string Memory = r.ItemArray.GetValue(7).ToString().Trim();
+                                        string Storage = r.ItemArray.GetValue(8).ToString().Trim();
+                                        string StorageType = r.ItemArray.GetValue(9).ToString().Trim();
+                                        string OperatingSystem = r.ItemArray.GetValue(10).ToString().Trim();
+                                        string ScreenSize = r.ItemArray.GetValue(11).ToString().Trim();
+                                        string PanelType = r.ItemArray.GetValue(12).ToString().Trim();
+                                        string SpeRemarks = r.ItemArray.GetValue(13).ToString().Trim();
+
+                                        <tr>
+                                            <th>Item Type</th>
+                                            <td>@Item_Type</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Brand Name</th>
+                                            <td>@BrandName</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Model Name</th>
+                                            <td>@Model_Name</td>
+                                        </tr>
+
+
+
+                                        if (ShortCode == "CPU")
+                                        {
+                                            <tr>
+                                                <th>Processor</th>
+                                                <td>@Processor</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Processor Speed GHz</th>
+                                                <td>@ProcessorSpeed</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Memory Gb</th>
+                                                <td>@Memory</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Storage Type</th>
+                                                <td>@StorageType</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Storage Size</th>
+                                                <td>@Storage</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Operating System</th>
+                                                <td>@OperatingSystem</td>
+                                            </tr>
+
+                                        }
+                                        if (ShortCode == "MTR")
+                                        {
+                                            <tr>
+                                                <th>Panel Type</th>
+                                                <td>@PanelType</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Screen Size</th>
+                                                <td>@ScreenSize</td>
+                                            </tr>
+                                        }
+
+                                        <tr>
+                                            <th>Remaks</th>
+                                            <td>@SpeRemarks</td>
+                                        </tr>
+
+
+                                    }
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End -->
+                <!-- HandoverStart -->
+                <div class="tab-pane fade" id="custom-tabs-three-4" role="tabpanel" aria-labelledby="custom-tabs-three-4-tab">
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br />
+                                <Center><h5 class="text-primary"><strong>Permanent Handover Details</strong></h5></Center><br />
+
+                                <div class="table-responsive">
+                                    <table id="HanTBL" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Handover status</th>
+
+                                                <th>Previous Location</th>
+                                                <th>Handover Location</th>
+                                                <th>AuthorizedOfficer</th>
+
+                                                <th>HandoverRequestDate</th>
+                                                <th>HandoverConfirmDate</th>
+
+                                                <th>More</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (System.Data.DataRow r in Model.HOHistory.Rows)
+                                            {
+                                                <tr>
+                                                    <td>@r.ItemArray.GetValue(0).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+
+                                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+
+                                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(19).ToString().Trim()</td>
+
+                                                    <td>
+                                                        <center>
+
+                                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#PerHandoverModal" title="View More"
+                                                                    data-id="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                                    data-hostatus="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                                    data-itno="@r.ItemArray.GetValue(2).ToString().Trim()"
+                                                                    data-currentlocation="@r.ItemArray.GetValue(3).ToString().Trim()"
+                                                                    data-handoverlocation="@r.ItemArray.GetValue(4).ToString().Trim()"
+                                                                    data-authorizedofficer="@r.ItemArray.GetValue(5).ToString().Trim()"
+                                                                    data-horecdate="@r.ItemArray.GetValue(6).ToString().Trim()"
+                                                                    data-horecremarks="@r.ItemArray.GetValue(7).ToString().Trim()"
+                                                                    data-sysredate="@r.ItemArray.GetValue(8).ToString().Trim()"
+                                                                    data-sysreuser="@r.ItemArray.GetValue(9).ToString().Trim()"
+                                                                    data-sysappuser="@r.ItemArray.GetValue(10).ToString().Trim()"
+                                                                    data-sysappdate="@r.ItemArray.GetValue(11).ToString().Trim()"
+                                                                    data-apprereson="@r.ItemArray.GetValue(12).ToString().Trim()"
+                                                                    data-hocomdate="@r.ItemArray.GetValue(13).ToString().Trim()"
+                                                                    data-houser="@r.ItemArray.GetValue(14).ToString().Trim()"
+                                                                    data-hocomremarks="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                                    data-syscomuser="@r.ItemArray.GetValue(16).ToString().Trim()"
+                                                                    data-syscomdate="@r.ItemArray.GetValue(17).ToString().Trim()"
+                                                                    data-horeceiver="@r.ItemArray.GetValue(18).ToString().Trim()"
+                                                                    data-conddate="@r.ItemArray.GetValue(19).ToString().Trim()"
+                                                                    data-condremaks="@r.ItemArray.GetValue(20).ToString().Trim()"
+                                                                    data-sysconduser="@r.ItemArray.GetValue(21).ToString().Trim()"
+                                                                    data-syscondate="@r.ItemArray.GetValue(22).ToString().Trim()">
+                                                                <i class="fas fa-expand-arrows-alt"></i>
+                                                            </button>
+
+
+
+                                                        </center>
+
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- HandoverEnd -->
+                <!-- TaskStart -->
+                <div class="tab-pane fade" id="custom-tabs-three-5" role="tabpanel" aria-labelledby="custom-tabs-three-5-tab">
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br />
+                                <center><h5 class="text-primary"><strong>Task Details</strong></h5></center><br />
+
+                                <div class="table-responsive">
+                                    <table id="TaskTBL" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Task Status</th>
+                                                <th>Sent Reason</th>
+                                                <th>Duty Assign Date</th>
+                                                <th>Duty Assign Officer</th>
+                                                <th>Duty Assign Officer SP</th>
+                                                <th>Repair Complete Date</th>
+                                                <th>Outside Request Date</th>
+                                                <th>More</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.TaskTbl != null && Model.TaskTbl.Rows.Count > 0)
+                                            {
+                                                foreach (System.Data.DataRow r in Model.TaskTbl.Rows)
+                                                {
+                                                    <tr>
+                                                        <td>@r[0].ToString().Trim()</td>
+                                                        <td>@r[1].ToString().Trim()</td>
+                                                        <td>@r[2].ToString().Trim()</td>
+                                                        <td>@r[3].ToString().Trim()</td>
+                                                        <td>@r[4].ToString().Trim()</td>
+                                                        <td>@r[5].ToString().Trim()</td>
+                                                        <td>@r[13].ToString().Trim()</td>
+                                                        <td>@r[14].ToString().Trim()</td>
+                                                        <td>
+                                                            <center>
+                                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#TaskModal"
+                                                                        title="View More"
+                                                                        data-dutyid="@r[0].ToString().Trim()"
+                                                                        data-status="@r[1].ToString().Trim()"
+                                                                        data-reason="@r[2].ToString().Trim()"
+                                                                        data-dutyassigndate="@r[3].ToString().Trim()"
+                                                                        data-dutyassignofficer="@r[4].ToString().Trim()"
+                                                                        data-dutyassignofficersp="@r[5].ToString().Trim()"
+                                                                        data-dutyassignremarks="@r[6].ToString().Trim()"
+                                                                        data-sysassignuser="@r[7].ToString().Trim()"
+                                                                        data-sysassigndate="@r[8].ToString().Trim()"
+                                                                        data-technicalassesmentids="@r[9].ToString().Trim()"
+                                                                        data-technicalassesment="@r[10].ToString().Trim()"
+                                                                        data-solutiontypeids="@r[11].ToString().Trim()"
+                                                                        data-solutions="@r[12].ToString().Trim()"
+                                                                        data-sysrcompletedate="@r[13].ToString().Trim()"
+                                                                        data-outsiderreqdate="@r[14].ToString().Trim()"
+                                                                        data-itno="@r[15].ToString().Trim()"
+                                                                        data-thandoverid="@r[16].ToString().Trim()"
+                                                                        data-itemrecivedate="@r[17].ToString().Trim()"
+                                                                        data-systreciveuser="@r[18].ToString().Trim()">
+                                                                    <i class="fas fa-expand-arrows-alt"></i>
+                                                                </button>
+                                                            </center>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="9" class="text-center">No data available</td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <!-- End -->
+                <!-- Outside Repair -->
+                <div class="tab-pane fade" id="custom-tabs-three-10" role="tabpanel" aria-labelledby="custom-tabs-three-10-tab">
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br />
+                                <center><h5 class="text-primary"><strong>Outside Repair Details</strong></h5></center>
+                                <br />
+
+                                <div class="table-responsive">
+                                    <table id="OReTBL" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Outside Repair Status</th>
+                                                <th>Repair Request Date</th>
+                                                <th>Repair Reason</th>
+                                                <th>Company Name</th>
+                                                <th>Sent Date</th>
+                                                <th>Receive Date</th>
+                                                <th>Repaired Or Not</th>
+                                                <th>More</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.OutReTBL.Rows.Count > 0)
+                                            {
+                                                foreach (System.Data.DataRow r in Model.OutReTBL.Rows)
+                                                {
+                                                    <tr>
+                                                        <td>@r[0].ToString().Trim()</td>
+                                                        <td>@r[1].ToString().Trim()</td>
+                                                        <td>@r[2].ToString().Trim()</td>
+                                                        <td>@r[3].ToString().Trim()</td>
+                                                        <td>@r[4].ToString().Trim()</td>
+                                                        <td>@r[5].ToString().Trim()</td>
+                                                        <td>@r[6].ToString().Trim()</td>
+                                                        <td>@r[22].ToString().Trim()</td>
+                                                        <td class="text-center">
+                                                            <button type="button" class="btn btn-primary btn-sm view-details" data-toggle="modal" data-target="#ORepairModal"
+                                                                    data-id="@r[0]"
+                                                                    data-status="@r[1]"
+                                                                    data-outsidereqdate="@r[2]"
+                                                                    data-orreson="@r[3]"
+                                                                    data-companyid="@r[4]"
+                                                                    data-sentdate="@r[5]"
+                                                                    data-repaircompletedate="@r[6]"
+                                                                    data-officername="@r[7]"
+                                                                    data-remarks="@r[8]"
+                                                                    data-sysuser="@r[9]"
+                                                                    data-deviceremarks="@r[10]"
+                                                                    data-estimaterecdate="@r[11]"
+                                                                    data-solution="@r[12]"
+                                                                    data-repairprice="@r[13]"
+                                                                    data-warranty="@r[14]"
+                                                                    data-estimateremarks="@r[15]"
+                                                                    data-approvelletterdate="@r[16]"
+                                                                    data-approvestatus="@r[17]"
+                                                                    data-rejectreson="@r[18]"
+                                                                    data-approveinformdate="@r[19]"
+                                                                    data-repaircompletedate2="@r[20]"
+                                                                    data-repairremarks="@r[21]"
+                                                                    data-repairornot="@r[22]"
+                                                                    data-sysuser2="@r[23]"
+                                                                    data-sysdate="@r[24]"
+                                                                    data-invoiceno="@r[25]"
+                                                                    data-invoicedate="@r[26]"
+                                                                    data-payvoucherdate="@r[27]"
+                                                                    data-voucherno="@r[28]"
+                                                                    data-dutyid="@r[29]"
+                                                                    data-itno="@r[30]"
+                                                                    title="View More">
+                                                                <i class="fas fa-expand-arrows-alt"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="9" class="text-center">No data available</td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- End -->
+                <!-- More Details start -->
+                <div class="tab-pane fade" id="custom-tabs-three-7" role="tabpanel" aria-labelledby="custom-tabs-three-7-tab">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="timeline">
+
+                                @foreach (System.Data.DataRow r in Model.VThandoverTBL.Rows)
+                                {
+                                    <div class="time-label">
+                                        <span class="bg-red">
+                                            @r.ItemArray.GetValue(1).ToString().Trim()
+                                        </span>
+                                    </div>
+                                }
+
+
+                                @foreach (System.Data.DataRow r in Model.VDutyATBL.Rows)
+                                {
+                                    <div class="time-label">
+                                        <span class="bg-blue">
+                                            Technical Assesment
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <i class="fas fa-wrench bg-blue"></i>
+                                        <div class="timeline-item">
+                                            <h3 class="timeline-header"> <a href="#">@r.ItemArray.GetValue(3).ToString().Trim()</a></h3>
+                                            <div class="timeline-body">
+                                                <a href="#">Technical Assesment</a> @r.ItemArray.GetValue(11).ToString().Trim()<br />
+                                                <a href="#">Technical Assesment Enter Date</a> @r.ItemArray.GetValue(13).ToString().Trim() <br />
+                                                <hr />
+                                                <a href="#">Solution</a> @r.ItemArray.GetValue(14).ToString().Trim() <br />
+                                                <a href="#">Solution Date</a> @r.ItemArray.GetValue(16).ToString().Trim() <br />
+                                                <hr />
+                                                <a href="#">Task Complete Date</a> @r.ItemArray.GetValue(17).ToString().Trim() <br />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="time-label">
+                                        <span class="bg-green">
+                                            Task Assign
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <i class="fas fa-user bg-green"></i>
+                                        <div class="timeline-item">
+                                            <h3 class="timeline-header"><a href="#">Task Assign To</a>  @r.ItemArray.GetValue(4).ToString().Trim()</h3>
+                                            <div class="timeline-body">
+                                                <a href="#">Task Assign Date</a> @r.ItemArray.GetValue(2).ToString().Trim()
+                                                <hr />
+                                                <a href="#">Special Task Officer</a> @r.ItemArray.GetValue(6).ToString().Trim() <br />
+                                                <a href="#">Special Task Assign Remaks</a> @r.ItemArray.GetValue(8).ToString().Trim() <br />
+                                                <a href="#">Special Task Assign Date</a> @r.ItemArray.GetValue(10).ToString().Trim() <br />
+                                                <a href="#">Special Task Assign Officer</a> @r.ItemArray.GetValue(9).ToString().Trim() <br />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                @foreach (System.Data.DataRow r in Model.VThandoverTBL.Rows)
+                                {
+
+
+                                    <div class="time-label">
+                                        <span class="bg-yellow">
+                                            Received To IT
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <i class="fas fa-university bg-yellow"></i>
+                                        <div class="timeline-item">
+                                            <h3 class="timeline-header"><a href="#">Received By </a> @r.ItemArray.GetValue(14).ToString().Trim()</h3>
+                                            <div class="timeline-body">
+                                                <a href="#">Receive Date</a> @r.ItemArray.GetValue(19).ToString().Trim() <br />
+                                                <a href="#">Receive Remaks</a> @r.ItemArray.GetValue(18).ToString().Trim() <br />
+                                                <hr />
+                                                <a href="#">Sys Date</a> @r.ItemArray.GetValue(21).ToString().Trim() <br />
+                                                <a href="#">Sys User</a> @r.ItemArray.GetValue(20).ToString().Trim() <br />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <div class="time-label">
+                                        <span class="bg-blue">
+                                            Sent By Division
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <i class="fas fa-paper-plane bg-blue"></i>
+                                        <div class="timeline-item">
+                                            <h3 class="timeline-header"><a href="#">Sent By </a> @r.ItemArray.GetValue(14).ToString().Trim()</h3>
+                                            <div class="timeline-body">
+                                                <a href="#">Sent Date</a> @r.ItemArray.GetValue(13).ToString().Trim() <br />
+                                                <a href="#">Sent Remaks</a> @r.ItemArray.GetValue(15).ToString().Trim() <br />
+                                                <hr />
+                                                <a href="#">Sys Date</a> @r.ItemArray.GetValue(17).ToString().Trim() <br />
+                                                <a href="#">Sys User</a> @r.ItemArray.GetValue(16).ToString().Trim() <br />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="time-label">
+                                        <span class="bg-green">
+                                            Approved
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <i class="fas fa-user bg-green"></i>
+                                        <div class="timeline-item">
+                                            <h3 class="timeline-header"><a href="#">Approved/Reject </a></h3>
+                                            <div class="timeline-body">
+                                                <a href="#">Sys Date</a> @r.ItemArray.GetValue(11).ToString().Trim() <br />
+                                                <a href="#">Sys User</a> @r.ItemArray.GetValue(10).ToString().Trim() <br />
+                                                <a href="#">Reject Reson</a> @r.ItemArray.GetValue(12).ToString().Trim() <br />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="time-label">
+                                        <span class="bg-yellow">
+                                            Request
+                                        </span>
+                                    </div>
+
+
+                                    <div>
+                                        <i class="fas fa-user bg-yellow"></i>
+                                        <div class="timeline-item">
+                                            <h3 class="timeline-header"><a href="#">Request to </a>  @r.ItemArray.GetValue(2).ToString().Trim() </h3>
+                                            <div class="timeline-body">
+                                                <a href="#">Request Date</a> @r.ItemArray.GetValue(4).ToString().Trim() <br />
+                                                <a href="#">Device User</a> @r.ItemArray.GetValue(5).ToString().Trim() <br />
+                                                <a href="#">Contact Details</a> @r.ItemArray.GetValue(7).ToString().Trim() <br />
+                                                <a href="#">User Feedback</a> @r.ItemArray.GetValue(6).ToString().Trim() <br />
+                                                <hr />
+                                                <a href="#">Sys Request Date</a> @r.ItemArray.GetValue(9).ToString().Trim() <br />
+                                                <a href="#">Sys Request User</a> @r.ItemArray.GetValue(8).ToString().Trim() <br />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="time-label">
+                                        <span class="bg-yellow">
+                                            @r.ItemArray.GetValue(0).ToString().Trim()<br />
+                                            @r.ItemArray.GetValue(3).ToString().Trim()
+                                        </span>
+                                    </div>
+
+
+
+
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- End -->
+                <!-- CourierStart -->
+                <div class="tab-pane fade" id="custom-tabs-three-8" role="tabpanel" aria-labelledby="custom-tabs-three-8-tab">
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br />
+                                <center><h5 class="text-primary"><strong>Outside Repair Details</strong></h5></center>
+                                <br />
+                                <div class="table-responsive">
+                                    <table id="COTBL" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Courier Status</th>
+                                                <th>Courier Location</th>
+                                                <th>Pickup Date</th>
+                                                <th>Company Name</th>
+                                                <th>CompleteDate</th>
+                                                <th>More</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (System.Data.DataRow r in Model.Cinfor.Rows)
+                                            {
+                                                <tr>
+                                                    <td>@r.ItemArray.GetValue(0).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(17).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(13).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(19).ToString().Trim()</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-primary btn-sm view-details" data-toggle="modal" data-target="#CourierModal"
+                                                                data-id="@r[0]"
+                                                                data-status="@r[1]"
+                                                                data-courier-status="@r[2]"
+                                                                data-itno="@r[3]"
+                                                                data-hoid="@r[4]"
+                                                                data-creq-date="@r[5]"
+                                                                data-courier-location="@r[6]"
+                                                                data-creq-remarks="@r[7]"
+                                                                data-csys-req-user="@r[8]"
+                                                                data-csys-req-date="@r[9]"
+                                                                data-csys-app-user="@r[10]"
+                                                                data-csys-app-date="@r[11]"
+                                                                data-capp-reason="@r[12]"
+                                                                data-company-name="@r[13]"
+                                                                data-sticker-date="@r[14]"
+                                                                data-sticker-no="@r[15]"
+                                                                data-sticker-remarks="@r[16]"
+                                                                data-pickup-date="@r[17]"
+                                                                data-pickup-remarks="@r[18]"
+                                                                data-complete-date="@r[19]"
+                                                                data-complete-remarks="@r[20]"
+                                                                data-confirm-user="@r[21]"
+                                                                data-duty-id="@r[22]"
+                                                                data-thoid="@r[23]"
+                                                                data-confirm-date="@r[24]"
+                                                                title="View More">
+                                                            <i class="fas fa-expand-arrows-alt"></i>
+                                                        </button>
+                                                    </td>
+
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                @*CourierEnd*@
+
+
+
+                @*DisposeStart*@
+                <div class="tab-pane fade" id="custom-tabs-three-6" role="tabpanel" aria-labelledby="custom-tabs-three-6-tab">
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br />
+                                <center><h5 class="text-primary"><strong>Dispose Details</strong></h5></center>
+                                <br />
+                                <div class="table-responsive">
+                                    <table id="DISTBL" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Dispose Status</th>
+                                                <th>Dispose Reason</th>
+                                                <th>Dispose Inform Letter</th>
+                                                <th>Bulk Number</th>
+                                                <th>Dispose Date</th>
+                                                <th>More</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (System.Data.DataRow r in Model.DisTbl.Rows)
+                                            {
+                                                <tr>
+                                                    <td>@r.ItemArray.GetValue(0).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(12).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(15).ToString().Trim()</td>
+                                                    <td>@r.ItemArray.GetValue(19).ToString().Trim()</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-primary btn-sm view-details" data-toggle="modal" data-target="#DisposeModal"
+                                                                di-id="@r[0]"
+                                                                di-itno="@r[1]"
+                                                                di-status="@r[2]"
+                                                                di-disposereason="@r[3]"
+                                                                di-sysrequser="@r[4]"
+                                                                di-sysreqdate="@r[5]"
+                                                                di-sysrecuser="@r[6]"
+                                                                di-sysrecdate="@r[7]"
+                                                                di-recremarks="@r[8]"
+                                                                di-sysappuser="@r[9]"
+                                                                di-sysappdate="@r[10]"
+                                                                di-appremarks="@r[11]"
+                                                                di-rletterdate="@r[12]"
+                                                                di-rletterremarks="@r[13]"
+                                                                di-disposedate="@r[14]"
+                                                                di-bulkno="@r[15]"
+                                                                di-disposeccompany="@r[16]"
+                                                                di-itdisposeno="@r[17]"
+                                                                di-finalremarks="@r[18]"
+                                                                di-disposeremarks="@r[19]"
+                                                                di-disposecode="@r[20]"
+                                                                title="View More">
+                                                            <i class="fas fa-expand-arrows-alt"></i>
+                                                        </button>
+
+                                                    </td>
+
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                @*DisposeEnd*@
+
+
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="PerHandoverModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"><strong>Permanent Handover Details</strong> &nbsp;- <span class="text-danger" id="modal-itno"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-primary">Device Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">ID</th><td id="modal-id"></td></tr>
+                        <tr><th>Handover Status</th><td id="modal-hoStatus"></td></tr>
+                        <tr><th>Previous Location</th><td id="modal-currentLocation"></td></tr>
+                        <tr><th>Handover Location</th><td id="modal-handoverLocation"></td></tr>
+                        <tr><th>Authorized Officer</th><td id="modal-authorizedOfficer"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Handover Request Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Handover Request Date</th><td id="modal-hoRecDate"></td></tr>
+                        <tr><th>Handover Request Remarks</th><td id="modal-hoRecRemarks"></td></tr>
+                        <tr><th>Handover Request Sys Date</th><td id="modal-sysReDate"></td></tr>
+                        <tr><th>Handover Request Sys User</th><td id="modal-sysReUser"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Handover Approval Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th>Handover Approval User</th><td id="modal-sysAppUser"></td></tr>
+                        <tr><th>Handover Approval Sys Date</th><td id="modal-sysAppDate"></td></tr>
+                        <tr><th>Handover Approval Remaks</th><td id="modal-appReReson"></td></tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th>Handover Completion Date</th><td id="modal-hoComDate"></td></tr>
+                        <tr><th>Handover User</th><td id="modal-hoUser"></td></tr>
+                        <tr><th>Handover Completion Remarks</th><td id="modal-hoComRemarks"></td></tr>
+                        <tr><th>Handover Completion User</th><td id="modal-sysComUser"></td></tr>
+                        <tr><th>Handover Completion Date</th><td id="modal-sysComDate"></td></tr>
+                        <tr><th>Handover Receiver</th><td id="modal-hoReceiver"></td></tr>
+                        <tr><th>Handover Confirm Date</th><td id="modal-conDdate"></td></tr>
+                    </tbody>
+                </table>
+
+
+                <h5 class="text-primary">Handover Confirm Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Handover Confirm Sys User</th><td id="modal-sysConDUser"></td></tr>
+                        <tr><th>Handover Confirm Sys Date</th><td id="modal-sysConDate"></td></tr>
+                        <tr><th>Handover Confirm Remarks</th><td id="modal-conDRemaks"></td></tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#PerHandoverModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); 
+
+
+            $('#modal-id').text(button.data('id') || ' ');
+            $('#modal-itno').text(button.data('itno') || ' ');
+            $('#modal-hoStatus').text(button.data('hostatus') || ' ');
+            $('#modal-currentLocation').text(button.data('currentlocation') || ' ');
+            $('#modal-handoverLocation').text(button.data('handoverlocation') || ' ');
+            $('#modal-authorizedOfficer').text(button.data('authorizedofficer') || ' ');
+            $('#modal-hoRecDate').text(button.data('horecdate') || ' ');
+            $('#modal-hoRecRemarks').text(button.data('horecremarks') || ' ');
+            $('#modal-sysReDate').text(button.data('sysredate') || ' ');
+            $('#modal-sysReUser').text(button.data('sysreuser') || ' ');
+            $('#modal-sysAppUser').text(button.data('sysappuser') || ' ');
+            $('#modal-sysAppDate').text(button.data('sysappdate') || ' ');
+            $('#modal-appReReson').text(button.data('apprereson') || ' ');
+            $('#modal-hoComDate').text(button.data('hocomdate') || ' ');
+            $('#modal-hoUser').text(button.data('houser') || ' ');
+            $('#modal-hoComRemarks').text(button.data('hocomremarks') || ' ');
+            $('#modal-sysComUser').text(button.data('syscomuser') || ' ');
+            $('#modal-sysComDate').text(button.data('syscomdate') || ' ');
+            $('#modal-hoReceiver').text(button.data('horeceiver') || ' ');
+            $('#modal-conDdate').text(button.data('conddate') || ' ');
+            $('#modal-conDRemaks').text(button.data('condremaks') || ' ');
+            $('#modal-sysConDUser').text(button.data('sysconduser') || ' ');
+            $('#modal-sysConDate').text(button.data('syscondate') || ' ');
+        });
+    });
+
+</script>
+
+
+<div class="modal fade" id="TaskModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"><strong>Task Details &nbsp;- <span class="text-danger" id="modal-ITNo"></span></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-primary">Task Information</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Duty ID</th><td id="modal-DutyID"></td></tr>
+                        <tr><th>THandover ID</th><td id="modal-THandoverID"></td></tr>
+                        <tr><th>Status</th><td id="modal-Status"></td></tr>
+                        <tr><th>Reason</th><td id="modal-Reason"></td></tr>
+                        <tr><th>Duty Assign Date</th><td id="modal-DutyAssignDate"></td></tr>
+                        <tr><th>Duty Assign Officer</th><td id="modal-DutyAssignOfficer"></td></tr>
+                        <tr><th>Duty Assign Officer SP</th><td id="modal-DutyAssignOfficerSP"></td></tr>
+                        <tr><th>Duty Assign Remarks</th><td id="modal-DutyAssignRemarks"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Reception Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Reception User</th><td id="modal-SystreciveUser"></td></tr>
+                        <tr><th>Reception Receive Date</th><td id="modal-ItemreciveDate"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Technical Assessment Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Technical Assessments</th><td id="modal-TechnicalAssesmentIDs"></td></tr>
+                        <tr><th>Technical Assessment Remaks</th><td id="modal-TechnicalAssesment"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Technical Solutions</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Technical Solution Remaks</th><td id="modal-TechnicalSolutionIDs"></td></tr>
+                        <tr><th>Solutions</th><td id="modal-Solutions"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Completion Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Task Complete Date</th><td id="modal-SysRCompleteDate"></td></tr>
+                        <tr><th>Outside Request Date</th><td id="modal-OutsideRReqDate"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#TaskModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            $('#modal-DutyID').text(button.data('dutyid') || ' ');
+            $('#modal-Status').text(button.data('status') || ' ');
+            $('#modal-Reason').text(button.data('reason') || ' ');
+            $('#modal-DutyAssignDate').text(button.data('dutyassigndate') || ' ');
+            $('#modal-DutyAssignOfficer').text(button.data('dutyassignofficer') || ' ');
+            $('#modal-DutyAssignOfficerSP').text(button.data('dutyassignofficersp') || ' ');
+            $('#modal-DutyAssignRemarks').text(button.data('dutyassignremarks') || ' ');
+            $('#modal-SysAssignUser').text(button.data('sysassignuser') || ' ');
+            $('#modal-SysAssignDate').text(button.data('sysassigndate') || ' ');
+            $('#modal-ItemreciveDate').text(button.data('itemrecivedate') || ' ');
+            $('#modal-SystreciveUser').text(button.data('systreciveuser') || ' ');
+
+            $('#modal-Solutions').text(button.data('solutions') || ' ');
+            $('#modal-SysRCompleteDate').text(button.data('sysrcompletedate') || ' ');
+            $('#modal-OutsideRReqDate').text(button.data('outsiderreqdate') || ' ');
+            $('#modal-ITNo').text(button.data('itno') || ' ');
+            $('#modal-THandoverID').text(button.data('thandoverid') || ' ');
+
+            var technicalAssesmentIds = button.data('technicalassesmentids');
+            var technicalSolutionIds = button.data('solutiontypeids');
+
+
+
+            if (technicalAssesmentIds) {
+                $.ajax({
+                    url: '/Hardware/GetTechnicalAssessment',  
+                    type: 'POST',
+                    data: { technicalassesmentids: technicalAssesmentIds },
+                    success: function (response) {
+                        console.log("AJAX Success Response:", response);
+
+                        if (response && response.length > 0) {
+                            var listHTML = '<ul>';
+                            response.forEach(function (item, index) {
+                                console.log("Item " + index + ":", item);
+                                listHTML += '<li>' + (item.Fault_Solution || 'No Data') + '</li>';
+                            });
+                            listHTML += '</ul>';
+                            $('#modal-TechnicalAssesmentIDs').html(listHTML);
+                        } else {
+                            $('#modal-TechnicalAssesmentIDs').html('<span class="text-muted">No records found</span>');
+                        }
+                    },
+                    error: function () {
+                        $('#modal-TechnicalAssesmentIDs').html('<span class="text-danger">Error loading data</span>');
+                    }
+                });
+            } else {
+                $('#modal-TechnicalAssesmentIDs').html('<span class="text-muted"></span>');
+            }
+
+
+            if (technicalSolutionIds) {
+                $.ajax({
+                    url: '/Hardware/GetTechnicalSolution',  
+                    type: 'POST',
+                    data: { technicalsolutionids: technicalSolutionIds },
+                    success: function (response) {
+                        console.log("AJAX Success Response:", response);
+
+                        if (response && response.length > 0) {
+                            var listHTML = '<ul>';
+                            response.forEach(function (item, index) {
+                                console.log("Item " + index + ":", item);
+                                listHTML += '<li>' + (item.Fault_Solution || 'No Data') + '</li>';
+                            });
+                            listHTML += '</ul>';
+                            $('#modal-TechnicalSolutionIDs').html(listHTML);
+                        } else {
+                            $('#modal-TechnicalSolutionIDs').html('<span class="text-muted">No records found</span>');
+                        }
+                    },
+                    error: function () {
+                        $('#modal-TechnicalSolutionIDs').html('<span class="text-danger">Error loading data</span>');
+                    }
+                });
+            } else {
+                $('#modal-TechnicalSolutionIDs').html('<span class="text-muted"></span>');
+            }
+
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<div class="modal fade" id="ORepairModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"><strong>Repair Details &nbsp;- <span class="text-danger" id="itno"></span></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <h5 class="text-primary">Device Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">ID<td id="id"></td></tr>
+                        <tr><th>Duty ID</th><td id="dutyid"></td></tr>
+                        <tr><th>Status</th><td id="status"></td></tr>
+                        <tr><th>Repair Reason</th><td id="orreson"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Repair Company Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Outside Request Date</th><td id="outsidereqdate"></td></tr>
+
+                        <tr><th>Company Name</th><td id="companyid"></td></tr>
+                        <tr><th>Sent Date</th><td id="sentdate"></td></tr>
+                        <tr><th>Officer Name</th><td id="officername"></td></tr>
+                        <tr><th>Sent Remarks</th><td id="remarks"></td></tr>
+                        <tr><th>GatePass Sys User</th><td id="sysuser"></td></tr>
+                    </tbody>
+                </table>
+
+
+                <h5 class="text-primary">Estimate Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Estimate Received Date</th><td id="estimaterecdate"></td></tr>
+                        <tr><th>Solution</th><td id="solution"></td></tr>
+                        <tr><th>Repair Price</th><td id="repairprice"></td></tr>
+                        <tr><th>Warranty</th><td id="warranty"></td></tr>
+                        <tr><th>Estimate Remarks</th><td id="estimateremarks"></td></tr>
+                    </tbody>
+                </table>
+
+
+                <h5 class="text-primary">Approval Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Approval Status</th><td id="approvestatus"></td></tr>
+                        <tr><th>Approval Remaks</th><td id="rejectreson"></td></tr>
+                        <tr><th>Approval Letter Date</th><td id="approvelletterdate"></td></tr>
+                        <tr><th>Approval Inform Date</th><td id="approveinformdate"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Completion Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Repair Complete Date</th><td id="repaircompletedate2"></td></tr>
+                        <tr><th>Repair Remarks</th><td id="repairremarks"></td></tr>
+                        <tr><th>Repaired or Not</th><td id="repairornot"></td></tr>
+                    </tbody>
+                </table>
+
+
+                <h5 class="text-primary">Payment Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Invoice No</th><td id="invoiceno"></td></tr>
+                        <tr><th>Invoice Date</th><td id="invoicedate"></td></tr>
+                        <tr><th>Payment Voucher Date</th><td id="payvoucherdate"></td></tr>
+                        <tr><th>Voucher No</th><td id="voucherno"></td></tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    $(document).on("click", ".view-details", function () {
+        var modal = $("#ORepairModal");
+        modal.find("#id").text($(this).data("id") || ' ');
+        modal.find("#status").text($(this).data("status") || ' ');
+        modal.find("#outsidereqdate").text($(this).data("outsidereqdate") || ' ');
+        modal.find("#orreson").text($(this).data("orreson") || ' ');
+        modal.find("#companyid").text($(this).data("companyid") || ' ');
+        modal.find("#sentdate").text($(this).data("sentdate") || ' ');
+        modal.find("#repaircompletedate").text($(this).data("repaircompletedate") || ' ');
+        modal.find("#officername").text($(this).data("officername") || ' ');
+        modal.find("#remarks").text($(this).data("remarks") || ' ');
+        modal.find("#sysuser").text($(this).data("sysuser") || ' ');
+        modal.find("#deviceremarks").text($(this).data("deviceremarks") || ' ');
+        modal.find("#estimaterecdate").text($(this).data("estimaterecdate") || ' ');
+        modal.find("#solution").text($(this).data("solution") || ' ');
+        modal.find("#repairprice").text($(this).data("repairprice") || ' ');
+        modal.find("#warranty").text($(this).data("warranty") || ' ');
+        modal.find("#estimateremarks").text($(this).data("estimateremarks") || ' ');
+        modal.find("#approvelletterdate").text($(this).data("approvelletterdate") || ' ');
+        modal.find("#approvestatus").text($(this).data("approvestatus") || ' ');
+        modal.find("#rejectreson").text($(this).data("rejectreson") || ' ');
+        modal.find("#approveinformdate").text($(this).data("approveinformdate") || ' ');
+        modal.find("#repaircompletedate2").text($(this).data("repaircompletedate2") || ' ');
+        modal.find("#repairremarks").text($(this).data("repairremarks") || ' ');
+        modal.find("#repairornot").text($(this).data("repairornot") || ' ');
+        modal.find("#sysuser2").text($(this).data("sysuser2") || ' ');
+        modal.find("#sysdate").text($(this).data("sysdate") || ' ');
+        modal.find("#invoiceno").text($(this).data("invoiceno") || ' ');
+        modal.find("#invoicedate").text($(this).data("invoicedate") || ' ');
+        modal.find("#payvoucherdate").text($(this).data("payvoucherdate") || ' ');
+        modal.find("#voucherno").text($(this).data("voucherno") || ' ');
+        modal.find("#dutyid").text($(this).data("dutyid") || ' ');
+        modal.find("#itno").text($(this).data("itno") || ' ');
+    });
+</script>
+
+
+
+
+<div class="modal fade" id="CourierModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"><strong>Courier Details &nbsp;- <span class="text-danger" id="co-modal-itno"></span></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-primary">Courier Information</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">ID</th><td id="co-modal-id"></td></tr>
+                        <tr><th>Status</th><td id="co-modal-status"></td></tr>
+                        <tr><th>Courier Location</th><td id="co-modal-courierLocation"></td></tr>
+                        <tr><th>Company Name</th><td id="co-modal-companyName"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Request Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Request Date</th><td id="co-modal-creqDate"></td></tr>
+                        <tr><th>Request Remarks</th><td id="co-modal-creqRemarks"></td></tr>
+                        <tr><th>Request User</th><td id="co-modal-csysReqUser"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Approval Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Approval User</th><td id="co-modal-csysAppUser"></td></tr>
+                        <tr><th>Approval Date</th><td id="co-modal-csysAppDate"></td></tr>
+                        <tr><th>Approval Remaks</th><td id="co-modal-cappReason"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Courier Sticker Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th>Sticker No</th><td id="co-modal-stickerNo"></td></tr>
+                        <tr><th width="300">Sticker Date</th><td id="co-modal-stickerDate"></td></tr>
+                        <tr><th>Sticker Remarks</th><td id="co-modal-stickerRemarks"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Courier Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Pickup Date</th><td id="co-modal-pickupDate"></td></tr>
+                        <tr><th>Pickup Remarks</th><td id="co-modal-pickupRemarks"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Confirmation Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Completion Date</th><td id="co-modal-completeDate"></td></tr>
+                        <tr><th>Completion Remarks</th><td id="co-modal-completeRemarks"></td></tr>
+                        <tr><th>Completion User</th><td id="co-modal-confirmUser"></td></tr>
+                        <tr><th>Completion Sys Date</th><td id="co-modal-confirmDate"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#CourierModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); 
+
+            $('#co-modal-id').text(button.data('id') || ' ');
+            $('#co-modal-status').text(button.data('status') || ' ');
+            $('#co-modal-courierStatus').text(button.data('courier-status') || ' ');
+            $('#co-modal-itno').text(button.data('itno') || ' ');
+            $('#co-modal-hoid').text(button.data('hoid') || ' ');
+            $('#co-modal-creqDate').text(button.data('creq-date') || ' ');
+            $('#co-modal-courierLocation').text(button.data('courier-location') || ' ');
+            $('#co-modal-creqRemarks').text(button.data('creq-remarks') || ' ');
+            $('#co-modal-csysReqUser').text(button.data('csys-req-user') || ' ');
+            $('#co-modal-csysReqDate').text(button.data('csys-req-date') || ' ');
+            $('#co-modal-csysAppUser').text(button.data('csys-app-user') || ' ');
+            $('#co-modal-csysAppDate').text(button.data('csys-app-date') || ' ');
+            $('#co-modal-cappReason').text(button.data('capp-reason') || ' ');
+            $('#co-modal-companyName').text(button.data('company-name') || ' ');
+            $('#co-modal-stickerDate').text(button.data('sticker-date') || ' ');
+            $('#co-modal-stickerNo').text(button.data('sticker-no') || ' ');
+            $('#co-modal-stickerRemarks').text(button.data('sticker-remarks') || ' ');
+            $('#co-modal-pickupDate').text(button.data('pickup-date') || ' ');
+            $('#co-modal-pickupRemarks').text(button.data('pickup-remarks') || ' ');
+            $('#co-modal-completeDate').text(button.data('complete-date') || ' ');
+            $('#co-modal-completeRemarks').text(button.data('complete-remarks') || ' ');
+            $('#co-modal-confirmUser').text(button.data('confirm-user') || ' ');
+            $('#co-modal-dutyId').text(button.data('duty-id') || ' ');
+            $('#co-modal-thoid').text(button.data('thoid') || ' ');
+            $('#co-modal-confirmDate').text(button.data('confirm-date') || ' ');
+        });
+    });
+</script>
+
+
+<div class="modal fade" id="DisposeModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"><strong>Disposal Details - <span class="text-danger" id="di-modal-itno"></span></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-primary">Disposal Information</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Status</th><td id="di-modal-status"></td></tr>
+                        <tr><th>Dispose Reason</th><td id="di-modal-disposereason"></td></tr>
+                        <tr><th>Disposal Date</th><td id="di-modal-disposedate"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Requested Information</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Requested By</th><td id="di-modal-sysrequser"></td></tr>
+                        <tr><th>Request Date</th><td id="di-modal-sysreqdate"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Recommend Information</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">recommended By</th><td id="di-modal-sysrecuser"></td></tr>
+                        <tr><th>recommended Date</th><td id="di-modal-sysrecdate"></td></tr>
+                        <tr><th>Remarks</th><td id="di-modal-recremarks"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Approval Information</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+
+                        <tr><th width="300">Approved By</th><td id="di-modal-sysappuser"></td></tr>
+                        <tr><th>Approved Date</th><td id="di-modal-sysappdate"></td></tr>
+                        <tr><th>Remarks</th><td id="di-modal-appremarks"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Disposal Letter</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr><th width="300">Recommendation Letter Date</th><td id="di-modal-rletterdate"></td></tr>
+                        <tr><th>Recommendation Letter Remarks</th><td id="di-modal-rletterremarks"></td></tr>
+                    </tbody>
+                </table>
+
+                <h5 class="text-primary">Other Details</h5>
+                <table class="table table-bordered table-striped">
+                    <tbody>                        
+                        <tr><th width="300">Bulk No</th><td id="di-modal-bulkno"></td></tr>
+                        <tr><th>Disposal Company</th><td id="di-modal-disposeccompany"></td></tr>
+                        <tr><th>IT Disposal No</th><td id="di-modal-itdisposeno"></td></tr>
+                        <tr><th>Final Remarks</th><td id="di-modal-finalremarks"></td></tr>
+                        <tr><th>Disposal Remarks</th><td id="di-modal-disposeremarks"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#DisposeModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); 
+
+
+            $('#di-modal-id').text(button.attr('di-id') || ' ');
+            $('#di-modal-itno').text(button.attr('di-itno') || ' ');
+            $('#di-modal-status').text(button.attr('di-status') || ' ');
+            $('#di-modal-disposereason').text(button.attr('di-disposereason') || ' ');
+            $('#di-modal-sysrequser').text(button.attr('di-sysrequser') || ' ');
+            $('#di-modal-sysreqdate').text(button.attr('di-sysreqdate') || ' ');
+            $('#di-modal-sysrecuser').text(button.attr('di-sysrecuser') || ' ');
+            $('#di-modal-sysrecdate').text(button.attr('di-sysrecdate') || ' ');
+            $('#di-modal-recremarks').text(button.attr('di-recremarks') || ' ');
+            $('#di-modal-sysappuser').text(button.attr('di-sysappuser') || ' ');
+            $('#di-modal-sysappdate').text(button.attr('di-sysappdate') || ' ');
+            $('#di-modal-appremarks').text(button.attr('di-appremarks') || ' ');
+            $('#di-modal-rletterdate').text(button.attr('di-rletterdate') || ' ');
+            $('#di-modal-rletterremarks').text(button.attr('di-rletterremarks') || ' ');
+            $('#di-modal-disposedate').text(button.attr('di-disposedate') || ' ');
+            $('#di-modal-bulkno').text(button.attr('di-bulkno') || ' ');
+            $('#di-modal-disposeccompany').text(button.attr('di-disposeccompany') || ' ');
+            $('#di-modal-itdisposeno').text(button.attr('di-itdisposeno') || ' ');
+            $('#di-modal-finalremarks').text(button.attr('di-finalremarks') || ' ');
+            $('#di-modal-disposeremarks').text(button.attr('di-disposeremarks') || ' ');
+            $('#di-modal-disposecode').text(button.attr('di-disposecode') || ' ');
+        });
+    });
+</script>

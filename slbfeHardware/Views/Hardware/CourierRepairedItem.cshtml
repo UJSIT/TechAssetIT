@@ -1,0 +1,317 @@
+﻿@{
+    ViewBag.Title = "Courier Repaired Item";
+}
+
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <h3 class="mb-0">
+                    <b> Request to Courier Repaired Item </b>
+                </h3>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Courier Repaired Item</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Handover Location</th>
+                                <th>Duty Officer</th>
+                                <th>SP Duty Officer</th>
+                                <th>Repair Complete Date</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.QReHFilter.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(0).ToString().Trim() &nbsp;
+                                            <img src="@path" width="25" />
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(8).ToString().Trim()</td>
+
+                                    <td>
+                                        <center>
+                                            <div class="d-flex justify-content-around gap-2">
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                &nbsp
+
+                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#CourierReModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Courier Request"
+                                                        data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                        data-hlocation="@r.ItemArray.GetValue(5).ToString().Trim()"
+                                                        data-itemtype="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                        data-serialNo="@r.ItemArray.GetValue(2).ToString().Trim()"
+                                                        data-invNo="@r.ItemArray.GetValue(3).ToString().Trim()"
+                                                        data-qr="@r.ItemArray.GetValue(4).ToString().Trim()"
+                                                        data-aofficer="@r.ItemArray.GetValue(9).ToString().Trim()"
+                                                        data-hlocationID="@r.ItemArray.GetValue(14).ToString().Trim()"
+                                                        data-dutyid="@r.ItemArray.GetValue(10).ToString().Trim()"
+                                                        data-hoid="@r.ItemArray.GetValue(12).ToString().Trim()">
+                                                    <i class="fas fa-truck-loading"></i>
+                                                </button>
+
+                                            </div>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Handover Location</th>
+                                <th>Duty Officer</th>
+                                <th>SP Duty Officer</th>
+                                <th>Repair Complete Date</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@*courier model*@
+<div class="modal fade" id="CourierReModal" tabindex="-1" role="dialog" aria-labelledby="CourierReModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="requestLetterModalLabel">
+                    <i class="fas fa-truck-loading"></i>
+                    Courier Request Form
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="SubmitCourier" method="post">
+
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+                                <h3>
+                                    <center>
+                                        <label for="HLocation">Courier Location - </label>
+                                        <span id="HLocationRe"></span>
+                                    </center>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itemType">Item Type - </label>
+                                <span id="itemTypeRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itNo">IT Number - </label>
+                                <span id="itNoRe"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="inv_no">INV Number - </label>
+                                <span id="inv_noRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="serialNumber">Serial Number - </label>
+                                <span id="serialNumberRe"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="qr_code">QR - </label>
+                                <span id="qr_codeRe"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <hr />
+
+                    <input type="hidden" id="hlocationIDNRe" name="hOLocationID" />
+                    <input type="hidden" id="itNumberRe" name="itNumberRe" />
+                    <input type="hidden" id="DutyIdRe" name="DutyIdRe" />
+                    <input type="hidden" id="HoIdRe" name="HoIdRe" />
+
+
+
+                    <div class="form-group">
+                        <label for="letterDate">Request Date&nbsp;<span style="color: red;">*</span></label>
+                        <input type="date" class="form-control" id="CReqDate" name="CReqDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="additionalInfo" class="form-label">Additional Information</label>
+                        <textarea class="form-control" id="CReqRemarks" name="CReqRemarks"></textarea>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info col-sm-5">Request to Courier</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        // Handler for the 'HandoverReModal' modal
+        $('#CourierReModal').on('shown.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var itno = button.data('itno');
+            var hlocation = button.data('hlocation');
+            var clocation = button.data('clocation');
+            var hlocationID = button.data('hlocationid');
+            var aofficer = button.data('aofficer');
+            var itemtype = button.data('itemtype');
+            var serialNo = button.data('serialno');
+            var invNo = button.data('invno');
+            var qr = button.data('qr');
+            var dutyid = button.data('dutyid');
+            var hoid = button.data('hoid');
+
+            // Set the IT_No value in the hidden input field
+            $('#itNumberRe').val(itno);
+            $('#hlocationNRe').val(hlocation);
+            $('#clocationNRe').val(clocation);
+            $('#hlocationIDNRe').val(hlocationID);
+            $('#aofficerNRe').val(aofficer);
+            $('#itemtypeNRe').val(itemtype);
+            $('#serialRe').val(serialNo);
+            $('#invRe').val(invNo);
+            $('#qrcodeRe').val(qr);
+            $('#DutyIdRe').val(dutyid);
+            $('#HoIdRe').val(hoid);
+
+            // Set the IT_No in the modal title and other text fields
+            $('#itNoRe').text(itno);
+            $('#HLocationRe').text(hlocation);
+            $('#CLocationRe').text(clocation)
+            $('#HLocationIDRe').text(hlocationID);
+            $('#AOfficerRe').text(aofficer);
+            $('#itemTypeRe').text(itemtype);
+            $('#serialNumberRe').text(serialNo);
+            $('#inv_noRe').text(invNo);
+            $('#qr_codeRe').text(qr);
+             $('#DutyIdRe').val(dutyid);
+            $('#HoIdRe').val(hoid);
+
+          
+
+        });
+    </script>
+}
+
+
+
+<script>
+$(document).ready(function () {
+    $('#SubmitCourier').submit(function (event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: '@Url.Action("RepairSubmitCourier", "Hardware")',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+
+            $('#CourierReModal').modal('hide');
+            location.reload();
+            },
+            error: function (xhr, status, error) {
+            console.error('Error submitting courier request:', error);
+            alert('An error occurred while submitting the courier request.');
+            }
+        });
+    });
+});
+
+</script>
+

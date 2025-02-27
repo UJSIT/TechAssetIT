@@ -1,0 +1,283 @@
+﻿@{
+    ViewBag.Title = "EditDevices";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+@*<script src="../../Content/jquery.js"></script>
+<script src="../../Content/bootstrap1.js"></script>
+<script src="../../Content/boostrap.js"></script>
+<script src="../../Content/bootstraptables.js"></script>
+<script src="../../Content/ajax1.js"></script>
+<script src="../../Content/ajax2.js"></script>
+<script src="../../Content/sweetalert.js"></script>*@
+
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Edit Device</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Edit Device</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-success">
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Invoice Reference</th>
+                                <th>Invoice No</th>
+                                <th>Description Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> @Html.DisplayFor(m => m.invno, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "refNo", required = "required" })</td>
+                                <td> @Html.DisplayFor(m => m.invoiceNo, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "invoNo", required = "required" })</td>
+                                <td> @Html.DisplayFor(m => m.invID, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "DesCode", required = "required" })</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                
+                <div class="card-body">
+
+
+                    <form id="myForm" action="UpdateDevicesData?invno=@Model.invno&invID=@Model.invID&invoiceNo=@Model.invoiceNo" method="post">
+
+                        <div class="row">
+                            <!-- Left Column -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold">IT No: *</label>
+                                    @Html.TextBoxFor(m => m.IT_No, new { @type = "text", @class = "form-control", required = "required" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold">Serial No:</label>
+                                    @Html.TextBoxFor(m => m.Serial_No, new { @type = "text", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold">INV No:</label>
+                                    @Html.TextBoxFor(m => m.INV_No, new { @type = "text", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold">QR:</label>
+                                    @Html.TextBoxFor(m => m.QR, new { @type = "text", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold">Current Status:</label>
+                                    @Html.DropDownListFor(m => m.Current_Status, new SelectList(new List<string>
+                                            {
+                                                "In IT",
+                                                 "In Current Location"
+                                                //"Repair",
+                                                //"Dispose",
+                                                //"Under Warranty",
+                                                //"Courier",
+
+                                            }), new { @class = "form-control", required = "required" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold">Installation Date:</label>
+                                    @Html.TextBoxFor(m => m.Installation_Date, new { @type = "date", @class = "form-control" })
+                                </div>
+
+
+
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold col-3">Purshased Division:</label>
+                                    <div class="col">
+                                        @Html.TextBoxFor(m => m.Purchased_Division, new { @type = "text", @class = " form-control ", required = "required", @id = "purchD", @readonly = "readonly" })
+
+                                        <input list="companyInput" name="myBrowser" id="PDivision" class="form-control" />
+                                        <datalist id="companyInput">
+                                            @foreach (var row in Model.DivisionList)
+                                            {
+
+                                                <option value="@row.Text"></option>
+                                            }
+                                        </datalist>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold col-3">Current Location:</label>
+                                    <div class="col">
+                                        @Html.TextBoxFor(m => m.Current_Location, new { @type = "text", @class = "form-control  ", required = "required", @id = "CDivision", @readonly = "readonly" })
+                                        <input list="cap" name="myBrowser" id="CLocation" class="form-control" />
+                                        <datalist id="cap">
+                                            @foreach (var row in Model.DivisionList)
+                                            {
+                                                <option value="@row.Text"></option>
+                                            }
+                                        </datalist>
+
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold col-3">Authorized Officer:</label>
+                                    <input class="form-control mb-2" id="empNo" placeholder="Enter Employee Number" />
+                                    @Html.TextBoxFor(m => m.Authorized_Officer, new { @type = "text", @class = "form-control", id = "devicesId", @readonly = "readonly" })
+                                </div>
+
+
+                               
+
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold col-3">Remarks 1:</label>
+                                    @Html.TextAreaFor(m => m.Remarks1, new { @type = "text", @class = "form-control", id = "devicesId" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="text-dark fw-bold col-3">Remarks 2:</label>
+                                    @Html.TextAreaFor(m => m.Remarks2, new { @type = "text", @class = "form-control" })
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a class="btn btn-block col-sm-6  btn-outline-danger" a href="/Hardware/Dashboard">Cancel</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info col-sm-6 float-right" id="btn1">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script>
+    $('#purchD').val(@Model.Purchased_Division);
+    $('#CDivision').val(@Model.Current_Location);
+</script>
+
+<script>
+
+    $("#empNo").on("keyup", function () {
+
+        var empId = $("#empNo").val();
+        sendData = { empNo: empId };
+
+        console.log("hai");
+
+        $.ajax({
+            url: "/Hardware/getEmpName",
+            method: "POST",
+            data: sendData,
+            success: function (data) {
+                var name = data.empName
+                console.log(name);
+                $("#devicesId").val(name);
+            }
+        })
+    })
+
+    $("#myForm").on("submit", function (e) {
+        e.preventDefault();
+
+        var form = $(this);
+        $.ajax({
+            url: form.attr("action"),
+            method: form.attr("method"),
+            data: form.serialize(),
+            success: function (response) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Updated",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(function () {
+                    location.reload();
+                });
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $('#PDivision').on('change', function () {
+        var div = $('#PDivision').val();
+
+        $('#purchD').val(div);
+
+    })
+</script>
+
+<script>
+
+    $('#CLocation').on('change', function () {
+        var loc = $('#CLocation').val();
+
+        $('#CDivision').val(loc);
+
+    })
+</script>
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "BrandDataView";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+<div class="w-100 p-3" style="background-color:rgba(163, 160, 160, 0.80)">
+    <h2 class="text-center text-bold skippy text-dark">Brands</h2>
+</div></br>
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-bordered table-success table-striped" id="example">
+            <thead>
+                <tr>
+                    <th>Brand Code</th> 
+                    <th>Brand</th>                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow r in Model.dt5.Rows)
+                {
+                    <tr>
+                        <td>@r.ItemArray.GetValue(0).ToString()</td> 
+                        <td>@r.ItemArray.GetValue(1).ToString()</td>
+                                               
+                    </tr> 
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

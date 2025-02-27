@@ -1,0 +1,349 @@
+@{
+    ViewBag.Title = "Repaired Handover";
+}
+
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <h3 class="mb-0">
+                    <b> Handover Repaired Item </b>
+                </h3>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Handover Repaired Item</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Handover Location</th>
+                                <th>Duty Officer</th>
+                                <th>SP Duty Officer</th>
+                                <th>Repair Complete Date</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.ReHFilter.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";                               
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(0).ToString().Trim() &nbsp;
+                                            <img src="@path" width="25" />
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(8).ToString().Trim()</td>
+
+                                    <td>
+                                        <center>
+                                            <div class="d-flex justify-content-around gap-2">
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                &nbsp
+                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#HandoverReModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Handover Complete"
+                                                        data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                        data-hlocation="@r.ItemArray.GetValue(5).ToString().Trim()"
+                                                        data-itemtype="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                        data-serialNo="@r.ItemArray.GetValue(2).ToString().Trim()"
+                                                        data-invNo="@r.ItemArray.GetValue(3).ToString().Trim()"
+                                                        data-qr="@r.ItemArray.GetValue(4).ToString().Trim()"
+                                                        data-aofficer="@r.ItemArray.GetValue(9).ToString().Trim()"
+                                                         data-dutyid="@r.ItemArray.GetValue(10).ToString().Trim()"
+                                                         data-hoid="@r.ItemArray.GetValue(12).ToString().Trim()">
+
+                                                    <i class="fas fa-handshake"></i>
+                                                </button>
+
+                                            </div>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Handover Location</th>
+                                <th>Duty Officer</th>
+                                <th>SP Duty Officer</th>
+                                <th>Repair Complete Date</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*Repaired Item Handover*@
+<div class="modal fade" id="HandoverReModal" tabindex="-1" role="dialog" aria-labelledby="HandoverReModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="HandoverReModalLabel">
+                    <i class="fas fa-handshake"></i>
+                    <strong> Handover Completion</strong>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Form Post -->
+                <form id="CompleteHandover" method="post">
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+                                <h3>
+                                    <center>
+                                        <label for="HLocation">Handover Location - </label>
+                                        <span id="HLocationRe"></span>
+                                    </center>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itemType">Item Type - </label>
+                                <span id="itemTypeRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itNo">IT Number - </label>
+                                <span id="itNoRe"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="inv_no">INV Number - </label>
+                                <span id="inv_noRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="serialNumber">Serial Number - </label>
+                                <span id="serialNumberRe"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="qr_code">QR - </label>
+                                <span id="qr_codeRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="form-group mb-1">
+                                <label for="AOfficer">Authorized Officer - </label>
+                                <span id="AOfficerRe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="StickerDate">Handover Date &nbsp;<span style="color: red;">*</span> </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="HOComDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="EmpNo">Bearer Employee Number &nbsp;<span style="color: red;">*</span></label>
+                            <input type="number" class="form-control" name="EmpNo" id="EmpNo" placeholder="Enter Employee Number" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="EmployeeName">Bearer Name </label>
+                            <input type="text" class="form-control" id="EmployeeName" name="EmployeeName" readonly>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="HOComRemarks" class="form-label">Additional Information</label>
+                        <textarea class="form-control" name="HOComRemarks"></textarea>
+                    </div>
+
+                    <input type="text" id="itNumberRe" name="IT_No" hidden/>
+                    <input type="text" id="dutyIdRe" name="Duty_Id" hidden/>
+                    <input type="text" id="hoIdRe" name="Ho_Id" hidden/>
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info col-sm-5">Complete Handover</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        // Handler for the 'HandoverReModal' modal
+        $('#HandoverReModal').on('shown.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var itno = button.data('itno');
+            var hlocation = button.data('hlocation');
+            var clocation = button.data('clocation');
+            var hlocationID = button.data('hlocationid');
+            var aofficer = button.data('aofficer');
+            var itemtype = button.data('itemtype');
+            var serialNo = button.data('serialno');
+            var invNo = button.data('invno');
+            var qr = button.data('qr');
+
+            var dutyid = button.data('dutyid');
+            var hoid = button.data('hoid');
+
+
+            // Set the IT_No value in the hidden input field
+            $('#itNumberRe').val(itno);
+            $('#hlocationNRe').val(hlocation);
+            $('#clocationNRe').val(clocation);
+            $('#hlocationIDNRe').val(hlocationID);
+            $('#aofficerNRe').val(aofficer);
+            $('#itemtypeNRe').val(itemtype);
+            $('#serialRe').val(serialNo);
+            $('#invRe').val(invNo);
+            $('#qrcodeRe').val(qr);
+
+            $('#dutyIdRe').val(dutyid);
+            $('#hoIdRe').val(hoid);
+
+
+            // Set the IT_No in the modal title and other text fields
+            $('#itNoRe').text(itno);
+            $('#HLocationRe').text(hlocation);
+            $('#CLocationRe').text(clocation)
+            $('#HLocationIDRe').text(hlocationID);
+            $('#AOfficerRe').text(aofficer);
+            $('#itemTypeRe').text(itemtype);
+            $('#serialNumberRe').text(serialNo);
+            $('#inv_noRe').text(invNo);
+            $('#qr_codeRe').text(qr);
+
+
+
+
+            // Modify the form's action URL to include the IT_No
+            var form = $('#CompleteHandover');
+            form.attr('action', '/Hardware/ReceptionCHandover?IT_No=' + encodeURIComponent(itno) +
+                '&DCurrentLocation=' + encodeURIComponent(hlocation) +
+                '&DAuthorized=' + encodeURIComponent(aofficer) +
+                '&COLid=' + encodeURIComponent(clocation) +
+                '&HOLid=' + encodeURIComponent(hlocationID));
+
+        });
+    </script>
+}
+
+
+<script>
+    $(document).ready(function() {
+        $('#EmpNo').on('input', function() {
+            var empNo = $(this).val();
+            var submitButton = $('#addUserForm button[type="submit"]'); // Select the submit button
+
+            if (empNo) {
+                $.ajax({
+                    url: '@Url.Action("GetEmployeeName", "Hardware")',
+                    type: 'GET',
+                    data: { empNo: empNo },
+                    success: function(data) {
+                        $('#EmployeeName').val(data || 'Not found');
+                        if (data) {
+                            submitButton.show(); // Show the button if data is found
+                        } else {
+                            submitButton.hide(); // Hide the button if no data found
+                        }
+                    },
+                    error: function() {
+                        $('#EmployeeName').val('Error retrieving name');
+                        submitButton.hide(); // Hide the button on error
+                    }
+                });
+            } else {
+                $('#EmployeeName').val('');
+                submitButton.hide(); // Hide the button if EmpNo is empty
+            }
+        });
+    });
+</script>

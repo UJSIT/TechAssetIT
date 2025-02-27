@@ -1,0 +1,196 @@
+﻿@{
+    ViewBag.Title = "InvData_FullView";
+}
+
+@model slbfeHardware.Models.InvoicenGRNModel
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Invoice Details</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("InvDataView", "Hardware")">View Invoice</a></li>
+                    <li class="breadcrumb-item active">Invoice Details</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <center>
+                        <h2><strong>Invoice</strong></h2>
+                        Invoice Reference -  @ViewBag.invoiceFull.Invoice_Reference
+                    </center>
+                    <hr />
+
+                    @*<a href="#" class="btn btn-warning btn-sm" onclick="openInvoiceImageInNewTab('@Url.Action("ViewInvoiceImage", "Hardware", new { id = ViewBag.invoiceFull.Invoice_Reference ,})')">
+            View Invoice Image
+        </a>*@
+
+                <button type="button" class="btn btn-warning open-invoice"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="View Invoice"
+                        data-file-name="@ViewBag.invoiceFull.Invoice_Reference">
+                    <i class="fas fa-file-invoice"></i> &nbsp; View Invoice
+                </button>
+
+
+
+
+                    <a href="@Url.Action("DevicesInInvoice", "Hardware", new { Invoice_Ref = ViewBag.invoiceFull.Invoice_Reference })"
+                       class="btn btn-warning" target="_blank">
+                        Devices in Invoice
+                    </a>
+
+
+
+                    <hr />
+                    <h4><strong>Invoice Details</strong></h4>
+                    <table>
+                        <tr>
+                            <th>Company Name</th>
+                            <td> @ViewBag.invoiceFull.Name_of_Supplier</td>
+                        </tr>
+
+                        <tr>
+                            <th>Invoice No</th>
+                            <td>@ViewBag.invoiceFull.Invoice_No</td>
+                        </tr>
+                        <tr>
+                            <th>Invoice Date</th>
+                            <td> @ViewBag.invoiceFull.Invoice_Date</td>
+                        </tr>
+                        <tr>
+                            <th>PO No</th>
+                            <td>@ViewBag.invoiceFull.PO_No</td>
+                        </tr>
+                    </table>
+                    <br />
+
+                    <h4><strong>Finance Details</strong></h4>
+
+
+                    <table>
+                        <tr>
+                            <th>VAT</th>
+                            <td>@ViewBag.invoiceFull.Vat</td>
+                        </tr>
+                        <tr>
+                            <th>Discount Amount</th>
+                            <td> @ViewBag.invoiceFull.Dicount_Amount</td>
+                        </tr>
+                        <tr>
+                            <th>Total Amount</th>
+                            <td> @ViewBag.invoiceFull.Total_Amount</td>
+                        </tr>
+                    </table>
+                    <br />
+
+                    <h4><strong>GRN Details</strong></h4>
+                    <table>
+                        <tr>
+                            <th>GRN No</th>
+                            <td>@ViewBag.invoiceFull.GRN_No</td>
+                        </tr>
+                        <tr>
+                            <th>GRN Date</th>
+                            <td>@ViewBag.invoiceFull.GRN_Date</td>
+                        </tr>
+
+                    </table>
+                    <br />
+
+                    <h4><strong>Other Details</strong></h4>
+                    <table>
+                        <tr>
+                            <th>Remarks</th>
+                            <td>@ViewBag.invoiceFull.Remarks</td>
+                        </tr>                        
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    document.querySelectorAll('.open-invoice').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var fileName = this.getAttribute('data-file-name');
+            var pdfPath = '/Upload/Invoice/Invoice_' + fileName + '.pdf';
+            window.open(pdfPath, '_blank');
+        });
+    });
+</script>
+
+
+
+
+<script>
+    function openInvoiceImageInNewTab(url) {
+        // Open the URL in a new tab
+        window.open(url, '_blank');
+    }
+</script>
+
+<script>
+    function openDevicesInNewTab(url) {
+        // Open the URL in a new tab
+        window.open(url, '_blank');
+    }
+</script>
+
+
+
+
+

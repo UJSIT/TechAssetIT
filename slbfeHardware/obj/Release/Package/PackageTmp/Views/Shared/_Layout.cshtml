@@ -1,0 +1,753 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>@ViewBag.Title</title>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <link href="@Url.Content("~/Content/Mylayout/plugins/fontawesome-free/css/all.min.css")" rel="stylesheet" type="text/css" />
+
+    <script src="../../Content/sweetalert.js"></script>
+    <link href="@Url.Content("~/Content/Mylayout/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Mylayout/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Mylayout/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Mylayout/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Mylayout/dist/css/adminlte.min.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Content/Mylayout/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Mylayout/plugins/toastr/toastr.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Mylayout/plugins/select2/css/select2.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Mylayout/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")" rel="stylesheet" type="text/css" />
+    <script src="../../Content/jquert371.js"></script>
+    <script src="../../Content/bootstrap530.js"></script>
+    <script src="../../Content/datatable202.js"></script>
+    <script src="../../Content/bootstrap5dt.js"></script>
+    <script src="../../Content/sweetalert.js"></script>
+</head>
+
+<!-- Light -->
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Dark -->
+    @*<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">*@
+
+    @{
+        var employeeName = Session["EmployeeName"] as string;
+    }
+
+
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+
+            <img class="animation__shake" src="@Url.Content("~/Content/Mylayout/dist/img/AdminLTELogo.png")" alt="Logo" height="60" width="60">
+        </div>
+
+        <!-- Navbar Light -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Navbar Dark -->
+            @*<nav class="main-header navbar navbar-expand navbar-dark">*@
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/Hardware/Dashboard" class="nav-link">Dashboard</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">
+                        @if (!string.IsNullOrEmpty(employeeName))
+                        {
+                            <strong>Hello,</strong> @employeeName
+                        }
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+
+                @if (Session["EmpNo"] != null)
+                {
+                    <li class="nav-item">
+                        <a href="@Url.Action("Logout", "Account")" class="nav-link" title="Sign out">
+                            <i class="fas fa-sign-out-alt">&nbsp;</i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/Hardware/Dashboard" class="brand-link">
+                <img src="@Url.Content("~/Content/Mylayout/dist/img/AdminLTELogo.png")" alt="TechAssets" class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-light">TechAssets</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                        @{
+                            var programIds = Session["ProgramIds"] as string;
+                            var programRoleStatus = Session["ProgramRoleStatus"] as Dictionary<string, int>;
+                        }
+
+
+
+
+                        <!-- Devices Start-->
+
+                        @if (programIds != null && programIds.Split(',').Contains("A001") && programRoleStatus != null && programRoleStatus.ContainsKey("A001") && programRoleStatus["A001"] == 1)
+                        {
+                            <li class="nav-item">
+                                <a href="/Hardware/FindDevices?status=2" class="nav-link">
+                                    <i class="nav-icon  fas fa-laptop-house"></i>
+                                    <p>Find Devices</p>
+                                </a>
+                            </li>
+                        }
+
+
+                        <!-- Reception Start -->
+
+                        @{
+                            bool showReception = programIds != null &&
+                                                 (programIds.Split(',').Contains("B001") && programRoleStatus != null && programRoleStatus.ContainsKey("B001") && programRoleStatus["B001"] == 1) ||
+                                                 (programIds.Split(',').Contains("B002") && programRoleStatus != null && programRoleStatus.ContainsKey("B002") && programRoleStatus["B002"] == 1) ||
+                                                 (programIds.Split(',').Contains("B003") && programRoleStatus != null && programRoleStatus.ContainsKey("B003") && programRoleStatus["B003"] == 1);
+                        }
+
+                        @if (showReception)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-university"></i>
+                                    <p>Reception<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (programIds.Split(',').Contains("B001") && programRoleStatus["B001"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/ReceptionPendingItem?status=All" class="nav-link">
+                                                &nbsp; &nbsp;&nbsp; &nbsp;
+                                                <i class="fas fa-check">&nbsp;</i>
+                                                <p>Received to IT</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("B002") && programRoleStatus["B002"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/ReceptionHandover" class="nav-link">
+                                                &nbsp; &nbsp;&nbsp; &nbsp;
+                                                <i class="fas fa-handshake">&nbsp;</i>
+                                                <p>Handover New Item</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("B003") && programRoleStatus["B003"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/RepairedHandover" class="nav-link">
+                                                &nbsp; &nbsp;&nbsp; &nbsp;
+                                                <i class="fas fa-handshake">&nbsp;</i>
+                                                <p>Handover - Repaired</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+
+
+                        <!-- Invoice Start-->
+                        @{
+                            bool showInvoice = programIds != null &&
+                                                 (programIds.Split(',').Contains("C001") && programRoleStatus != null && programRoleStatus.ContainsKey("C001") && programRoleStatus["C001"] == 1) ||
+                                                 (programIds.Split(',').Contains("C002") && programRoleStatus != null && programRoleStatus.ContainsKey("C002") && programRoleStatus["C002"] == 1);
+                        }
+
+                        @if (showInvoice)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-file-invoice"></i>
+                                    <p>Invoice<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (programIds.Split(',').Contains("C001") && programRoleStatus["C001"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/CreateInvoice" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-plus">&nbsp;</i>
+                                                <p>Create Invoice</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("C002") && programRoleStatus["C002"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/InvDataView" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-eye">&nbsp;</i>
+                                                <p>View Invoice</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+
+                        <!-- Supplier Start-->
+                        @{
+                            bool showSupplier = programIds != null &&
+                                                 (programIds.Split(',').Contains("D001") && programRoleStatus != null && programRoleStatus.ContainsKey("D001") && programRoleStatus["D001"] == 1) ||
+                                                 (programIds.Split(',').Contains("D002") && programRoleStatus != null && programRoleStatus.ContainsKey("D002") && programRoleStatus["D002"] == 1);
+                        }
+
+                        @if (showSupplier)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-walking"></i>
+                                    <p>Supplier<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (programIds.Split(',').Contains("D001") && programRoleStatus["D001"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/Suppliers" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-plus">&nbsp;</i>
+                                                <p>Add Supplier</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("D002") && programRoleStatus["D002"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/SuppDataView" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-eye">&nbsp;</i>
+                                                <p>View Supplier</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+
+
+                        <!-- Task Start-->
+                        @{
+                            bool showTask = programIds != null &&
+                                                 (programIds.Split(',').Contains("E001") && programRoleStatus != null && programRoleStatus.ContainsKey("E001") && programRoleStatus["E001"] == 1) ||
+                                                 (programIds.Split(',').Contains("E002") && programRoleStatus != null && programRoleStatus.ContainsKey("E002") && programRoleStatus["E002"] == 1) ||
+                                                 (programIds.Split(',').Contains("E003") && programRoleStatus != null && programRoleStatus.ContainsKey("E003") && programRoleStatus["E003"] == 1) ||
+                                                 (programIds.Split(',').Contains("E004") && programRoleStatus != null && programRoleStatus.ContainsKey("E004") && programRoleStatus["E004"] == 1) ||
+                                                 (programIds.Split(',').Contains("B005") && programRoleStatus != null && programRoleStatus.ContainsKey("B005") && programRoleStatus["B005"] == 1);
+                        }
+
+                        @if (showTask)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon  fas fa-tasks"></i>
+                                    <p>Task<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (programIds.Split(',').Contains("E001") && programRoleStatus["E001"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/Task" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-laugh-beam">&nbsp;</i>
+                                                <p>My Task</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("E002") && programRoleStatus["E002"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/DevicesInIT" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-landmark">&nbsp;</i>
+                                                <p>In IT Devices</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("E003") && programRoleStatus["E003"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/UpdateSpec" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-sync-alt">&nbsp;</i>
+                                                <p>Update Specification</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("E004") && programRoleStatus["E004"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/FaultnSolution" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-tools">&nbsp;</i>
+                                                <p>Fault & Solutions</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("E005") && programRoleStatus["E005"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/UpdateHistory" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-history">&nbsp;</i>
+                                                <p>Update History</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+
+
+
+                        <!-- Courier Start-->
+                        @{
+                            bool showCourier = programIds != null &&
+                                                 (programIds.Split(',').Contains("F001") && programRoleStatus != null && programRoleStatus.ContainsKey("F001") && programRoleStatus["F001"] == 1) ||
+                                                 (programIds.Split(',').Contains("F002") && programRoleStatus != null && programRoleStatus.ContainsKey("F002") && programRoleStatus["F002"] == 1) ||
+                                                 (programIds.Split(',').Contains("F003") && programRoleStatus != null && programRoleStatus.ContainsKey("F003") && programRoleStatus["F003"] == 1);
+                        }
+
+                        @if (showCourier)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon  fas fa-truck-loading"></i>
+                                    <p>Courier<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (programIds.Split(',').Contains("F001") && programRoleStatus["F001"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/CourierReqNewItem" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-truck-loading">&nbsp;</i>
+                                                <p>Courier New Item</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("F002") && programRoleStatus["F002"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/CourierRepairedItem" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-truck-loading">&nbsp;</i>
+                                                <p>Courier Repaired Item</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("F003") && programRoleStatus["F003"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/CourierFilterView?status=12" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-filter">&nbsp;</i>
+                                                <p>Manage Courier</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+
+
+                        <!-- Outside Repair Start-->
+                        @{
+                            bool showORepair = programIds != null &&
+                                                 (programIds.Split(',').Contains("G001") && programRoleStatus != null && programRoleStatus.ContainsKey("G001") && programRoleStatus["G001"] == 1) ||
+                                                 (programIds.Split(',').Contains("G002") && programRoleStatus != null && programRoleStatus.ContainsKey("G002") && programRoleStatus["G002"] == 1);
+                        }
+
+                        @if (showORepair)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon  fas fa-tools"></i>
+                                    <p>Outside Repair<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (programIds.Split(',').Contains("G001") && programRoleStatus["G001"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/OutSideRepair" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-vote-yea">&nbsp;</i>
+                                                <p>Requested</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("G002") && programRoleStatus["G002"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/ViewGatePass?status=1" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-warehouse">&nbsp;</i>
+                                                <p>Outeside</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+
+                        <!-- Dispose-->
+                        @{
+                            bool showDispose = programIds != null &&
+                                                 (programIds.Split(',').Contains("H001") && programRoleStatus != null && programRoleStatus.ContainsKey("H001") && programRoleStatus["H001"] == 1) ||
+                                                 (programIds.Split(',').Contains("H002") && programRoleStatus != null && programRoleStatus.ContainsKey("H002") && programRoleStatus["H002"] == 1);
+                        }
+
+                        @if (showDispose)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-trash"></i>
+                                    <p>Dispose<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (programIds.Split(',').Contains("H001") && programRoleStatus["H001"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/StoringDispose" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-dolly">&nbsp;</i>
+                                                <p>Storing Dispose</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("H002") && programRoleStatus["H002"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/ViewDisposeBulk?status=1" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-th-list">&nbsp;</i>
+                                                <p>Dispose Bulk</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+
+
+
+                        <!-- Parts-->
+                        @if (programIds != null && programIds.Split(',').Contains("I001") && programRoleStatus != null && programRoleStatus.ContainsKey("I001") && programRoleStatus["I001"] == 1)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon  fas fa-vote-yea"></i>
+                                    <p>Parts in Stores<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/Hardware/Parts?status=1" class="nav-link">
+                                            &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                            <i class="fas fa-file-alt">&nbsp;</i>
+                                            <p>Parts</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+
+
+
+
+                        <!-- Assest request-->
+                        @if (programIds != null && programIds.Split(',').Contains("J001") && programRoleStatus != null && programRoleStatus.ContainsKey("J001") && programRoleStatus["J001"] == 1)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon  fas fa-folder-plus"></i>
+                                    <p>Assests Request<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/Hardware/CreateAssestReqForm?status=1" class="nav-link">
+                                            &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                            <i class="fas fa-file-alt">&nbsp;</i>
+                                            <p>Request Form</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+
+
+
+
+                        <!-- Actions Start-->
+                        @{
+                            bool showAction = programIds != null &&
+                                                 (programIds.Split(',').Contains("X001") && programRoleStatus != null && programRoleStatus.ContainsKey("X001") && programRoleStatus["X001"] == 1) ||
+                                                 (programIds.Split(',').Contains("X002") && programRoleStatus != null && programRoleStatus.ContainsKey("X002") && programRoleStatus["X002"] == 1) ||
+                                                 (programIds.Split(',').Contains("X003") && programRoleStatus != null && programRoleStatus.ContainsKey("X003") && programRoleStatus["X003"] == 1) ||
+                                                 (programIds.Split(',').Contains("X004") && programRoleStatus != null && programRoleStatus.ContainsKey("X004") && programRoleStatus["X004"] == 1) ||
+                                                 (programIds.Split(',').Contains("X005") && programRoleStatus != null && programRoleStatus.ContainsKey("X005") && programRoleStatus["X005"] == 1) ||
+                                                 (programIds.Split(',').Contains("X006") && programRoleStatus != null && programRoleStatus.ContainsKey("X006") && programRoleStatus["X006"] == 1);
+                        }
+
+                        @if (showAction)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-thumbs-up"></i>
+                                    <p>Actions<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (programIds.Split(',').Contains("X001") && programRoleStatus["X001"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/SpecialTaskAssign?status=41" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fab fa-stackpath">&nbsp;</i>
+                                                <p>Special Task Assign</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("X002") && programRoleStatus["X002"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/PendingAppHandover" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-handshake">&nbsp;</i>
+                                                <p>Handover - Approval</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("X003") && programRoleStatus["X003"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/PendingCourierApprove" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fas fa-truck-loading">&nbsp;</i>
+                                                <p>Courier - Approval</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("X004") && programRoleStatus["X004"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/PendingRecommendDispose" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-trash">&nbsp;</i>
+                                                <p>Dispose - Recommend</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (programIds.Split(',').Contains("X005") && programRoleStatus["X005"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/PendingApprovalDispose" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-trash">&nbsp;</i>
+                                                <p>Dispose - Approval</p>
+                                            </a>
+                                        </li>
+                                    }
+                                    @*@if (programIds.Split(',').Contains("X006") && programRoleStatus["X006"] == 1)
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/Hardware/FaultnSolution" class="nav-link">
+                                                    &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                    <i class="fas fa-tools">&nbsp;</i>
+                                                    <p>Fault & Solutions</p>
+                                                </a>
+                                            </li>
+                                        }*@
+                                </ul>
+                            </li>
+                        }
+
+
+                        <!-- User Rights-->
+                        @if (programIds != null && programIds.Split(',').Contains("W001") && programRoleStatus != null && programRoleStatus.ContainsKey("W001") && programRoleStatus["W001"] == 1)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>User Rights<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/Account/UserRegister" class="nav-link">
+                                            &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                            <i class="fas fa-user-plus">&nbsp;</i>
+                                            <p>User & Role Assign</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+
+
+
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </section>
+        </div>
+
+        <footer class="main-footer">
+            <strong><a href="">TechAssets</a> &copy; <a href="">SLBFE IT</a></strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0 <b>Last Update</b> 02-26-2025
+            </div>
+        </footer>
+
+
+    </div>
+
+
+
+
+    <script src="@Url.Content("~/Content/Mylayout/plugins/jquery/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/select2/js/select2.full.min.js")" type="text/javascript"></script>
+
+
+    <script src="@Url.Content("~/Content/Mylayout/plugins/bootstrap/js/bootstrap.bundle.min.js")" type="text/javascript"></script>
+
+
+    @*<script src="@Url.Content("~/Content/Mylayout/plugin/")" type="text/javascript"></script>*@
+
+
+
+    <script src="@Url.Content("~/Content/Mylayout/plugins/jquery-ui/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/chart.js/Chart.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/sparklines/sparkline.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/jqvmap/jquery.vmap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/jqvmap/maps/jquery.vmap.usa.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/jquery-knob/jquery.knob.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/moment/moment.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/daterangepicker/daterangepicker.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Content/Mylayout/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Content/Mylayout/plugins/summernote/summernote-bs4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/dist/js/adminlte.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Content/Mylayout/dist/pages/dashboard.js")" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables/jquery.dataTables.min.js")" type="text/javascript"></script>
+
+
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables-responsive/js/dataTables.responsive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables-buttons/js/dataTables.buttons.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables-buttons/js/buttons.bootstrap4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/jszip/jszip.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/pdfmake/pdfmake.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/pdfmake/vfs_fonts.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables-buttons/js/buttons.html5.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables-buttons/js/buttons.print.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/plugins/datatables-buttons/js/buttons.colVis.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Content/Mylayout/dist/js/cnofification.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/Mylayout/dist/js/dr.js")" type="text/javascript"></script>
+
+
+
+    <!-- Page specific script -->
+
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+            $("#example2").DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,  // Make sure ordering is enabled
+                "order": [[0, 'desc']],  // Order by the first column in descending order
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+
+            $("#example3").DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,  // Make sure ordering is enabled
+                "order": [[0, 'desc']],  // Order by the first column in descending order
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+
+
+            $("#example4").DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,  // Make sure ordering is enabled
+                "order": [[0, 'desc']],  // Order by the first column in descending order
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            });
+
+
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+
+
+
+
+</body>
+</html>

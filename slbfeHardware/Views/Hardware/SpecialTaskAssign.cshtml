@@ -1,0 +1,287 @@
+﻿@{
+    ViewBag.Title = "Special Task Assign";
+}
+
+
+@using System.Web.Mvc
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Special Task Assign</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Filter Duty assigned</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <i class="fas fa-filter"></i>&nbsp;&nbsp;
+                    <a href="/Hardware/SpecialTaskAssign?status=41" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "41" ? "active" : "")">To Repair</a>&nbsp;&nbsp;
+                    <a href="/Hardware/SpecialTaskAssign?status=42" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "42" ? "active" : "")">Permenantly Handover</a>&nbsp;&nbsp;
+                    <a href="/Hardware/SpecialTaskAssign?status=All" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "All" ? "active" : "")">Search All</a>&nbsp;&nbsp;
+
+                    <hr />
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>INV No</th>
+
+                                <th>Date received</th>
+                                <th>Location</th>
+                                <th>Reason</th>
+                                <th>Technical Officer</th>
+                                <th>SP Duty Officer</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.DutyAssingTBL.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string statusValue = r.ItemArray.GetValue(10).ToString().Trim();
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" />&nbsp;
+                                            @r.ItemArray.GetValue(0).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td class="text-danger">@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                    <td>
+                                        <center>
+                                            <div class="d-flex justify-content-around gap-2">
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                &nbsp
+
+                                                @if (statusValue == "41" || statusValue == "42")
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#SPOfficerModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Assign Officer"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-dutyid="@r.ItemArray.GetValue(11).ToString().Trim()">
+                                                        <i class="fas fa-user-astronaut"></i>
+                                                    </button>
+                                                }
+
+                                            </div>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>INV No</th>
+
+                                <th>Date received</th>
+                                <th>Location</th>
+                                <th>Reason</th>
+                                <th>Technical Officer</th>
+                                <th>SP Duty Officer</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+<div class="modal fade" id="SPOfficerModal" tabindex="-1" role="dialog" aria-labelledby="THreceivedModalLabel" aria-hidden="true">
+    <form id="SPOfficerModalForm" action='/Hardware/SPOfficerModal' method="post">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title" id="SPOfficerModalLabel">
+                        <i class="fas fa-user-astronaut"></i>&nbsp; Assign Special Officer To - <span id="itemLabel"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <input type="hidden" id="itNo" name="itNo" readonly />
+                                <input type="hidden" id="dutyId" name="dutyId" readonly />
+
+                                <input type="hidden" id="DutyAssignEmpNoSP" name="DutyAssignEmpNoSP" readonly />
+                                <input type="hidden" id="DutyAssignOfficerSP" name="DutyAssignOfficerSP" readonly />
+
+
+                                <div class="form-group">
+                                    <label for="ItemReciveDate">Technical Officer &nbsp;<span style="color: red;">*</span></label>
+
+                                    <div class="form-group">
+                                        <select id="technicalOfficer" name="EmpNo" class="form-control" required>
+                                            <option value="">Select an officer</option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="reason">Specail Note</label>
+                                    <textarea class="form-control" id="DutyAssignRemaks" name="DutyAssignRemaks" rows="7"></textarea>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="width: 200px;">Assign Officer</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts {
+
+    <script>
+    $(document).ready(function () {
+        // Populate the dropdown with technical officers
+        $.ajax({
+            url: '@Url.Action("GetTechnicalOfficer", "Hardware")',
+            type: 'GET',
+            success: function (data) {
+                var dropdown = $('#technicalOfficer');
+                $.each(data, function (index, employee) {
+                    dropdown.append($('<option></option>').attr('value', employee.EmpNo).text(employee.Name_with_ini));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching data: ", error);
+            }
+        });
+
+
+        $('#technicalOfficer').on('change', function () {
+            var selectedOption = $(this).find('option:selected');
+            var empNo = selectedOption.val();
+            var officerName = selectedOption.text();
+
+            $('#DutyAssignEmpNoSP').val(empNo);
+            $('#DutyAssignOfficerSP').val(officerName);
+        });
+
+        $('#SPOfficerModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var itNo = button.data('itno');
+            var dutyId = button.data('dutyid');
+
+            $('#itNo').val(itNo);
+            $('#dutyId').val(dutyId);
+            $('#itemLabel').text(itNo);
+        });
+
+
+        $('#SPOfficerModalForm').on('submit', function (event) {
+            event.preventDefault();
+
+            $('#modalMessage').hide().removeClass('alert-success alert-danger');
+
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '/Hardware/SPOfficerModal',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        $('#SPOfficerModal').modal('hide');
+                        location.reload();
+                        $('#modalMessage').text(response.message).addClass('alert alert-success').show();
+                    } else {
+                        $('#modalMessage').text(response.message).addClass('alert alert-danger').show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#modalMessage').text('Error: ' + error).addClass('alert alert-danger').show();
+                }
+            });
+        });
+
+
+    });
+    </script>
+
+
+
+}

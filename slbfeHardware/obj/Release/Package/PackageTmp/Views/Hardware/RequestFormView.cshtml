@@ -1,0 +1,96 @@
+@{
+    ViewBag.Title = "RequestFormView";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <center>
+                        <h2><strong>Request Form</strong></h2>
+                        Request Form Reference - @Model.ReqFormID
+                    </center>
+                    <hr />
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Assest Code</th>
+                                <th>Quantity</th>
+                                <th>Requested Division</th>
+                                <th>Requested Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.ARForm.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(4).ToString().Trim() + ".png";
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" />&nbsp;
+                                            @r.ItemArray.GetValue(4).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item</th>
+                                <th>Assest Code</th>
+                                <th>Quantity</th>
+                                <th>Requested Division</th>
+                                <th>Requested Date</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+

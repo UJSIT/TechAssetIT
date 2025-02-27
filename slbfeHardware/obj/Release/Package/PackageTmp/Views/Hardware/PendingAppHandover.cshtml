@@ -1,0 +1,233 @@
+﻿@{
+    ViewBag.Title = "Handover Approval";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Awaiting Handover Approval</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Awaiting approval</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Purchased Division</th>
+                                <th>Current Location</th>
+                                <th>Handover Location</th>
+                                <th>Authorized Officer</th>
+                                <th>Handover Remaks</th>
+                                <th>Recommend Date</th>
+                                <th>Recommend User</th>
+                                <th style="width: 15%;">
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.dt10.Rows)
+                            {
+
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                <tr>
+
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(0).ToString().Trim()&nbsp;
+                                            <img src="@path" width="25" />
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(8).ToString().Trim()</td>
+                                    <td>
+                                        <center>
+                                            <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            |
+                                            <a href="#" class="btn btn-success btn-sm approve-btn"
+                                               data-itno="@r.ItemArray.GetValue(1).ToString()"
+                                               data-newholocation="@r.ItemArray.GetValue(4).ToString()"
+                                               data-authuser="@r.ItemArray.GetValue(5).ToString()"
+                                               data-hoid="@r.ItemArray.GetValue(9).ToString()"
+                                               data-bs-toggle="tooltip"
+                                               data-bs-placement="top"
+                                               title="Approve">
+                                                <i class="fas fa-check-circle"></i>
+                                            </a>
+
+                                            |
+                                            <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#rejectModal" data-bs-placement="top" title="Reject" onclick="setRejectModalData('@r.ItemArray.GetValue(1).ToString()', '@r.ItemArray.GetValue(9).ToString()')">
+                                                <i class="fas fa-times-circle"></i>
+                                            </a>
+
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- Handover Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Handover Reject</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="rejectForm">
+                    <div class="form-group">
+                        <label for="reason">Reason for Reject Handover <span style="color: red;">*</span></label>
+                        <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
+                    </div>
+                    <input type="hidden" id="hoId" name="hoId" />
+                    <input type="hidden" id="itNo" name="itNo" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="saveReject">Reject Handover</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        new DataTable('#example');
+    });
+</script>
+
+
+<!-- Handover Approved  -->
+<script>
+    $(document).ready(function() {
+        $('.approve-btn').on('click', function(event) {
+            event.preventDefault();
+
+            // Retrieve data attributes
+            var itNo = $(this).data('itno');
+            var newhoLocation = $(this).data('newholocation');
+            var authUser = $(this).data('authuser');
+            var hoId = $(this).data('hoid');
+
+            // Log to console for debugging
+            console.log(newhoLocation, authUser);
+
+            $.ajax({
+                url: '@Url.Action("ApproveHandover", "Hardware")',
+                type: 'POST',
+                data: {
+                    IT_No: itNo,
+                    New_HO_Location: newhoLocation, // Added the newhoLocation to the data
+                    Authorized_Officer: authUser,
+                      Ho_Id: hoId
+
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Approved',
+                        text: 'The handover has been approved successfully!',
+                        icon: 'success'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload(); // Refresh the page on confirmation
+                }
+            });
+        },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'An error occurred while approving the handover.',
+                    icon: 'error'
+                });
+            }
+    });
+    });
+    });
+</script>
+
+
+<!-- Handover Reject  -->
+<script>
+    function setRejectModalData(itNo, hoId) {
+        document.getElementById('hoId').value = hoId;
+        document.getElementById('itNo').value = itNo;
+    }
+
+    document.getElementById('saveReject').addEventListener('click', function() {
+        var hoId = document.getElementById('hoId').value;      
+        var itNo = document.getElementById('itNo').value;
+        var reason = document.getElementById('reason').value;
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("RejectHandover", "Hardware")',
+            data: {
+                HO_ID: hoId,
+                IT_NO: itNo,
+                Remarks3: reason
+            },
+            success: function(response) {
+                $('#rejectModal').modal('hide');
+                location.reload(); // Reload the page to see the changes
+            },
+            error: function() {
+                alert("An error occurred while rejecting the item.");
+            }
+        });
+    });
+</script>

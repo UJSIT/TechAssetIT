@@ -1,0 +1,346 @@
+@{
+    ViewBag.Title = "Parts in IT Stores";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <h3 class="mb-0">
+                    <b> Parts in IT Stores </b>
+                </h3>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Parts in IT Stores</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+                    <i class="fas fa-filter"></i>&nbsp;&nbsp;
+                    <a href="/Hardware/Parts?status=1" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "1" ? "active" : "")">Available Parts</a>&nbsp;&nbsp;
+                    <a href="/Hardware/Parts?status=0" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "0" ? "active" : "")">Old Parts</a>&nbsp;&nbsp;
+                    @*<a href="/Hardware/CourierFilterView?status=17" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "17" ? "active" : "")">Courier - Pickup</a>&nbsp;&nbsp;
+                        <a href="/Hardware/CourierFilterView?status=18" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "18" ? "active" : "")">Courier - Complete</a>&nbsp;&nbsp;*@
+
+                    <hr />
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Installation_Device</th>
+                                <th>Installation_Date</th>
+                                <th>Remaks</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.PartsTBL.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(5).ToString().Trim() + ".png";
+                                var idValue = r.ItemArray.GetValue(1).ToString().Trim();
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(5).ToString().Trim() &nbsp;
+                                            <img src="@path" width="25" />
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(8).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(9).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(12).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(15).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(16).ToString().Trim()</td>
+
+                                    <td>
+                                        <center>
+                                            <div class="d-flex justify-content-around gap-2">
+
+
+                                                @if (idValue != "0")
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                            data-toggle="modal" data-target="#UpdateToDevice"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Add to device"
+                                                            data-id="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                            data-type="@r.ItemArray.GetValue(5).ToString().Trim()"
+                                                            data-itno="@r.ItemArray.GetValue(6).ToString().Trim()"
+                                                            data-invno="@r.ItemArray.GetValue(8).ToString().Trim()"
+                                                            data-qrno="@r.ItemArray.GetValue(9).ToString().Trim()"
+                                                            data-serialno="@r.ItemArray.GetValue(7).ToString().Trim()">
+                                                        <i class="fas fa-laptop-medical"></i>
+                                                    </button>
+                                                }
+
+                                                &nbsp
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+
+
+
+
+                                            </div>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Installation_Device</th>
+                                <th>Installation_Date</th>
+                                <th>Remaks</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*Add to Device Modal*@
+<div class="modal fade" id="UpdateToDevice" tabindex="-1" role="dialog" aria-labelledby="UpdateToDeviceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="UpdateToDeviceModalLabel">
+                    <i class="fas fa-check"></i>
+                    Add To Device
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="AddToDevice" method="post">
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itemType">Item Type - </label>
+                                <span id="type"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="itNo">IT Number - </label>
+                                <span id="itno"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="inv_no">INV Number - </label>
+                                <span id="invno"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="serialNumber">Serial Number - </label>
+                                <span id="serialno"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="qr_code">QR - </label>
+                                <span id="qrno"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <hr>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="PickupDate"></label>
+                        </div>
+                        <div class="col-md-8">
+                            <span id="itnoError"></span> <!-- Error message will be shown here -->
+                            <span id="deviceStatus"></span> <!-- Availability status message -->
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="PickupDate">Instrataion Device</label>&nbsp;<span style="color: red;">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="PInsDevice" id="PInsDevice" required>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="PickupDate">Instrataion Date</label>&nbsp;<span style="color: red;">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="PInsDate" required>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <label for="AddInfo">Additional Information</label>
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="PInsRemaks"></textarea>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="id" />
+
+                    <span></span>
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info col-sm-5">Add to device</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#UpdateToDevice').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            var id = button.data('id');
+            var type = button.data('type');
+            var itno = button.data('itno');
+            var invno = button.data('invno');
+            var qrno = button.data('qrno');
+            var serialno = button.data('serialno');
+
+            var modal = $(this);
+            modal.find('#id').val(id);
+            modal.find('#type').text(type);
+            modal.find('#itno').text(itno);
+            modal.find('#invno').text(invno);
+            modal.find('#qrno').text(qrno);
+            modal.find('#serialno').text(serialno);
+        });
+    });
+
+    $(document).ready(function () {
+        var isDeviceAvailable = false;
+
+        $('#PInsDevice').on('input', function () {
+            var deviceName = $(this).val().trim();
+            if (deviceName.length > 0) {
+                $.ajax({
+                    url: '/Hardware/ValidateItNo',
+                    type: 'POST',
+                    data: { itno: deviceName },
+                    success: function (response) {
+                        if (!response.exists) {
+                            $('#deviceStatus').text('Device not available').css('color', 'red');
+                            isDeviceAvailable = false;
+                        } else {
+                            $('#deviceStatus').text('Device available').css('color', 'green');
+                            isDeviceAvailable = true;
+                        }
+                    },
+                    error: function () {
+                        $('#deviceStatus').text('Error while checking device').css('color', 'red');
+                    }
+                });
+            } else {
+                $('#deviceStatus').text('');
+                isDeviceAvailable = false;
+            }
+        });
+
+        $('#AddToDevice').submit(function (e) {
+            e.preventDefault();
+
+            if (!isDeviceAvailable) {
+                alert('Device not available. Please check the IT Number.');
+                return;
+            }
+
+            var itno = $('#itno').text().trim();
+            var formData = {
+                id: $('#id').val(),
+                PInsDevice: $('input[name="PInsDevice"]').val(),
+                PInsDate: $('input[name="PInsDate"]').val(),
+                PInsRemaks: $('textarea[name="PInsRemaks"]').val()
+            };
+
+            $.ajax({
+                url: '/Hardware/AddToDevice',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        $('#UpdateToDevice').modal('hide');
+                        location.reload();
+                    } else {
+                        alert("Error: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert("Something went wrong. Please try again.");
+                }
+            });
+        });
+    });
+
+</script>

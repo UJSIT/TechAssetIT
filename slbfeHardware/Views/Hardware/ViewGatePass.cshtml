@@ -1,0 +1,411 @@
+@{
+    ViewBag.Title = "Process In Outside";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Process In Outside</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Process In Outside</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <i class="fas fa-filter"></i>&nbsp;&nbsp;
+                    <a href="/Hardware/ViewGatePass?status=1" class="btn btn-outline-primary btn-sm @(ViewBag.GPCurrentStatus == "1" ? "active" : "")"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;New Gate Pass</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ViewGatePass?status=0" class="btn btn-outline-primary btn-sm @(ViewBag.GPCurrentStatus == "0" ? "active" : "")"><i class="fas fa-warehouse">&nbsp;&nbsp;</i>Process In Outside</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ViewGatePass?status=3" class="btn btn-outline-primary btn-sm @(ViewBag.GPCurrentStatus == "3" ? "active" : "")"><i class="fas fa-hand-holding-usd"></i>&nbsp;&nbsp;Payment Update</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ViewGatePass?status=4" class="btn btn-outline-primary btn-sm @(ViewBag.GPCurrentStatus == "4" ? "active" : "")"><i class="fas fas fa-upload"></i>&nbsp;&nbsp;Upload Document</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ViewGatePass?status=All" class="btn btn-outline-primary btn-sm @(ViewBag.GPCurrentStatus == "All" ? "active" : "")">Search All</a>&nbsp;&nbsp;
+                    <hr />
+                    <table id="example2" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Gate Pass ID</th>
+                                <th>Company Name</th>
+                                <th>Sent Date</th>
+                                <th>Time</th>
+                                <th>Officer Name</th>
+                                <th style="width: 100px; text-align: center;">Document</th>
+                                <th style="width: 100px; text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.gatepassTBL.Rows)
+
+                            {
+                                string statusValue = r.ItemArray.GetValue(10).ToString().Trim();
+
+                                <tr>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+
+                                    <td style="text-align: center;">
+                                        @if (statusValue == "4")
+                                        {
+                                            <button type="button" class="btn btn-primary btn-sm upload-document" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload Document"
+                                                    data-id="@r.ItemArray.GetValue(1).ToString().Trim()">
+                                                <i class="fas fas fa-upload"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-warning btn-sm open-pdf"
+                                                    ata-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="View Document"
+                                                    data-file-name="@r.ItemArray.GetValue(1).ToString().Trim()">
+                                                <i class="far fa-file-pdf"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-warning btn-sm open-id"
+                                                    ata-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="View ID"
+                                                    data-file-name="@r.ItemArray.GetValue(1).ToString().Trim()">
+                                                <i class="fas fa-id-card"></i>
+                                            </button>
+
+                                        }
+                                    </td>
+
+
+                                    <td style="text-align: center;">
+
+
+                                        @if (statusValue == "1")
+                                        {
+                                            <button type="button" class="btn btn-primary btn-sm taken-away" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Taken Away Items"
+                                                    data-id="@r.ItemArray.GetValue(0).ToString().Trim()">
+                                                <i class="fas fa-truck-moving"></i>
+                                            </button>
+                                        }
+
+
+                                        @if (statusValue == "0")
+                                        {
+                                            <button type="button" class="btn btn-primary btn-sm complete-process" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Process"
+                                                    data-id="@r.ItemArray.GetValue(0).ToString().Trim()">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        }
+
+                                        @if (statusValue == "3")
+                                        {
+                                            <button type="button" class="btn btn-primary btn-sm done-process" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Done"
+                                                    data-id="@r.ItemArray.GetValue(0).ToString().Trim()">
+                                                <i class="fas fa-check-double"></i>
+                                            </button>
+                                        }
+
+
+
+
+
+                                        <a href="/Hardware/FullViewGatePass?gatepassid=@r.ItemArray.GetValue(1)&company=@r.ItemArray.GetValue(3)&sdate=@r.ItemArray.GetValue(2)"
+                                           class="btn btn-warning btn-sm"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="View items"
+                                           target="_blank">
+                                            <i class="fas fa-laptop-house"></i>
+                                        </a>
+
+
+
+
+                                    </td>
+
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal for file upload -->
+<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="fileUploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">
+                    <i class="fas fas fa-upload"></i> &nbsp;  Upload Document
+                </h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <input type="file" id="fileInput" class="form-control" accept="application/pdf" />
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="uploadFileButton" class="btn btn-primary col-sm-5">Upload</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.querySelectorAll('.open-pdf').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var fileName = this.getAttribute('data-file-name');
+            var pdfPath = '/Upload/GatePass/Documents/' + fileName + '.pdf'; 
+            window.open(pdfPath, '_blank');
+        });
+    });
+</script>
+
+
+<script>
+    document.querySelectorAll('.open-id').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var fileName = this.getAttribute('data-file-name');
+            var pdfPath = '/Upload/GatePass/NIC/' + fileName + '.jpg';
+            window.open(pdfPath, '_blank');
+        });
+    });
+</script>
+
+
+@*Taken Away*@
+<script>
+    $(document).ready(function () {
+        $('.taken-away').on('click', function () {
+            const id = $(this).data('id');
+
+            Swal.fire({
+                title: 'Are you sure items are taken away?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, items are taken away!',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        id: id,
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/GatepassStatus',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + xhr.responseText,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+@*Complete Process*@
+<script>
+    $(document).ready(function () {
+        $('.complete-process').on('click', function () {
+            const id = $(this).data('id');
+
+            Swal.fire({
+                title: 'Are you sure complete this process?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, Complete Process!',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        id: id,
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/GatepassCompleteProcess',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + xhr.responseText,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+@*Done Process*@
+<script>
+    $(document).ready(function () {
+        $('.done-process').on('click', function () {
+            const id = $(this).data('id');
+
+            Swal.fire({
+                title: 'Are you sure complete this process?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#218838',
+                confirmButtonText: 'Yes, Complete Process!',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const requestData = {
+                        id: id,
+                    };
+
+                    $.ajax({
+                        url: '/Hardware/DoneProcess',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Completed!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred: ' + xhr.responseText,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+      
+        $('.upload-document').on('click', function () {
+            var itemId = $(this).data('id');  
+            $('#fileInput').data('item-id', itemId); 
+
+            $('#fileUploadModal').modal('show');
+        });
+
+        $('#uploadFileButton').on('click', function () {
+            var itemId = $('#fileInput').data('item-id');
+            var fileInput = $('#fileInput')[0];
+
+            if (fileInput.files.length > 0) {
+                var formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+                formData.append('id', itemId);
+
+                $.ajax({
+                    url: '@Url.Action("UploadDocumentOutRepair", "Hardware")',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        alert('File uploaded successfully!');
+                        $('#fileUploadModal').modal('hide');
+                    },
+                    error: function (xhr, status, error) {
+                        alert('An error occurred while uploading the file.');
+                    }
+                });
+            } else {
+                alert('Please select a file to upload.');
+            }
+        });
+    });
+</script>

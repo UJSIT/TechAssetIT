@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "EditInvoice";
+}
+
+@model slbfeHardware.Models.InvoicenGRNModel
+
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Edit Invoice</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Edit Invoice</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <form method="post" action="UpdateInvoice" enctype="multipart/form-data">
+                        <div class="row mb-2 d-none">
+                            <label class="text-dark fw-bold col-3">Invoice Reference No:</label>
+                            <div class="col-9">
+                                @Html.TextBoxFor(m => m.Invoice_Reference, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "ref1" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">Invoice No:</label>
+                            <div class="col-9">
+                                @Html.TextBoxFor(m => m.Invoice_No, new { @type = "text", @class = "form-control", required = "required", @id = "invoNo" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">Invoice Date:</label>
+                            <div class="col-5">
+                                @Html.TextBoxFor(m => m.Invoice_Date, new { @type = "date", @class = "form-control", required = "required", @id = "invoDate" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">P.O. No:</label>
+                            <div class="col-9">
+                                @Html.TextBoxFor(m => m.PO_No, new { @type = "text", @class = "form-control", required = "required", @id = "poNo" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">Company Name:</label>
+
+                            @* <div class="col-5">
+                @Html.DropDownListFor(m => m.Name_of_Supplier, Model.CompanySelectList, "-- select the company --", new { @type="text", @class="form-select", required="required"})
+            </div> *@
+                            <div class="col-5">
+                                @Html.TextBoxFor(m => m.Name_of_Supplier, new { @type = "text", @class = " border-0 p-0 bg-trans   ", required = "required", @id = "supName", @readonly = "readonly" })
+
+                                <input list="companyInput" name="myBrowser" id="PDivision" class="form-control" />
+                                <datalist id="companyInput">
+                                    @foreach (var row in Model.CompanySelectList)
+                                    {
+                                        <option value="@row.Text"></option>
+                                    }
+                                </datalist>
+
+                            </div>
+                            <div class="col mt-4">
+                                <a href="Suppliers?RedirectType=InvoiceNewSupplier" class="btn btn-outline-dark">Add New Supplier</a>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">Vat:</label>
+                            <div class="col-9">
+                                @Html.TextBoxFor(m => m.Vat, new { @type = "number", @step = "any", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">Discount Amount:</label>
+                            <div class="col-9">
+                                @Html.TextBoxFor(m => m.Dicount_Amount, new { @type = "number", @step = "any", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">Total Amount:</label>
+                            <div class="col-9">
+                                @Html.TextBoxFor(m => m.Total_Amount, new { @type = "number", @step = "any", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        @*        <div class="row mb-2">
+            <label class="text-dark fw-bold col-3">Invoice Image:</label>
+            <div class="col-9">
+                <input type="file" class="form-control" name="InvImgfile" accept = "application/pdf"/ required="required">
+            </div>
+        </div>*@
+
+@*                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">Invoice Image:</label>
+                            <div class="col-9">
+                                <input type="file" class="form-control" name="InvoiceImageFile" accept="application/pdf" />
+                                @if (!string.IsNullOrEmpty(Model.InvoiceImagePath))
+                                {
+                                   
+                                    <a href="#" onclick="openInvoiceImageInNewTab('@Url.Action("ViewInvoiceImage", "Hardware", new { id = Model.Invoice_Reference})')">View Current Invoice Image</a>
+                                }
+                            </div>
+                        </div>*@
+
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">GRN No:</label>
+                            <div class="col-9">
+                                @Html.TextBoxFor(m => m.GRN_No, new { @type = "text", @class = "form-control", id = "grnNo", required = "required" })
+                            </div>
+                        </div>
+
+  <div class="row mb-2">
+    <label class="text-dark fw-bold col-3">GRN Date:</label>
+    <div class="col-5">
+        @Html.TextBoxFor(m => m.GRN_Date, new { @type = "date", @class = "form-control", required = "required" })
+    </div>
+</div>
+                        <div class="col-9 d-none">
+                                @Html.TextAreaFor(m => m.status, new { @type = "text", @class = "form-control" })
+                            </div>
+                        <div class="row mb-2">
+                            <label class="text-dark fw-bold col-3">Remarks:</label>
+                            <div class="col-9">
+                                @Html.TextAreaFor(m => m.Remarks, new { @type = "text", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a class="btn btn-block col-sm-6  btn-outline-danger" a href="/Hardware/Dashboard">Cancel</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info col-sm-6 float-right" id="btn1">Update Invoice</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class=" p-2 mt-1 container bg-light1 text-dark">
+    <div class="col-12 col-md-10 col-lh-6 mx-auto">
+
+       
+
+    </div>
+</div>
+
+<script>
+
+     $('#supName').val(@Model.Name_of_Supplier);
+     $('#image').val(@Model.Invoice_Image)
+
+</script>
+
+<script>
+
+    $('#PDivision').on('change', function () {
+        var supName = $('#PDivision').val();
+
+        $('#supName').val(supName);
+
+    })
+
+</script>
+
+
+<script>
+    function openInvoiceImageInNewTab(url) {
+        // Open the URL in a new tab
+        window.open(url, '_blank');
+    }
+</script>

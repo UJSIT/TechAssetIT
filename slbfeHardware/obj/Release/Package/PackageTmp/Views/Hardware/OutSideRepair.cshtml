@@ -1,0 +1,486 @@
+@{
+    ViewBag.Title = "OutSide Repair";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Requested Outside Repair</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Requested Outside Repair</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-success">
+                <div class="card-body">
+                    <div class="text-end">
+                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#BulkModal">
+                            <i class="fas fa-truck-pickup"></i> &nbsp;
+                            Create Gate Pass
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>INV No</th>
+                                <th>Outside Repair Request Date</th>
+                                <th>Current Location</th>
+                                <th>Duty Assign Officer</th>
+                                <th>Duty Assign Officer SP</th>
+                                <th>Reson For Repair</th>
+                                <th style="width: 100px; text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.OutsideRepair.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(2).ToString().Trim() + ".png";
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" alt="Item Icon" />&nbsp;
+                                            @r.ItemArray.GetValue(2).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(9).ToString().Trim()</td>
+                                    <td style="text-align: center;">
+
+
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#AddgatepassModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Gate Pass"
+                                                data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                data-oid="@r.ItemArray.GetValue(8).ToString().Trim()"
+                                                data-dutyid="@r.ItemArray.GetValue(0).ToString().Trim()">
+                                            <i class="fas fa-truck-pickup"></i>
+                                        </button>
+
+
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddORemarksModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Add Remarks"
+                                                data-roid="@r.ItemArray.GetValue(8).ToString().Trim()"
+                                                data-ritno="@r.ItemArray.GetValue(1).ToString().Trim()">
+                                            <i class="far fa-comment-dots"></i>
+                                        </button>
+
+
+
+                                        <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*Create Gate Pass*@
+<div class="modal fade" id="BulkModal" tabindex="-1" aria-labelledby="BulkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">
+                    <i class="fas fa-truck-pickup"></i> &nbsp; Create Gate Pass
+                </h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="Bulks" enctype="multipart/form-data" method="post">
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Bulk No</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.ORBulkNo, new { @type = "text", @class = "form-control" })
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Sent Date</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.SentDate, new { @type = "date", @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Time</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.Time, new { @type = "time", @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Company Name</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.CompanyID, new { @list = "browsers", @type = "text", @class = "form-control", required = "required", @id = "supName", autocomplete = "off" })
+                            <datalist id="browsers">
+                                @foreach (var row in Model.CompanySelectList)
+                                {
+                                    <option value="@row.Text"></option>
+                                }
+                            </datalist>
+                            <span id="supplier-error" style="color: red; display: none;">Company not in the list.</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Delivery Officer Name</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.DOfficerName, new { @type = "text", @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Delivery Officer NIC</label>
+
+
+
+                        <div class="col-12 col-lg-8">
+                            @*<input type="file" name="NICFile" accept="application/jpg" required onchange="showFileName(event)">*@
+                            <input type="file" name="NICFile" id="NICFile" accept=".jpg" required onchange="validateFile(event)">
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Remarks</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextAreaFor(m => m.BulkRemarks, new { @type = "text", @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-secondary" style="width: 200px;" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="submitFormButton" class="btn btn-success col-sm-5">Create Gate Pass</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Add to Gate pass*@
+<div class="modal fade" id="AddgatepassModal" tabindex="-1" role="dialog" aria-labelledby="THreceivedModalLabel" aria-hidden="true">
+    <form id="AddgatepassModalForm" action='/Hardware/THreceivedModal' method="post">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title" id="THreceivedModalLabel">
+                        <i class="fas fa-truck-pickup"></i>&nbsp;Add to Gate Pass - <span id="itemLabel" style="color: red;"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <select id="orBulkNoDropdown" name="bulkNo" class="form-control">
+                        <option value="">Loading...</option>
+                    </select>
+                </div>
+
+                <input type="text" id="modalItno" name="itno" class="form-control" hidden>
+                <input type="text" id="modalOid" name="oid" class="form-control" hidden>
+                <input type="text" id="modalDutyid" name="dutyid" class="form-control" hidden>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success" style="width: 200px;">Add to gate pass</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+@*Add Outside Remaks*@
+<div class="modal fade" id="AddORemarksModal" tabindex="-1" role="dialog" aria-labelledby="THreceivedModalLabel" aria-hidden="true">
+    <form id="AddORemarksModalForm" action='/Hardware/UpdateRemarks' method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title" id="AddORemaksModalLabel">
+                        <i class="far fa-comment-dots"></i>&nbsp; Add Remarks to - <span id="ritemLabel" style="color: red;"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="remarks">Remarks</label>
+                        <textarea id="remarks" name="remarks" class="form-control" rows="4" placeholder="Enter remarks here..."></textarea>
+                    </div>
+                </div>
+
+                <input type="hidden" id="Rid" name="Rid" class="form-control">
+                <input type="hidden" id="Ritno" name="Ritno" class="form-control">
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" style="width: 200px;" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="width: 200px;">Add to remarks</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+<script>
+    function validateFile(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            if (fileExtension !== 'jpg') {
+                alert('Please upload a valid .jpg file.');
+                event.target.value = ''; // Clear the input
+            } else {
+                console.log('File selected:', file.name);
+            }
+        }
+    }
+</script>
+
+
+@*Create gatepass*@
+<script>
+        $(document).ready(function () {
+            function showFileName(event) {
+                var input = event.target;
+                var fileName = input.files.length > 0 ? input.files[0].name : 'No file chosen';
+                document.getElementById('file-name').innerText = fileName;
+            }
+
+            $('#NICFile').change(function (event) {
+                showFileName(event);
+            });
+
+            $("#submitFormButton").click(function (e) {
+                e.preventDefault();
+
+                var form = document.getElementById('Bulks');
+                if (!form) {
+                    console.error("Form with ID 'Bulks' not found.");
+                    return;
+                }
+
+                var formData = new FormData(form);
+
+                for (var pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+
+                $.ajax({
+                url: '@Url.Action("GatePass", "Hardware")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Completed!',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        alert(response.error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error occurred while submitting the request: " + error);
+                    alert("An error occurred while submitting the form.");
+                }
+            });
+
+            });
+        });
+</script>
+
+@*Find Bulk Number to droupdown*@
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Hardware/GetORBulkNos',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    var dropdown = $('#orBulkNoDropdown');
+                    dropdown.empty();
+                    dropdown.append('<option value="">Select Gatepass ID</option>');
+                    $.each(data, function (index, value) {
+                        dropdown.append('<option value="' + value + '">' + value + '</option>');
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error: ' + status + ' - ' + error);
+            }
+        });
+    });
+</script>
+
+
+@*Add to gatepass*@
+<script>
+    $(document).ready(function () {
+        $('#AddgatepassModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var itno = button.data('itno');
+            var oid = button.data('oid');
+            var dutyid = button.data('dutyid');
+
+            $('#modalItno').val(itno);
+            $('#modalOid').val(oid);
+            $('#modalDutyid').val(dutyid);
+            $('#itemLabel').text(itno);
+        });
+    });
+
+    $('#AddgatepassModalForm').on('submit', function (event) {
+        event.preventDefault();
+        $('#modalMessage').hide().removeClass('alert-success alert-danger');
+        var formData = $(this).serialize();
+        $.ajax({
+            url: '/Hardware/Addtogatepass',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: 'Completed!',
+                        text: response.message,
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    alert(response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error occurred while submitting the request: " + error);
+                alert("An error occurred while submitting the form.");
+            }
+        });
+    });
+
+</script>
+
+@*Remaks*@
+<script>
+    $(document).ready(function () {
+        $('#AddORemarksModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var ritno = button.data('ritno');
+            var roid = button.data('roid');
+
+            $('#Ritno').val(ritno);
+            $('#Rid').val(roid);
+            $('#ritemLabel').text(ritno);
+
+            $.ajax({
+                url: '/Hardware/GetORDeviceRemaks', 
+                type: 'GET',
+                data: { id: roid }, 
+                success: function (response) {
+                    $('#remarks').val(response.DeviceRemaks);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching remarks:', error);
+                }
+            });
+        });
+
+       
+        $('#AddORemarksModalForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var remarks = $('#remarks').val();
+            var rid = $('#Rid').val();
+            var ritno = $('#Ritno').val();
+
+            $.ajax({
+                url: '/Hardware/ORUpdateRemarks', 
+                type: 'POST',
+                data: { Rid: rid, Ritno: ritno, remarks: remarks }, 
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Completed!',
+                            text: response.message,
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        alert(response.error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error updating remarks:', error);
+                    alert('Error updating remarks.');
+                }
+            });
+        });
+    });
+</script>
+

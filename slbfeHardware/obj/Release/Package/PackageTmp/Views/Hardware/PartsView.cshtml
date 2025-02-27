@@ -1,0 +1,159 @@
+@{
+    ViewBag.Title = "PartsView";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Find Devices</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Find Devices</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-success">
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Invoice Reference</th>
+                                <th>Invoice No</th>
+                                <th>Description Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> @ViewData["InvoiceRef"]</td>
+                                <td> @ViewData["InvoiceNo"]</td>
+                                <td> @ViewData["RItem"]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th>Installation Device</th>
+                                <th>Installation Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.Parts.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" />&nbsp;
+                                            @r.ItemArray.GetValue(0).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th>Installation Device</th>
+                                <th>Installation Date</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<script>
+    function loadDetails(type) {
+        var detailsDiv = document.getElementById('details');
+        detailsDiv.innerHTML = 'Loading details...';
+
+        // Simulate an AJAX request to fetch details
+        setTimeout(function () {
+            var details = getDetailsForType(type);
+            detailsDiv.innerHTML = 'Details: ' + details;
+        }, 1000);
+    }
+
+    function getDetailsForType(type) {
+        var details = {
+            inIT: 'Details about In IT',
+            all: 'Details about In IT, In Current Location'
+        };
+        return details[type] || 'No details available';
+    }
+
+
+
+
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        new DataTable('#example');
+    });
+</script>
+
+
+

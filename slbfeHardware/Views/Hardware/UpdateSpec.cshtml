@@ -1,0 +1,355 @@
+@{
+    ViewBag.Title = "Update Specification";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Update Specification</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Update Specification</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <table id="example3" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th style="width: 10%;">
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.TBLUpdateSpec.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string statusValue = r.ItemArray.GetValue(6).ToString().Trim();
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(0).ToString().Trim()&nbsp;
+                                            <img src="@path" width="25" />
+
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+
+                                    <td>
+                                        <center>
+                                            <div class=" justify-content-around gap-2">
+                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#SpecificationModal" title="Update Specification"
+                                                        data-itype="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                        data-itno="@r.ItemArray.GetValue(2).ToString().Trim()"
+                                                        data-processor="@r.ItemArray.GetValue(9).ToString().Trim()"
+                                                        data-processorspeed="@r.ItemArray.GetValue(10).ToString().Trim()"
+                                                        data-memory="@r.ItemArray.GetValue(11).ToString().Trim()"
+                                                        data-storage="@r.ItemArray.GetValue(12).ToString().Trim()"
+                                                        data-storagetype="@r.ItemArray.GetValue(13).ToString().Trim()"
+                                                        data-operatingsystem="@r.ItemArray.GetValue(14).ToString().Trim()"
+                                                        data-screensize="@r.ItemArray.GetValue(15).ToString().Trim()"
+                                                        data-paneltype="@r.ItemArray.GetValue(16).ToString().Trim()"
+                                                        data-speremarks="@r.ItemArray.GetValue(17).ToString().Trim()">
+                                                    <i class="fas fa-sync-alt"></i>
+                                                </button>
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(2).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                            </div>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+@*Update Specification*@
+<div class="modal fade" id="SpecificationModal" tabindex="-1" role="dialog" aria-labelledby="SpecificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="SpecificationModalLabel">
+                    <i class="fas fa-sync-alt"></i>
+                    Update Specification - <b><span id="itno1"></span></b>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="SpecificationForm">
+
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="itype" readonly>
+                        <input type="hidden" class="form-control" id="itno" readonly>
+                    </div>
+
+                    <div id="cpu-specs" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Processor">Processor</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="Processor" name="Processor">
+                                            <option value="">Select Processor</option>
+                                            <option value="Intel Core i9">Intel Core i9</option>
+                                            <option value="Intel Core i7">Intel Core i7</option>
+                                            <option value="Intel Core i5">Intel Core i5</option>
+                                            <option value="Intel Core i3">Intel Core i3</option>
+                                            <option value="Intel Pentium">Intel Pentium</option>
+                                            <option value="Intel Celeron">Intel Celeron</option>
+                                            <option value="Intel Xeon">Intel Xeon</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ProcessorSpeed">Processor Speed</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">GHz</span>
+                                        <input type="number" class="form-control" id="ProcessorSpeed" name="ProcessorSpeed" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="StorageType">Storage Type</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="StorageType" name="StorageType">
+                                            <option value="">Select Storage Type</option>
+                                            <option value="HDD">HDD (Hard Disk Drive)</option>
+                                            <option value="SSD">SSD (Solid State Drive)</option>
+                                            <option value="eMMC">eMMC (Embedded MultiMediaCard)</option>
+                                            <option value="NVMe">NVMe (Non-Volatile Memory Express)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Storage">Storage Size</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Gb</span>
+                                        <input type="number" class="form-control" id="Storage" name="Storage" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Memory">RAM Size</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Gb</span>
+                                        <input type="number" class="form-control" id="Memory" name="Memory" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="OperatingSystem">Operating System</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="OperatingSystem" name="OperatingSystem">
+                                            <option value="">Select Operating System</option>
+                                            <option value="Windows 10">Windows 11</option>
+                                            <option value="Windows 11">Windows 10</option>
+                                            <option value="Windows 8.1">Windows 8.1</option>
+                                            <option value="Windows 8">Windows 8</option>
+                                            <option value="Windows 7">Windows 7</option>
+                                            <option value="Windows XP">Windows XP</option>
+                                            <option value="macOS">macOS</option>
+                                            <option value="Linux">Linux</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="monitor-specs" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="PanelType">Panel Type</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="PanelType" name="PanelType">
+                                            <option value="">Select Panel Type</option>
+                                            <option value="IPS">IPS (In-Plane Switching)</option>
+                                            <option value="OLED">OLED (Organic Light Emitting Diode)</option>
+                                            <option value="LED">LED (Light Emitting Diode)</option>
+                                            <option value="QLED">QLED (Quantum Dot LED)</option>
+                                            <option value="PLS">PLS (Plane-to-Line Switching)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ScreenSize">Screen Size</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Inches</span>
+                                        <input type="number" class="form-control" id="ScreenSize" name="ScreenSize" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="SpeRemarks">Remarks</label>
+                        <textarea class="form-control" id="SpeRemarks" name="SpeRemarks"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info col-sm-5" id="saveSpecification">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        function toggleSpecificationFields() {
+            var itype = $('#itype').val();
+            if (itype === "CPU") {
+                $('#cpu-specs').show();
+                $('#monitor-specs').hide();
+            } else if (itype === "Monitor") {
+                $('#cpu-specs').hide();
+                $('#monitor-specs').show();
+            } else {
+                $('#cpu-specs').hide();
+                $('#monitor-specs').hide();
+            }
+        }
+        toggleSpecificationFields();
+        $('#itype').on('change', function () {
+            toggleSpecificationFields();
+        });
+
+        $('button[data-toggle="modal"]').click(function () {
+            var itype = $(this).data('itype');
+            var itno = $(this).data('itno');
+            var processor = $(this).data('processor');
+            var processorspeed = $(this).data('processorspeed');
+            var memory = $(this).data('memory');
+            var storage = $(this).data('storage');
+            var storagetype = $(this).data('storagetype');
+            var operatingsystem = $(this).data('operatingsystem');
+            var screensize = $(this).data('screensize');
+            var paneltype = $(this).data('paneltype');
+            var speremarks = $(this).data('speremarks');
+
+            $('#itype').val(itype);
+            $('#itno').val(itno);
+            $('#itno1').text(itno);
+            $('#Processor').val(processor);
+            $('#ProcessorSpeed').val(processorspeed);
+            $('#Memory').val(memory);
+            $('#Storage').val(storage);
+            $('#StorageType').val(storagetype);
+            $('#OperatingSystem').val(operatingsystem);
+            $('#ScreenSize').val(screensize);
+            $('#PanelType').val(paneltype);
+            $('#SpeRemarks').val(speremarks);
+
+            toggleSpecificationFields();
+        });
+
+        $('#saveSpecification').click(function () {
+            var specificationData = {
+                itype: $('#itype').val(),
+                itno: $('#itno').val(),
+                processor: $('#Processor').val(),
+                processorspeed: $('#ProcessorSpeed').val(),
+                memory: $('#Memory').val(),
+                storage: $('#Storage').val(),
+                storagetype: $('#StorageType').val(),
+                operatingsystem: $('#OperatingSystem').val(),
+                screensize: $('#ScreenSize').val(),
+                paneltype: $('#PanelType').val(),
+                speremarks: $('#SpeRemarks').val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveSpecification", "Hardware")',
+                type: 'POST',
+                data: specificationData,
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                        $('#SpecificationModal').modal('hide');
+                    } else {
+                        alert('Error saving specification.');
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while saving the specification.');
+                }
+            });
+        });
+    });
+</script>
+
+

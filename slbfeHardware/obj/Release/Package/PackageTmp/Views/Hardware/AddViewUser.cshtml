@@ -1,0 +1,82 @@
+﻿<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>User & Role</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">User & Role</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-header"> 
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-info col-sm-6 float-right" id="btn1" data-toggle="modal" data-target="#addUserModal">Add New User</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Employee Number</th>
+                                <th>Employee Name</th>
+                                <th>Action</th>                                  
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1975</td>
+                                <td>DON STEPHEN  CHAMARA SANDARUWAN WIJESINGHE</td>    
+                                <td>
+                                    <center>
+                                        <a href="/Hardware/UserRoleAssign" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Change role">
+                                            <i class="fas fa-gamepad"></i>
+                                        </a>
+                                    </center>
+                                </td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal Add New User -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form id="addUserForm">
+                  <div class="form-group">
+                      <label for="employeeNumber">Employee Number</label>
+                      <input type="text" class="form-control" id="employeeNumber" placeholder="Enter Employee Number">
+                  </div>
+              </form>
+          </div>
+
+          <div class="modal-footer d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary col-sm-5" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-info col-sm-5">Add this User</button>
+          </div>
+      </div>
+  </div>
+</div>

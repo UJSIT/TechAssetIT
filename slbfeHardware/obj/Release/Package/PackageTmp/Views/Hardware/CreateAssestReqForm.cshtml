@@ -1,0 +1,767 @@
+@{
+    ViewBag.Title = "CreateAssestReqForm";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+
+<style>
+    .file-name {
+        font-size: 0.9rem;
+        color: #6c757d; /* Optional: for muted text appearance */
+    }
+</style>
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Assets Requests</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("")">View Invoice</a></li>
+                    <li class="breadcrumb-item active">Invoice Description</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-success">
+                <div class="card-body">
+                    <div class="text-end">
+                        <a class="btn btn-outline-dark" href="/Hardware/SubmitReqForm?ReqFormID=@Model.ReqFormID" data-bs-toggle="modal" data-bs-target="#RFormModal">
+                            <i class="fas fa-plus"></i>
+                            Add Request Forms
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <a href="/Hardware/CreateAssestReqForm?status=1" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "1" ? "active" : "")">Process Assets Request</a>&nbsp;&nbsp;
+                    <a href="/Hardware/CreateAssestReqForm?status=2" class="btn btn-outline-primary btn-sm @(ViewBag.CurrentStatus == "2" ? "active" : "")">Complete Assets Request</a>&nbsp;&nbsp;
+
+                    <table id="example3" class="table table-bordered table-striped">
+                        <thead>
+
+                            <tr>
+                                <th>Request Form ID</th>
+                                <th>Requested Division</th>
+                                <th>Assests Request Date</th>
+                                <th>Status</th>
+                                <th><center>Action</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (System.Data.DataRow r in Model.AssestTbl.Rows)
+                            {
+                                string statusValue = r.ItemArray.GetValue(16).ToString().Trim();
+
+                                <tr>
+                                    <td>
+                                        @r.ItemArray.GetValue(0).ToString()
+                                    </td>
+
+                                    <td>
+                                        @r.ItemArray.GetValue(1).ToString()
+                                    </td>
+                                    <td>
+                                        @r.ItemArray.GetValue(2).ToString()
+                                    </td>
+                                    <td>
+                                        @r.ItemArray.GetValue(5).ToString()
+                                    </td>
+                                    <td style="width: 150px;">
+
+                                        <div class="d-flex justify-content-between">
+
+                                            @if (statusValue == "1")
+                                            {
+                                                <a class="btn btn-primary btn-sm"
+                                                   data-formid="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                   title="Add Assets" data-bs-toggle="modal"
+                                                   data-bs-target="#AddAssetsModal" id="btnPop">
+                                                    <i class="fas fa-plus"></i>
+                                                </a>
+
+                                                <button type="button" class="btn btn-info btn-sm"
+                                                        data-toggle="modal" title="Update Status"
+                                                        data-target="#StatusModal"
+                                                        data-id="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                        data-status="@r.ItemArray.GetValue(3).ToString().Trim()"
+                                                        data-remarks="@r.ItemArray.GetValue(4).ToString().Trim()"
+                                                        data-date1="@r.ItemArray.GetValue(6).ToString().Trim()"
+                                                        data-remarks1="@r.ItemArray.GetValue(7).ToString().Trim()"
+                                                        data-date2="@r.ItemArray.GetValue(8).ToString().Trim()"
+                                                        data-remarks2="@r.ItemArray.GetValue(9).ToString().Trim()"
+                                                        data-date3="@r.ItemArray.GetValue(10).ToString().Trim()"
+                                                        data-remarks3="@r.ItemArray.GetValue(11).ToString().Trim()"
+                                                        data-date4="@r.ItemArray.GetValue(12).ToString().Trim()"
+                                                        data-remarks4="@r.ItemArray.GetValue(13).ToString().Trim()"
+                                                        data-date5="@r.ItemArray.GetValue(14).ToString().Trim()"
+                                                        data-remarks5="@r.ItemArray.GetValue(15).ToString().Trim()">
+                                                    <i class="fas fa-pen"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-success btn-sm"
+                                                        data-toggle="modal" title="Complete"
+                                                        data-target="#DeleteModal"
+                                                        data-id="@r.ItemArray.GetValue(0).ToString().Trim()">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            }
+                                           
+                                                <a href="/Hardware/RequestFormView?ReqFormID=@r.ItemArray.GetValue(0).ToString()"
+                                                   class="btn btn-warning btn-sm"
+                                                   title="Request Form Details"
+                                                   target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+
+                                        </div>
+
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*Address form*@
+
+<div class="modal fade" id="RFormModal" tabindex="-1" aria-labelledby="RFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Assets Request Form</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="SubmitReqForm" enctype="multipart/form-data" method="post">
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Assets Request Form ID</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.ReqFormID, new { @type = "text", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Requested Division</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.RDivision, new { @list = "browsers", @type = "text", @class = "form-control", required = "required", autocomplete = "off" })
+                            <datalist id="browsers">
+                                @foreach (var row in Model.DivisionList)
+                                {
+                                    <option value="@row.Text"></option>
+                                }
+                            </datalist>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Assets Request Date</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.RDate, new { @type = "date", @class = "form-control", @id = "invoDate", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Request Form PDF<span style="color: red;">*</span></label>
+                        <div class="col-12 col-lg-8">
+                            <input type="file" name="ReqFile" accept="application/pdf" required onchange="showFileName(event)">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="submitFormButton" class="btn btn-info col-sm-5">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        function showFileName(event) {
+            var input = event.target;
+            var fileName = input.files.length > 0 ? input.files[0].name : 'No file chosen';
+            document.getElementById('file-name').innerText = fileName;
+        }
+
+        $("#submitFormButton").click(function (e) {
+            e.preventDefault(); 
+
+            var formData = new FormData(document.getElementById('SubmitReqForm'));
+
+            $.ajax({
+                url: '@Url.Action("SubmitReqForm", "Hardware")',
+                type: 'POST',
+                data: formData,
+                processData: false, 
+                contentType: false, 
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        $("#RFormModal").modal('hide');
+                        window.location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error occurred while submitting the request: " + error);
+                    alert("An error occurred while submitting the form.");
+                }
+            });
+        });
+</script>
+
+
+
+
+@*Address Items*@
+<div class="modal fade" id="AddAssetsModal" tabindex="-1" aria-labelledby="AddAssetsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Assets</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="SubmitAssets" method="post" action="/Hardware/SubmitAssets">
+                    <div class="row mb-2">
+                        <label for="formIdRe" class="text-dark fw-bold col-12 col-lg-4">Form ID</label>
+                        <div class="col-12 col-lg-8">
+                            <input type="text" class="form-control" id="formIdRe" name="ReqFormID" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="assetIdInput" class="text-dark fw-bold col-12 col-lg-4">Asset Code</label>
+                        <div class="col-12 col-lg-8">
+                            <input type="text" class="form-control" id="assetIdInput" name="AssestCode" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Item</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.Assest, Model.ItemTypeList, "-- select --", new { @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Quantity</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.quantity, new { @type = "number", @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" id="submitFormButton" class="btn btn-info col-sm-5">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteModalLabel">Complete Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/Hardware/DeleteRequestForm" method="post">
+                    <div class="modal-body">
+                        Are you sure you want complete this?
+                        <strong><span id="fsid"></span></strong>
+                    </div>
+                    <input type="hidden" id="idNo" name="ReqFormID" />
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success col-sm-5">Complete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    $(document).on('click', '[data-target="#DeleteModal"]', function () {
+        var id = $(this).data('id');
+        $('#reqformid').text(id);
+        $('#idNo').val(id);
+    });
+</script>
+
+
+<script>
+    document.getElementById("SubmitAssets").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('/Hardware/SubmitAssets', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Asset added successfully!");
+                    $('#AddAssetsModal').modal('hide'); 
+                    window.location.reload();
+                } else {
+                    alert("Failed to add asset: " + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while adding the asset.");
+            });
+    });
+
+</script>
+
+
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#AddAssetsModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var reqFormID = button.data('formid');
+                $('#formIdRe').val(reqFormID);
+
+                $.ajax({
+                    url: '/Hardware/GetNewAssetID',
+                    type: 'GET',
+                    data: { reqFormID: reqFormID },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#assetIdInput').val(response.assetID);
+                        } else {
+                            console.error('Error:', response.error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+
+<script>
+    $("#btnPop").click(function () {
+        var data = $("#ref").val();
+        var sendData = { ReqFormID: data }
+        $.ajax({
+            url: "/Hardware/assestCodeID",
+            methods: "POST",
+            data: sendData,
+            success: function (data) {
+                var AssestNO = data.newAssestNo;
+                $("#assestRCode").val(AssestNO);
+            }
+        })
+
+    })
+</script>
+
+
+
+
+<div class="modal fade" id="StatusModal" tabindex="-1" role="dialog" aria-labelledby="StatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="StatusModalLabel">Update Satus</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/Hardware/UpdateAStatus" method="post">
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Current Status</label>
+                        <div class="col-12 col-lg-8">
+                            <input type="text" id="StatusInput" class="form-control" autocomplete="off" oninput="filterOptions()" />
+                            <select id="StatusSelect" class="form-control position-absolute" size="5" style="max-height: 100px; overflow-y: auto; display: none; z-index: 1; width: 100%; background-color:#f2fbff;" onclick="selectOption()">
+                                @foreach (var row in Model.AssestsStatusList)
+                                {
+                                    <option value="@row.Value" text="@row.Text">@row.Text</option>
+                                }
+                            </select>
+
+                            @Html.TextBoxFor(m => m.StatusID, new { @type = "text", @class = "form-control d-none", @id = "status", required = "required" })
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mb-2 d-none">
+                        <label class="text-dark fw-bold col-12 col-lg-4">ID</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextAreaFor(m => m.ReqFormID, new { @type = "text", @id = "reqformid", @class = "form-control form-control-sm", required = "required", @readonly = "readonly" })
+                        </div>
+                    </div>
+
+
+                    <hr />
+
+
+                    <div class="row ">
+                        <div class="col-4">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <label class="text-dark fw-bold col">Date</label>
+                                        <input type="date" name="AssestDate1" class="form-control">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <label class="text-dark fw-bold col">Remaks</label>
+                                        <textarea name="AssestRemaks1" class="form-control form-control-sm"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <input type="date" class="form-control" name="AssestDate2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <textarea name="AssestRemaks2" class="form-control form-control-sm"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <input type="date" class="form-control" name="AssestDate3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <textarea name="AssestRemaks3" class="form-control form-control-sm"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <input type="date" class="form-control" name="AssestDate4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <textarea name="AssestRemaks4" class="form-control form-control-sm"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <input type="date" class="form-control" name="AssestDate5">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <div class="">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <textarea name="AssestRemaks5" class="form-control form-control-sm"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row ">
+                        <div class="col-12">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <label class="text-dark fw-bold col">Common Remarks</label>
+                                        <textarea name="AssestRemarks" class="form-control form-control-sm"></textarea>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>                                          
+
+                        <strong><span id="reqformid"></span></strong>
+                        <input type="hidden" id="idNo" name="ReqFormID" />
+                        <div class="modal-footer d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary col-sm-5">Submit</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    $(document).on('click', '[data-target="#StatusModal"]', function () {
+        var id = $(this).data('id'); 
+        $('#reqformid').text(id);
+        $('#idNo').val(id); 
+    });
+</script>
+
+
+<script>
+    function filterOptions() {
+        const input = document.getElementById('StatusInput');
+        const filter = input.value.toLowerCase();
+        const select = document.getElementById('StatusSelect');
+        const options = select.options;
+
+        let hasVisibleOptions = false;
+
+        for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            if (option.text.toLowerCase().includes(filter)) {
+                option.style.display = '';
+                hasVisibleOptions = true;
+            } else {
+                option.style.display = 'none';
+            }
+        }
+
+        select.style.display = hasVisibleOptions ? 'block' : 'none';
+    }
+
+    function selectOption() {
+        const select = document.getElementById('StatusSelect');
+        const input = document.getElementById('StatusInput');
+        const hiddenInput = document.getElementById('status');
+
+       
+        const selectedOption = select.options[select.selectedIndex];
+        if (selectedOption) {
+            input.value = selectedOption.text;
+            hiddenInput.value = selectedOption.value;
+        }
+        select.style.display = 'none';
+    }
+
+  
+    document.getElementById('StatusInput').addEventListener('focus', function () {
+        const select = document.getElementById('StatusSelect');
+        select.style.display = 'block';
+
+        if (this.value.trim() === '') {
+            const options = select.options;
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].style.display !== 'none') {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+    });
+
+    document.getElementById('StatusSelect').addEventListener('click', selectOption);
+
+    document.getElementById('StatusInput').addEventListener('blur', function () {
+        setTimeout(() => {
+            document.getElementById('StatusSelect').style.display = 'none';
+        }, 200);
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#StatusModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var remarks = button.data('remarks');
+            var status = button.data('status');
+
+            var date1 = button.data('date1');
+            var remarks1 = button.data('remarks1');
+            var date2 = button.data('date2');
+            var remarks2 = button.data('remarks2');
+            var date3 = button.data('date3');
+            var remarks3 = button.data('remarks3');
+            var date4 = button.data('date4');
+            var remarks4 = button.data('remarks4');
+            var date5 = button.data('date5');
+            var remarks5 = button.data('remarks5');
+
+            var modal = $(this);
+
+            modal.find('textarea[name="AssestRemarks"]').val(remarks);
+            modal.find('textarea[name="AssestRemaks1"]').val(remarks1);
+            modal.find('textarea[name="AssestRemaks2"]').val(remarks2);
+            modal.find('textarea[name="AssestRemaks3"]').val(remarks3);
+            modal.find('textarea[name="AssestRemaks4"]').val(remarks4);
+            modal.find('textarea[name="AssestRemaks5"]').val(remarks5);
+
+            // Fix date1 conversion to avoid time zone shift
+            var formattedDate1 = date1 ? new Date(date1).toLocaleDateString('en-CA') : ''; 
+            modal.find('input[name="AssestDate1"]').val(formattedDate1);
+
+            var formattedDate2 = date2 ? new Date(date2).toLocaleDateString('en-CA') : '';
+            modal.find('input[name="AssestDate2"]').val(formattedDate2);
+
+            var formattedDate3 = date3 ? new Date(date3).toLocaleDateString('en-CA') : '';
+            modal.find('input[name="AssestDate3"]').val(formattedDate3);
+
+            var formattedDate4 = date4 ? new Date(date4).toLocaleDateString('en-CA') : '';
+            modal.find('input[name="AssestDate4"]').val(formattedDate4);
+
+            var formattedDate5 = date5 ? new Date(date5).toLocaleDateString('en-CA') : '';
+            modal.find('input[name="AssestDate5"]').val(formattedDate5);
+
+            var statusSelect = modal.find('#StatusSelect');
+            statusSelect.val(status);
+
+            modal.find('#status').val(status);
+            var selectedText = statusSelect.find('option:selected').text();
+
+            modal.find('#StatusInput').val(selectedText);
+        });
+    });
+
+</script>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        new DataTable('#example');
+    });
+</script>

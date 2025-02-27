@@ -1,0 +1,686 @@
+﻿@{
+    ViewBag.Title = "View_Invoice_Full";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+@{
+    var employeeName = Session["EmployeeName"] as string;
+}
+@{
+    var programIds = Session["ProgramIds"] as string;
+    var programRoleStatus = Session["ProgramRoleStatus"] as Dictionary<string, int>;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Invoice Description</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">View Invoice</a></li>
+                    <li class="breadcrumb-item active">Invoice Description</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-success">
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Invoice Reference</th>
+                                <th>Invoice No</th>
+                                <th>Date</th>
+                                <th>Company Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.Invoice_Ref</td>
+                                <td>@Model.Invoice_No</td>
+                                <td>@Model.Invoice_Date</td>
+                                <td>@Model.Name_of_Supplier</td>
+                                <td>
+
+                                    @if (programIds != null && programIds.Split(',').Contains("C006") && programRoleStatus != null && programRoleStatus.ContainsKey("C006") && programRoleStatus["C006"] == 1)
+                                    {
+                                        <a class="btn btn-block btn-outline-dark" href="/Hardware/Submit_Inv_items?invno=@Model.invno" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btnPop">
+                                            <i class="fas fa-plus"></i>
+                                            Add Description
+                                        </a>
+                                    }
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+
+                            <tr>
+                                <th>Item</th>
+                                <th>Description Code</th>
+
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Warranty Period</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th><center>Action</center></th>
+                                <th><center>Action 2</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (System.Data.DataRow r in Model.dt1.Rows)
+                            {
+                                var remainingQuantity = Convert.ToInt32(r["RemainingQuantity"]);
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(2).ToString().Trim() + ".png";
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(2).ToString().Trim()&nbsp;
+                                            <img src="@path" width="25" />
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString()</td>
+
+                                    <td>@r.ItemArray.GetValue(3).ToString()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString()</td>
+                                    <td>@r.ItemArray.GetValue(8).ToString()</td>
+                                    <td>
+                                        <center>
+                                            @if (remainingQuantity > 0)
+                                            {
+                                                if (@r.ItemArray.GetValue(12).ToString() == "Device")
+
+                                                {
+                                                    if (programIds != null && programIds.Split(',').Contains("C007") && programRoleStatus != null && programRoleStatus.ContainsKey("C007") && programRoleStatus["C007"] == 1)
+                                                    {
+                                                        <a href="/Hardware/Devices?invno=@r["Invoice_Ref"]&invID=@r["DescriptionCode"]&invoiceNo=@Model.Invoice_No&Item=@r["Item_Type"].ToString().Trim()&count=@r.ItemArray.GetValue(7).ToString()" class="btn btn-primary btn-sm" title="Add Device">
+                                                            <i class="fas fa-plus"></i>
+                                                        </a>
+                                                    }
+
+                                                    if (programIds != null && programIds.Split(',').Contains("C008") && programRoleStatus != null && programRoleStatus.ContainsKey("C008") && programRoleStatus["C008"] == 1)
+                                                    {
+                                                        <a href="javascript:void(0)"
+                                                           class="btn btn-warning btn-sm editBtn"
+                                                           data-descriptioncode="@r.ItemArray.GetValue(1).ToString()"
+                                                           title="Edit Description">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    }
+
+                                                    <a href="/Hardware/DevicesView?DescriptionCode=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" title="View Device">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                }
+
+
+                                                if (@r.ItemArray.GetValue(12).ToString() == "Part")
+                                                {
+                                                    if (programIds != null && programIds.Split(',').Contains("C009") && programRoleStatus != null && programRoleStatus.ContainsKey("C009") && programRoleStatus["C009"] == 1)
+                                                    {
+                                                        <a href="/Hardware/Stores?invno=@r["Invoice_Ref"]&invID=@r["DescriptionCode"]&invoiceNo=@Model.Invoice_No&Item=@r["Item_Type"].ToString().Trim()&count=@r.ItemArray.GetValue(7).ToString()" class="btn btn-primary btn-sm" title="Add To Store">
+                                                            <i class="fas fa-store"></i>
+                                                        </a>
+                                                    }
+
+                                                    <a href="/Hardware/PartsView?Invoice_Ref=@r.ItemArray.GetValue(0).ToString()&Invoice_No=@Model.Invoice_No&rItem=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" title="View Parts">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+
+                                                }
+
+                                            }
+                                            else
+
+                                            {
+                                                <a href="/Hardware/DevicesView?DescriptionCode=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" title="View Device">
+                                                    <i class="fas fa-eye"></i>
+                                                </a><br />
+                                                <span style="color:red;">No more devices can be added</span>
+
+                                            }
+
+                                        </center>
+                                    </td>
+
+                                    <td>
+                                        <center>
+                                            @if (programIds != null && programIds.Split(',').Contains("C010") && programRoleStatus != null && programRoleStatus.ContainsKey("C010") && programRoleStatus["C010"] == 1)
+                                            {
+                                                if (@r.ItemArray.GetValue(12).ToString() == "Device")
+
+                                                {
+                                                    <a href="/Hardware/AddExsitingDEV?invno=@r["Invoice_Ref"]&invID=@r["DescriptionCode"]&invoiceNo=@Model.Invoice_No&Item=@r["Item_Type"].ToString().Trim()&count=@r.ItemArray.GetValue(7).ToString()" class="btn btn-primary btn-sm" title="Add Exsiting Device">
+                                                        <i class="fab fa-mixer"></i>
+                                                    </a>
+                                                }
+                                            }
+                                        </center>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Add Here</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/hardware/Submit_Inv_items" id="frm1">
+
+                    <div>
+                        <center>
+                            <a href="/Hardware/model" class="btn btn-primary btn  col-sm-7">Add Items, Brands & Models</a>
+                            <hr />
+                        </center>
+                    </div>
+
+                    <div class="row mb-2 d-none">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Invoice Reference</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.invno, new { @type = "text", @class = "form-control form-control-sm", @readonly = "readonly", @id = "ref", required = "required" })
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Asset</label>
+                        <div class="col-12 col-lg-8">
+
+                            @Html.DropDownListFor(m => m.Asset, new SelectList(new List<string>
+                            {
+                                "Device",
+                                "Part"
+                            }), new { @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Description Code</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.DescriptionCode, new { @type = "text", @class = "form-control form-control-sm", @id = "invoiceCode", @readonly = "readonly", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Item</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.Item_Type, Model.ItemTypeList, "-- select --", new { @type = "text", @class = "form-control form-control-sm", required = "required", id = "itemTypeID" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Brand</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.BrandName, Model.BrandList, "-- select --", new { @id = "BrandInputVal", @type = "text", @class = "form-control form-control-sm", required = "required" })
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Model</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.ModelName, Model.ModelList, "-- select --", new { @id = "modelID", type = "text", @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Warranty Period:</label>
+                        <div class="col-12 col-lg-8">
+
+                            @Html.DropDownListFor(m => m.Warranty_Period, new SelectList(new List<string>
+                            {
+                                "None",
+                                "3 Months",
+                                "6 Months",
+                                "1 Year",
+                                "2 Year",
+                                "3 Year"
+                            }), "-- select an option --", new { @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Description</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.description, new { @type = "text", @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Quantity</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.quantity, new { @type = "number", @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Unit Price</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.unitprice, new { @type = "number", @class = "form-control form-control-sm", required = "required" })
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary col-sm-5" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info col-sm-5" id="btnSubmit">Submit Details</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Edit Modal*@
+
+<div class="modal fade" id="editInvoiceModal" tabindex="-1" aria-labelledby="editInvoiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Invoice Description</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdateInvoiceDescriptionData" action="/hardware/UpdateInvoiceDescriptionData">
+                    <input type="hidden" id="editDescriptionCode" name="DescriptionCode" />
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Invoice Reference</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.invno, new { @type = "text", @class = "form-control form-control-sm", @readonly = "readonly", id = "editRef", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Description Code</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.invID, new { @type = "text", @class = "form-control form-control-sm", @id = "editinvoiceCode", @readonly = "readonly", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Item</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.Item_Type, Model.ItemTypeList, "-- select --", new { @type = "text", @class = "form-control form-control-sm", required = "required", id = "edititemTypeID" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Brand</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.BrandName, Model.BrandList, "-- select --", new { @id = "editBrandInputVal", @type = "text", @class = "form-control form-control-sm", required = "required" })
+                            @*<input class="form-control" id="editBrandInputVal"/>*@
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Model</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.DropDownListFor(m => m.ModelName, Model.ModelList, "-- select --", new { @type = "text", @class = "form-control form-control-sm", required = "required", id = "editmodelID" })
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Warranty Period:</label>
+                        <div class="col-12 col-lg-8">
+
+                            @Html.DropDownListFor(m => m.Warranty_Period, new SelectList(new List<string>
+                            {
+                                "None",
+                                "3 Months",
+                                "6 Months",
+                                "1 Year",
+                                "2 Year",
+                                "3 Year"
+                            }), "-- select an option --", new { @class = "form-control form-control-sm", required = "required", id = "editwarrantyPeriodID" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Description</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.description, new { @type = "text", @class = "form-control form-control-sm", required = "required", id = "editdescription" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Quantity</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.quantity, new { @type = "number", @class = "form-control form-control-sm", required = "required", id = "editquantity" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="text-dark fw-bold col-12 col-lg-4">Unit Price</label>
+                        <div class="col-12 col-lg-8">
+                            @Html.TextBoxFor(m => m.unitprice, new { @type = "number", @class = "form-control form-control-sm", required = "required", id = "editunitprice" })
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-info col-sm-5" id="btnEditSubmit">Save Changes</button>
+                    
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $("#btnPop").click(function () {
+        var data = $("#ref").val();
+        var sendData = { invoiceRef: data }
+
+        $.ajax({
+            url: "/Hardware/invoiceItemNumber",
+            methods: "POST",
+            data: sendData,
+            success: function (data) {
+                var invoiceNo = data.newItemNo;
+                $("#invoiceCode").val(invoiceNo);
+            }
+        })
+
+    })
+</script>
+
+
+<script>
+    $("#btnSubmit").on("click", function (e) {
+        e.preventDefault();
+
+        const requiredFields = [
+            "#ref",
+            "#invoiceCode",
+            "#itemTypeID",
+            "#BrandInputVal",
+            "#modelID",
+            "#quantity"
+        ];
+        let isValid = true;
+
+
+        requiredFields.forEach(function (selector) {
+            const field = $(selector);
+            if (!field.val() || field.val() === "-- select --") {
+                field.addClass("is-invalid");
+                isValid = false;
+            } else {
+                field.removeClass("is-invalid");
+            }
+        });
+
+        if (isValid) {
+            $("#frm1").submit();
+        } else {
+            alert("Please fill in all required fields.");
+        }
+    });
+</script>
+
+
+<script>
+
+    $("#itemTypeID").on("change", function () {
+        var x = $("#itemTypeID").val();
+        console.log(x);
+        var sendData = { x: x };
+
+        console.log(sendData);
+        $.ajax({
+            url: "/Hardware/Get_Brand_List",
+            methods: "POST",
+            data: sendData,
+            success: function (data) {
+                console.log(data)
+                var s = '<option value="">Select Brand</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                }
+                $("#BrandInputVal").html(s);
+                s = '<option value="-1">Select Model</option>';
+                $("#ModelVal").html(s);
+            }
+        });
+    });
+
+
+    $("#BrandInputVal").on("change", function () {
+        var x = $("#BrandInputVal").val();
+        var y = $("#itemTypeID").val();
+
+        var sendData = { x: x, y: y };
+
+        $.ajax({
+            url: "/Hardware/Get_Model_List",
+            methods: "POST",
+            data: sendData,
+            success: function (data) {
+                console.log(data)
+                var s = '<option value="">Select Model</option>';
+                for (var i = 0; i < data.length; i++) {
+
+                    s += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                }
+                $("#modelID").html(s);
+
+            }
+        });
+    });
+
+</script>
+
+
+
+<script>
+
+    function getModelList(x,y, selectedModel = ""){
+
+        console.log(selectedModel)
+
+        $.ajax({
+            url: "/Hardware/Get_Model_List",
+            methods: "POST",
+            data: { x: x, y: y },
+            success: function (data) {
+                console.log(data)
+                var s = '<option value="">Select Model</option>';
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Value === selectedModel) {
+                        s += '<option value="' + data[i].Value + '" selected>' + data[i].Text + '</option>';
+                    } else {
+                        s += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                    }
+                }
+                $("#editmodelID").html(s);
+
+            }
+        });
+    }
+
+    function getBrandlist(x, selectedBrand = "") {
+        console.log('haiii');
+        console.log(x);
+
+        $.ajax({
+            url: "/Hardware/Get_Brand_List",
+            methods: "POST",
+            data: { x: x },
+            success: function (data) {
+                console.log(data);
+                var s = '<option value="">Select Brand</option>';
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Value === selectedBrand) {
+                        s += '<option value="' + data[i].Value + '" selected>' + data[i].Text + '</option>';
+                    } else {
+                        s += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                    }
+                }
+                $("#editBrandInputVal").html(s);
+
+                s = '<option value="-1">Select Model</option>';
+                $("#editModelVal").html(s);
+            },
+            error: function () {
+                console.error("Failed to load brand list.");
+            }
+        });
+    }
+
+    $(document).on("click", ".editBtn", function () {
+        var descriptionCode = $(this).data("descriptioncode");
+
+        $.ajax({
+            url: '/Hardware/EditInvoiceDescriptionData',
+            type: 'GET',
+            data: { DescriptionCode: descriptionCode },
+            success: function (response) {
+                $("#editRef").val(response.invno);
+                $("#editinvoiceCode").val(response.invID);
+                $("#edititemTypeID").val(response.Item_Type);
+
+                getBrandlist(response.Item_Type, response.BrandName);
+                getModelList(response.BrandName, response.Item_Type, response.ModelName)
+                $("#editwarrantyPeriodID").val(response.Warranty_Period);
+                $("#editdescription").val(response.description);
+                $("#editquantity").val(response.quantity);
+                $("#editunitprice").val(response.unitprice);
+
+                $("#editInvoiceModal").modal("show");
+
+                console.log(response);
+            },
+            error: function () {
+                alert("Failed to fetch data. Please try again.");
+            }
+        });
+    });
+
+</script>
+
+
+<script>
+
+    $("#edititemTypeID").on("change", function () {
+        var x = $("#edititemTypeID").val();
+        console.log(x);
+        var sendData = { x: x };
+
+        console.log(sendData);
+        $.ajax({
+            url: "/Hardware/Get_Brand_List",
+            methods: "POST",
+            data: sendData,
+            success: function (data) {
+                console.log(data)
+                var s = '<option value="">Select Brand</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                }
+                $("#editBrandInputVal").html(s);
+                s = '<option value="-1">Select Model</option>';
+                $("#editModelVal").html(s);
+            }
+        });
+    });
+
+
+    $("#editBrandInputVal").on("change", function () {
+        var x = $("#editBrandInputVal").val();
+        var y = $("#edititemTypeID").val();
+
+        var sendData = { x: x, y: y };
+
+        $.ajax({
+            url: "/Hardware/Get_Model_List",
+            methods: "POST",
+            data: sendData,
+            success: function (data) {
+                console.log(data)
+                var s = '<option value="">Select Model</option>';
+                for (var i = 0; i < data.length; i++) {
+
+                    s += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                }
+                $("#editmodelID").html(s);
+
+            }
+        });
+    });
+
+</script>
+
+
+

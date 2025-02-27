@@ -1,0 +1,124 @@
+﻿
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Filter Duty assigned</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Filter Duty assigned</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <i class="fas fa-filter"></i>&nbsp;&nbsp;
+                    <a href="/Hardware/ReceptionPendingItem?status=41" class="btn btn-primary btn-sm @(ViewBag.CurrentStatus == "41" ? "active" : "")">To Repair</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ReceptionPendingItem?status=42" class="btn btn-primary btn-sm @(ViewBag.CurrentStatus == "42" ? "active" : "")">Permenantly Handover</a>&nbsp;&nbsp;
+                    <a href="/Hardware/ReceptionPendingItem?status=All" class="btn btn-primary btn-sm @(ViewBag.CurrentStatus == "All" ? "active" : "")">Search All</a>&nbsp;&nbsp;
+
+                    <hr />
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Location</th>
+                                <th>Reason</th>
+                                <th>Technical Officer</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.ReceptionPTable.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string statusValue = r.ItemArray.GetValue(10).ToString().Trim();
+
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" />&nbsp;
+                                            @r.ItemArray.GetValue(0).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(1).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(7).ToString().Trim()</td>
+                                    <td>
+                                        <center>
+                                            <div class="d-flex justify-content-around gap-2">
+
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(1).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                &nbsp
+
+                                                @if (statusValue == "41" || statusValue == "42")
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#THreceivedModal" data-bs-toggle="tooltip" data-bs-placement="top" title="Recived"
+                                                            data-itno="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-hoid="@r.ItemArray.GetValue(1).ToString().Trim()"
+                                                            data-hotype="@r.ItemArray.GetValue(1).ToString().Trim()">
+
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                }
+
+                                            </div>
+                                        </center>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+
+                                <th>Location</th>
+                                <th>Sent Type</th>
+                                <th>Reason</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

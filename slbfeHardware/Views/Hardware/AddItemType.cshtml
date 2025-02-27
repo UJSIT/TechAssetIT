@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "AddItemType";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Item Types</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Item Types</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+                <div class="card-body">
+
+                    <form action="View_Invoice_Full">
+                        <div class="row mb-3 d-none">
+                            <label class="text-dark fw-bold col-3">Item Type Code :</label>
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.Item_Type_Code, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "itemtypecode" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Item Type :</label>
+                            <div class="col">
+                                @Html.TextBoxFor(m => m.Item_Type, new { @type = "text", @class = "form-control", required = "required", @id = "itemtype" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Brand :</label>
+                            <div class="col">
+                                <input list="browsers" name="myBrowser" id="brandInput" class="form-control" />
+                                <datalist id="browsers">
+                                    @foreach (var row in Model.BrandList)
+                                    {
+                                        <option value="@row.Text"></option>
+                                    }
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="text-dark fw-bold col-3">Model :</label>
+                            <div class="col">
+                                <input list="cap" name="tap" id="modelInput" class="form-control" />
+                                <datalist id="cap">
+                                    @foreach (var row in Model.ModelList)
+                                    {
+                                        <option value="@row.Text"></option>
+                                    }
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a class="btn btn-block col-sm-6  btn-outline-danger" a href="/Hardware/Dashboard">Cancel</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info col-sm-6 float-right" id="btn1">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" value=@ViewBag.RedirectType name="RedirectType">
+                        <input type="hidden" value=@Model.invno name="invno">
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<div class="p-4 mt-1 container bg-light1 text-dark">
+    <div class="col-12 col-md-10 col-lh-6 mx-auto">
+
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        // Attach a change event handler to both input fields
+        //$("input[name='myBrowser'], input[name='tap']").change(function () {
+        $("#btn1").click(function () {
+            // Get the selected brand value
+            var brandValue = $("#brandInput").val();
+            // Get the selected model value
+            var modelValue = $("#modelInput").val();
+
+
+            var itemtypecode = $("#itemtypecode").val();
+            // Get the selected model value
+            var itemtype = $("#itemtype").val();
+            ;
+            // Create an object to hold the values
+            var datasend = {
+                brand: brandValue,
+                model: modelValue, itemtypecode: itemtypecode, itemtype: itemtype
+            };
+
+
+
+            // Send the values to the controller using AJAX
+            $.ajax({
+                type: "POST",
+                url: "/Hardware/SubmitAddItemType",
+                data: datasend,
+                success: function (data) {
+
+                },
+                error: function (xhr, status, error) {
+
+
+                }
+            });
+        });
+    });
+</script>

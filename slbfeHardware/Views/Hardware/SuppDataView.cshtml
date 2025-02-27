@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "All Suppliers";
+}
+
+@model slbfeHardware.Models.suppliersmodel
+
+@{
+    var programIds = Session["ProgramIds"] as string;
+    var programRoleStatus = Session["ProgramRoleStatus"] as Dictionary<string, int>;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>All Suppliers</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("/Hardware/Dashboard")">Home</a></li>
+                    <li class="breadcrumb-item active">All Suppliers</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                            <tr>
+                                <th>Name of Supplier</th>
+                                <th>Registrtion Year</th>
+                                <th>Address</th>
+                                <th>Telephone</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.dt3.Rows)
+                            {
+                                <tr>
+                                    <td>
+                                        @r.ItemArray.GetValue(0).ToString()
+                                    </td>
+
+                                    <td>
+                                        @r.ItemArray.GetValue(1).ToString()
+                                    </td>
+                                    <td>
+                                        @r.ItemArray.GetValue(2).ToString()
+                                    </td>
+                                    <td>
+                                        @r.ItemArray.GetValue(3).ToString()
+                                    </td>
+                                    <td>
+                                        @r.ItemArray.GetValue(4).ToString()
+                                    </td>
+
+                                    <td>
+                                        <center>
+
+                                            <a href="/Hardware/suppliersFullView?id=@r.ItemArray.GetValue(0).ToString()" class="btn btn-warning btn-sm" title="More"><i class="fas fa-eye"></i></a>
+
+                                            &nbsp;
+
+                                            @if (programIds != null && programIds.Split(',').Contains("D003") && programRoleStatus != null && programRoleStatus.ContainsKey("D003") && programRoleStatus["D003"] == 1)
+                                            {
+                                                <a href="/Hardware/EditSupplierData?SupplierID=@r.ItemArray.GetValue(5).ToString()&Name_of_Supplier=@r.ItemArray.GetValue(0).ToString()" class="btn btn-success btn-sm" title="Edit Supplier"><i class="fas fa-pencil-alt"></i></a>
+                                            }
+                                            &nbsp;
+
+                                            @if (programIds != null && programIds.Split(',').Contains("D004") && programRoleStatus != null && programRoleStatus.ContainsKey("D004") && programRoleStatus["D004"] == 1)
+                                            {
+                                                <button type="button"
+                                                        class="btn btn-danger btn-sm"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal"
+                                                        data-supp="@r.ItemArray.GetValue(0).ToString()"
+                                                        data-suppid="@r.ItemArray.GetValue(5).ToString()"
+                                                        title="Blacklist Supplier">
+                                                    <i class="fas fa-user-slash"></i>
+                                                </button>
+                                            }
+
+
+
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Name of Supplier</th>
+                                <th>Registrtion Year</th>
+                                <th>Address</th>
+                                <th>Telephone</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="DpLetterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="requestLetterModalLabel">Blacklist Supplier</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="disposeLetterForm" action="/Hardware/DeleteSupplier" method="post">
+                    <div class="modal-body">
+                        Are you sure you want to <b>Blacklist</b> this supplier?
+                        &nbsp;<strong><span id="supplier"></span></strong>
+                    </div>
+                    <br />
+                    <input type="hidden" id="supplierNo" name="Name_of_Supplier" />
+                    <input type="hidden" id="supplierID" name="supplierID" />
+
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger col-sm-5">Yes. Add to Blacklist</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var supp = button.data('supp');
+            var suppid = button.data('suppid');
+
+            $('#supplierNo').val(supp);
+            $('#supplier').text(supp);
+            $('#supplierID').val(suppid);
+
+            $('#disposeLetterForm').attr('action', '/Hardware/DeleteSupplier?supplierID=' + suppid);
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            new DataTable('#example');
+        });
+    </script>
+
+
+
+
+
+    <script>
+        $("#exampleModal").on("show.bs.modal", function (event) {
+            var button = $(event.relatedTarget);
+            var supName = button.data('name');
+
+            var modal = $(this);
+            modal.find('#supName').val(supName);
+        });
+    </script>

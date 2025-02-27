@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "PendingCourierApprove";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Awaiting repair duty assignment</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Awaiting repair duty assignment</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Location</th>
+                                <th>Device User</th>
+                                <th>Receive Date</th>
+                                <th>Receiving Officer</th>
+                                <th>Technical Officer</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.CRecommend.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(1).ToString().Trim() + ".png";
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <img src="@path" width="25" /> &nbsp;
+                                            @r.ItemArray.GetValue(1).ToString().Trim()
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(6).ToString().Trim()</td>
+                                    <td>
+                                        <center>
+                                            <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(2).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+
+                                            |
+                                            <a href="#" class="btn btn-success btn-sm approve-btn" data-itno="@r.ItemArray.GetValue(2).ToString()" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve">
+                                                <i class="fas fa-check-circle"></i>
+                                            </a>
+                                            |
+                                            @*<a href="#" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Reject" data-toggle="modal" data-target="#rejectModal" onclick="setRejectModalData('@r.ItemArray.GetValue(2).ToString()')">
+                                                    <i class="fas fa-times-circle"></i>
+                                                </a>*@
+
+                                            <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Reject" data-toggle="modal" data-target="#rejectModal" onclick="setRejectModalData('@r.ItemArray.GetValue(2).ToString()', '@r.ItemArray.GetValue(8).ToString()')">
+                                                <i class="fas fa-times-circle"></i>
+                                            </a>
+
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,2 @@
+Hardware_UserRole
+47	1974	U001	1

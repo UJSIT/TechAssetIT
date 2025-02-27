@@ -1,0 +1,327 @@
+﻿@{
+    ViewBag.Title = "HandOverForm";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+@*<script src="../../Content/jquert371.js"></script>
+<script src="../../Content/ajax1.js"></script>
+<script src="../../Content/bootstrap5dt.js"></script>
+<script src="../../Content/sweetalert.js"></script>*@
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Handover Device</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Handover Device</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="content">
+    <form id="myForm" action="UpdateHandOver" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline card-info">
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-4">
+
+
+
+                                <section class="content">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <center>
+                                                        
+                                                        <img src="/Content/Icon/@(Model.Item_Type).png" alt="Device picture" width="40%" /><br />
+                                                        @*<img src="/Content/Icon/CPU.png" alt="Device picture" width="40%" />*@
+                                                    <strong>
+                                                        @Model.Item_Type
+                                                    </strong> 
+                                                    </center>
+                                                </div>
+                                                <div class="">
+                                                 
+
+                                                    <div class="table-responsive">
+                                                        <center>
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <th>IT No</th>
+                                                                    <td>
+                                                                        @Html.TextBoxFor(m => m.IT_No, new { @type = "text", @class = "form-control", required = "required", @readonly = "readonly" })
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th>Serial No</th>
+                                                                    <td>
+                                                                        @Html.TextBoxFor(m => m.Serial_No, new { @type = "text", @class = "form-control", @readonly = "readonly" })
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th>INV No</th>
+                                                                    <td>
+                                                                        @Html.TextBoxFor(m => m.INV_No, new { @type = "text", @class = "form-control", @readonly = "readonly" })
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th>QR</th>
+                                                                    <td>
+                                                                        @Html.TextBoxFor(m => m.QR, new { @type = "text", @class = "form-control", @readonly = "readonly" })
+                                                                    </td>
+                                                                </tr>
+
+                                                            </table>
+                                                        </center>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+
+
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-8">
+                                <h5>
+                                    <br />
+
+                                </h5>
+
+                                <table class="table">
+                                    <tr>
+                                        <th style="width:20%">Purshased Division</th>
+                                        <td>@Html.TextBoxFor(m => m.Purchased_Division, new { @type = "text", @class = "form-control  ", required = "required", @id = "PurDivision", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.Purchased_DivisionID, new { @type = "text", @class = "form-control d-none", required = "required", @id = "PurDivision", @readonly = "readonly" })                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Current Location</th>
+                                        <td>@Html.TextBoxFor(m => m.Current_Location, new { @type = "text", @class = "form-control  ", required = "required", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.Current_LocationID, new { @type = "text", @class = "form-control d-none", required = "required", @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+
+                                        <th>Handover Location&nbsp;<span style="color: red;">*</span></th>
+                                        <td>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <input type="text" id="HOLocationInput" class="form-control" autocomplete="off" oninput="filterHOLocationOptions()" />
+                                                    <select id="HOLocationSelect" class="form-control position-absolute" size="5" style="max-height: 100px; overflow-y: auto; display: none; z-index: 1; width: 100%; background-color:#f2fbff;" onclick="selectHOLocationOption()">
+                                                        @foreach (var row in Model.DivisionList)
+                                                        {
+                                                            <option value="@row.Value" text="@row.Text">@row.Text</option>
+                                                        }
+                                                    </select>
+                                                    @Html.TextBoxFor(m => m.HOLocation, new { @type = "text", @class = "form-control d-none", @id = "HOLocationHidden", required = "required" })
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <script>
+                                            function filterHOLocationOptions() {
+                                                const input = document.getElementById('HOLocationInput');
+                                                const filter = input.value.toLowerCase();
+                                                const select = document.getElementById('HOLocationSelect');
+                                                const options = select.options;
+
+                                                let hasVisibleOptions = false;
+
+                                                for (let i = 0; i < options.length; i++) {
+                                                    const option = options[i];
+                                                    if (option.text.toLowerCase().includes(filter)) {
+                                                        option.style.display = '';
+                                                        hasVisibleOptions = true;
+                                                } else {
+                                                        option.style.display = 'none';
+                                            }
+                                            }
+
+                                            select.style.display = hasVisibleOptions ? 'block' : 'none';
+                                            }
+
+                                            function selectHOLocationOption() {
+                                                const select = document.getElementById('HOLocationSelect');
+                                                const input = document.getElementById('HOLocationInput');
+                                                const hiddenInput = document.getElementById('HOLocationHidden');
+
+                                                const selectedOption = select.options[select.selectedIndex];
+                                                input.value = selectedOption.text;
+                                                hiddenInput.value = selectedOption.value;
+                                                select.style.display = 'none';
+                                            }
+
+                                            document.getElementById('HOLocationInput').addEventListener('focus', function () {
+                                                document.getElementById('HOLocationSelect').style.display = 'block';
+                                            });
+
+                                            document.getElementById('HOLocationInput').addEventListener('blur', function () {
+                                                setTimeout(() => {
+                                                    document.getElementById('HOLocationSelect').style.display = 'none';
+                                            }, 200);
+                                            });
+
+                                            document.getElementById('HOLocationSelect').addEventListener('blur', function () {
+                                                document.getElementById('HOLocationSelect').style.display = 'none';
+                                            });
+                                        </script>
+
+
+
+                                    </tr>
+                                    <tr>
+                                        <th>Authorized Officer</th>
+                                        <td>
+                                            <input class="form-control mb-2" id="empNo" placeholder="Enter Employee Number" />
+                                            @Html.TextBoxFor(m => m.Authorized_Officer, new { @type = "text", @class = "form-control", id = "devicesId", @readonly = "readonly", required = "required",autocomplete = "off" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Recommend Date &nbsp;<span style="color: red;">*</span></th>
+                                        <td> @Html.TextBoxFor(m => m.Installation_Date, new { @type = "date", @class = "form-control", required = "required" })</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Handover Remarks</th>
+                                        <td> @Html.TextAreaFor(m => m.Remarks2, new { @type = "text", @class = "form-control",autocomplete = "off" })</td>
+                                    </tr>
+
+
+                                </table>
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <a class="btn btn-block col-sm-6  btn-outline-danger" a href="/Hardware/Dashboard">Cancel</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info col-sm-6 float-right" id="submitButton">Recommend</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-outline card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Invoice Details
+                        </h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @*<div class="form-group d-none">
+                            <label class="text-dark fw-bold">SysUser</label>
+                            @Html.TextBoxFor(m => m.sysRe_User, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "refNo", required = "required" })
+                        </div>*@
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Invoice Reference</th>
+                                    <th>Invoice No</th>
+                                    <th>Descripton</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@Html.TextBoxFor(m => m.Invoice_Ref, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "refNo", required = "required" })</td>
+                                    <td>@Html.TextBoxFor(m => m.Invoice_No, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "invoNo", required = "required" })</td>
+                                    <td>@Html.TextBoxFor(m => m.DescriptionCode, new { @type = "text", @class = "form-control", @readonly = "readonly", @id = "DesCode", required = "required" })</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </form>
+
+
+
+</section>
+
+
+
+<script>
+    $("#empNo").on("keyup", function () {
+
+        var empId = $("#empNo").val();
+        sendData = { empNo: empId };
+
+        $.ajax({
+            url: "/Hardware/getEmpName",
+            method: "POST",
+            data: sendData,
+            success: function (data) {
+                var name = data.empName
+
+                $("#devicesId").val(name);
+            }
+        })
+    })
+</script>
+
+
+<script>
+    document.getElementById('myForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        Swal.fire({
+            title: "Handover Confirmation",
+            text: "Click OK button to confirm handover..",
+            icon: "success"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If user clicked "OK", submit the form
+                document.getElementById('myForm').submit();
+            }
+        });
+    });
+</script>

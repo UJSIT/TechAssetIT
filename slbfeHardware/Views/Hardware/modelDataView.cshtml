@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "modelDataView";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+<style>
+    body {
+        background-image:url("../../Content/images/bur1.jpg");
+        background-size:cover;
+    }
+</style>
+
+
+@*<link href="../../Content/ajax(search).css" rel="stylesheet" />
+
+
+<link href="../../Content/datatableview.css" rel="stylesheet" />
+
+
+<script src="../../Content/jquert371.js"></script>
+
+<script src="../../Content/bootstrap530.js"></script>
+
+
+<script src="../../Content/datatable202.js"></script>
+
+
+<script src="../../Content/bootstrap5dt.js"></script>*@
+
+
+<div class="w-100 p-3" style="background-color:rgba(163, 160, 160, 0.80)">
+    <h2 class="text-center text-bold skippy text-dark">Brands</h2>
+</div></br>
+
+
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-bordered table-success table-striped" id="example">
+            <thead>
+                <tr>
+                    <th>Item Type </th> 
+                    <th>Brand </th> 
+                    <th>Model </th>                  
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.Data.DataRow r in Model.dt6.Rows)
+                {
+                    <tr>
+                        <td>@r.ItemArray.GetValue(0).ToString()</td> 
+                        <td>@r.ItemArray.GetValue(1).ToString()</td>
+                        <td>@r.ItemArray.GetValue(2).ToString()</td>
+                                               
+                    </tr> 
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
