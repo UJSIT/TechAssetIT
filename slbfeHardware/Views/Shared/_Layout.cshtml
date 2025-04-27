@@ -148,7 +148,7 @@
                                             <a href="/Hardware/ReceptionPendingItem?status=All" class="nav-link">
                                                 &nbsp; &nbsp;&nbsp; &nbsp;
                                                 <i class="fas fa-check">&nbsp;</i>
-                                                <p>Received to IT</p>
+                                                <p>To be Received</p>
                                             </a>
                                         </li>
                                     }
@@ -266,7 +266,8 @@
                                                  (programIds.Split(',').Contains("E002") && programRoleStatus != null && programRoleStatus.ContainsKey("E002") && programRoleStatus["E002"] == 1) ||
                                                  (programIds.Split(',').Contains("E003") && programRoleStatus != null && programRoleStatus.ContainsKey("E003") && programRoleStatus["E003"] == 1) ||
                                                  (programIds.Split(',').Contains("E004") && programRoleStatus != null && programRoleStatus.ContainsKey("E004") && programRoleStatus["E004"] == 1) ||
-                                                 (programIds.Split(',').Contains("B005") && programRoleStatus != null && programRoleStatus.ContainsKey("B005") && programRoleStatus["B005"] == 1);
+                                                 (programIds.Split(',').Contains("B005") && programRoleStatus != null && programRoleStatus.ContainsKey("B005") && programRoleStatus["B005"] == 1) ||
+                                                 (programIds.Split(',').Contains("B006") && programRoleStatus != null && programRoleStatus.ContainsKey("B006") && programRoleStatus["B006"] == 1);
                         }
 
                         @if (showTask)
@@ -327,7 +328,21 @@
                                             </a>
                                         </li>
                                     }
+
+                                    @if (programIds.Split(',').Contains("E006") && programRoleStatus["E006"] == 1)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/Hardware/EditDevice" class="nav-link">
+                                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                                <i class="fas fa-edit">&nbsp;</i>
+                                                <p>Edit Device</p>
+                                            </a>
+                                        </li>
+                                    }
+
+
                                 </ul>
+
                             </li>
                         }
 
@@ -417,7 +432,7 @@
                                             <a href="/Hardware/ViewGatePass?status=1" class="nav-link">
                                                 &nbsp;  &nbsp;&nbsp;  &nbsp;
                                                 <i class="fas fa-warehouse">&nbsp;</i>
-                                                <p>Outeside</p>
+                                                <p>Outside</p>
                                             </a>
                                         </li>
                                     }
@@ -641,7 +656,7 @@
             <strong><a href="">TechAssets</a> &copy; <a href="">SLBFE IT</a></strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 1.0 <b>Last Update</b> 02-26-2025
+                <b>Version</b> 1.0 <b>Last Update</b> 04-23-2025
             </div>
         </footer>
 

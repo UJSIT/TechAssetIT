@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\Administrator\Desktop\New folder</_PublishTargetUrl>
-    <History>True|2025-02-27T11:41:46.4314911Z||;True|2025-02-27T11:58:59.4281008+05:30||;True|2025-02-27T08:48:09.2879572+05:30||;True|2025-02-22T16:03:42.1627747+05:30||;False|2025-02-22T15:52:53.5970698+05:30||;</History>
+    <History>True|2025-04-26T07:10:24.9506232Z||;True|2025-04-26T10:49:06.8880951+05:30||;True|2025-04-25T13:39:07.9819667+05:30||;True|2025-04-25T12:37:31.0544307+05:30||;True|2025-04-25T10:37:25.8818012+05:30||;True|2025-04-24T14:36:31.2432085+05:30||;True|2025-04-23T15:11:31.7504598+05:30||;True|2025-04-23T08:28:31.8070721+05:30||;True|2025-02-27T17:11:46.4314911+05:30||;True|2025-02-27T11:58:59.4281008+05:30||;True|2025-02-27T08:48:09.2879572+05:30||;True|2025-02-22T16:03:42.1627747+05:30||;False|2025-02-22T15:52:53.5970698+05:30||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -16,10 +16,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/06/2024 11:53:34</publishTime>
     </File>
     <File Include="bin/slbfeHardware.dll">
-      <publishTime>02/27/2025 17:11:38</publishTime>
+      <publishTime>04/26/2025 12:40:20</publishTime>
     </File>
     <File Include="bin/slbfeHardware.pdb">
-      <publishTime>02/27/2025 17:11:38</publishTime>
+      <publishTime>04/26/2025 12:40:20</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>02/06/2024 11:53:34</publishTime>
@@ -7108,7 +7108,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/04/2024 14:58:50</publishTime>
     </File>
     <File Include="Views/Account/UserLogin.cshtml">
-      <publishTime>02/26/2025 13:38:34</publishTime>
+      <publishTime>04/26/2025 12:37:43</publishTime>
     </File>
     <File Include="Views/Account/UserRegister.cshtml">
       <publishTime>11/04/2024 14:59:37</publishTime>
@@ -7153,7 +7153,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/26/2025 13:26:20</publishTime>
     </File>
     <File Include="Views/Hardware/CreateInvoice.cshtml">
-      <publishTime>02/27/2025 11:16:40</publishTime>
+      <publishTime>04/25/2025 10:36:34</publishTime>
     </File>
     <File Include="Views/Hardware/Dashboard.cshtml">
       <publishTime>02/27/2025 08:31:55</publishTime>
@@ -7178,6 +7178,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Views/Hardware/DisposeFilterView.cshtml">
       <publishTime>01/23/2025 16:18:06</publishTime>
+    </File>
+    <File Include="Views/Hardware/EditDevice.cshtml">
+      <publishTime>04/25/2025 13:37:13</publishTime>
     </File>
     <File Include="Views/Hardware/EditDevices.cshtml">
       <publishTime>02/26/2025 13:27:59</publishTime>
@@ -7264,13 +7267,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/26/2025 13:33:07</publishTime>
     </File>
     <File Include="Views/Hardware/ReceptionPendingItem.cshtml">
-      <publishTime>02/26/2025 13:33:07</publishTime>
+      <publishTime>04/23/2025 12:17:04</publishTime>
     </File>
     <File Include="Views/Hardware/RepairedHandover.cshtml">
       <publishTime>02/26/2025 13:33:07</publishTime>
     </File>
     <File Include="Views/Hardware/RequestFormView.cshtml">
-      <publishTime>01/10/2025 12:06:57</publishTime>
+      <publishTime>04/26/2025 10:55:39</publishTime>
     </File>
     <File Include="Views/Hardware/SpecialTask.cshtml">
       <publishTime>02/26/2025 13:33:07</publishTime>
@@ -7324,16 +7327,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2024 12:10:08</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/26/2025 14:27:06</publishTime>
+      <publishTime>04/23/2025 14:14:19</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>09/02/2024 06:49:48</publishTime>
+      <publishTime>04/26/2025 12:23:02</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>02/06/2024 11:53:26</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/27/2025 17:11:40</publishTime>
+      <publishTime>04/26/2025 12:40:21</publishTime>
     </File>
   </ItemGroup>
 </Project>

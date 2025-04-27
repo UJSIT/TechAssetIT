@@ -2303,7 +2303,7 @@ namespace slbfeHardware.Controllers
                         (SELECT TOP 1 b.EmpNo 
                          FROM [TechAssets].[dbo].[Hardware_UserCredential] AS b 
                          JOIN [EMMSDB].[dbo].[Staff_employee_Details] AS a ON a.Emp_no = b.EmpNo 
-                         WHERE b.UserType = 'Technical Officer' AND b.UserStatus = 1 
+                         WHERE b.UserType = 'Technical Officer' AND b.UserStatus = 'Active' 
                          ORDER BY b.EmpNo ASC
                         )
                     );
@@ -2320,7 +2320,7 @@ namespace slbfeHardware.Controllers
                             a.Emp_no = b.EmpNo
                         WHERE 
                             b.UserType = 'Technical Officer' 
-                            AND b.UserStatus = 1
+                            AND b.UserStatus = 'Active'
                     )
                     SELECT 
                         oe.EmpNo,
@@ -2366,7 +2366,7 @@ namespace slbfeHardware.Controllers
 
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connx"].ConnectionString))
             {
-                string query = "SELECT a.Name_with_ini, b.EmpNo FROM [TechAssets].[dbo].[Hardware_UserCredential] AS b JOIN [EMMSDB].[dbo].[Staff_employee_Details] AS a ON a.Emp_no = b.EmpNo WHERE b.UserType = 'Technical Officer' AND b.UserStatus = 1 ORDER BY b.EmpNo ASC";
+                string query = "SELECT a.Name_with_ini, b.EmpNo FROM [TechAssets].[dbo].[Hardware_UserCredential] AS b JOIN [EMMSDB].[dbo].[Staff_employee_Details] AS a ON a.Emp_no = b.EmpNo WHERE b.UserType = 'Technical Officer' AND b.UserStatus = 'Active' ORDER BY b.EmpNo ASC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -4347,6 +4347,56 @@ namespace slbfeHardware.Controllers
             };
             return View(Inmod);
         }
+
+        public ActionResult EditDevice()
+        {
+            string sql = "SELECT it.Item_Type, d.[Invoice_Reference], d.[IT_No], d.[Serial_No], d.[INV_No], d.[QR], d.Current_Status, ds.[Status] AS Current_Status_Text, d.[activeStatus], sd.[division] AS Purchased_Division_Name, sd_loc.[division] AS Current_Location_Name, d.[id] FROM [TechAssets].[dbo].[Hardware_Devices] d JOIN [TechAssets].[dbo].[Hardware_Inovice_Items] i ON d.[DescriptionCode] = i.[DescriptionCode] INNER JOIN [TechAssets].[dbo].[Hardware_Item_Types] it ON i.Item_Type = it.Item_Type_Code INNER JOIN [TechAssets].[dbo].[Hardware_DeviceStatus] ds ON d.[Current_Status] = ds.[StatusID] LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd ON d.[Purchased_DivisionID] = sd.[div_index] LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd_loc ON d.[Current_LocationID] = sd_loc.[div_index] WHERE d.[activeStatus] = 1";
+
+            EnterItemsModel Inmod = new EnterItemsModel
+            {
+                EditDTBL = HardwareModule.Get_Any_DT(sql)
+            };
+            return View(Inmod);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult UpdateEditDevice(EnterItemsModel model)
+        {
+            if (model == null)
+            {
+                return Json(new { success = false, message = "Invalid data received." });
+            }
+
+            try
+            {
+                string sql = "UPDATE [TechAssets].[dbo].[Hardware_Devices] " +
+                             "SET IT_No = @ItNoNew, Serial_No = @SerialNo, INV_No = @InvNo, QR = @QrNo " +
+                             "WHERE id = @Id";
+
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connx"].ConnectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", model.Zitno);
+                        cmd.Parameters.AddWithValue("@SerialNo", model.Zserialno ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@InvNo", model.Zinvno ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@QrNo", model.Zqrno ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@ItNoNew", model.ZitnoNew);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
 
 
 

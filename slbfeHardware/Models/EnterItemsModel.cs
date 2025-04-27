@@ -317,6 +317,16 @@ namespace slbfeHardware.Models
         public string ROStatus { get; set; }
         public byte[] NIC { get; set; }
 
+
+        public string Zitno { get; set; }
+        public string ZitnoNew { get; set; }
+
+        public string Zserialno { get; set; }
+        public string Zinvno { get; set; }
+        public string Zqrno { get; set; }
+
+
+
         public List<SelectListItem> CompanySelectList { get; set; }
 
         public List<SelectListItem> RepairCompanySelectList { get; set; }
@@ -343,6 +353,8 @@ namespace slbfeHardware.Models
 
         public DataTable InIT { get; set; }
 
+        public DataTable EditDTBL { get; set; }
+
         public string Eid { get; set; }
         public string Eitno { get; set; }
         public string Edate { get; set; }
@@ -350,6 +362,9 @@ namespace slbfeHardware.Models
         public string Eprice { get; set; }
         public string Ewarranty { get; set; }
         public string ERemarks { get; set; }
+
+
+
 
         public string Aid { get; set; }
         public string Aitno { get; set; }

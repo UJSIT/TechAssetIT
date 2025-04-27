@@ -35,6 +35,16 @@
                     </center>
                     <hr />
 
+
+                    <button type="button" class="btn btn-warning open-request"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="View Invoice"
+                            data-file-name="@Model.ReqFormID">
+                        <i class="fas fa-file-invoice"></i> &nbsp; View Request Form
+                    </button>
+                    <hr />
+
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -80,11 +90,30 @@
             </div>
         </div>
     </div>
-    </section>
+</section>
 
 
 
 
+<script>
+    document.querySelectorAll('.open-request').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var fileName = this.getAttribute('data-file-name');
+            var pdfPath = '/Upload/AssetRequest/Request_' + fileName + '.pdf';
+            window.open(pdfPath, '_blank');
+        });
+    });
+</script>
+
+
+
+
+<script>
+    function openInvoiceImageInNewTab(url) {
+        // Open the URL in a new tab
+        window.open(url, '_blank');
+    }
+</script>
 
 
 

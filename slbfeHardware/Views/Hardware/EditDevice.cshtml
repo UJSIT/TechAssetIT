@@ -1,0 +1,205 @@
+@{
+    ViewBag.Title = "Devices in IT";
+}
+
+@model slbfeHardware.Models.EnterItemsModel
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>Edit Device</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">Edit Device</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th>Purchased Division</th>
+                                <th>Current Location</th>
+                                <th style="width: 10%;">
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow r in Model.EditDTBL.Rows)
+                            {
+                                string path = "../../Content/Icon/" + r.ItemArray.GetValue(0).ToString().Trim() + ".png";
+                                string statusValue = r.ItemArray.GetValue(6).ToString().Trim();
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @r.ItemArray.GetValue(0).ToString().Trim()&nbsp;
+                                            <img src="@path" width="25" />
+
+                                        </center>
+                                    </td>
+                                    <td>@r.ItemArray.GetValue(2).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(3).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(4).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(5).ToString().Trim()</td>
+
+                                    <td>@r.ItemArray.GetValue(9).ToString().Trim()</td>
+                                    <td>@r.ItemArray.GetValue(10).ToString().Trim()</td>
+
+
+                                    <td>
+                                        <center>
+                                            <div class=" justify-content-around gap-2">
+
+
+                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#EditModal" title="Edit Device"
+                                                        data-etype="@r.ItemArray.GetValue(0).ToString().Trim()"
+                                                        data-eitno="@r.ItemArray.GetValue(2).ToString().Trim()"
+                                                        data-eid="@r.ItemArray.GetValue(11).ToString().Trim()"
+                                                        data-eserialno="@r.ItemArray.GetValue(3).ToString().Trim()"
+                                                        data-einvno="@r.ItemArray.GetValue(4).ToString().Trim()"
+                                                        data-eqrno="@r.ItemArray.GetValue(5).ToString().Trim()">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+
+
+                                                &nbsp;
+                                                <a href="/Hardware/DevicesFullView?itNO=@r.ItemArray.GetValue(2).ToString()" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View" target="_blank">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </center>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Item Type</th>
+                                <th>IT No</th>
+                                <th>Serial No</th>
+                                <th>INV No</th>
+                                <th>QR</th>
+                                <th>Purchased Division</th>
+                                <th>Current Location</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="EditModalLabel">
+                    <i class="fas fa-edit"></i>
+                    Edit Details on - <b><span id="Ztype"></span></b>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="EditForm">
+                    <input type="hidden" id="Zitno2" name="Zitno" />                   
+
+                    <div class="form-group">
+                        <label for="Zserialno">IT No&nbsp;<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="Zitno" name="ZitnoNew" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Zserialno">Serial No</label>
+                        <input type="text" class="form-control" id="Zserialno" name="Zserialno">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Zinvno">INV No</label>
+                        <input type="text" class="form-control" id="Zinvno" name="Zinvno">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Zqrno">QR</label>
+                        <input type="text" class="form-control" id="Zqrno" name="Zqrno">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info col-sm-5" id="saveEdit">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#EditModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+
+            $('#Ztype').text(button.data('etype'));
+            $('#Zitno').val(button.data('eitno'));
+            $('#Zitno1').text(button.data('eitno'));
+            $('#Zitno2').val(button.data('eid'))
+            $('#Zserialno').val(button.data('eserialno'));
+            $('#Zinvno').val(button.data('einvno'));
+            $('#Zqrno').val(button.data('eqrno'));
+        });
+
+        $('#saveEdit').click(function () {
+            var formData = $('#EditForm').serialize();
+
+            $.ajax({
+                url: '@Url.Action("UpdateEditDevice", "Hardware")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.error('AJAX Error:', xhr.responseText);
+                    alert('An error occurred. Please check the server logs.');
+                }
+            });
+        });
+    });
+</script>

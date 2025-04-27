@@ -2545,6 +2545,7 @@
     <Content Include="Views\Hardware\FullViewDisposeItems.cshtml" />
     <Content Include="Views\Hardware\UpdateSpec.cshtml" />
     <Content Include="Views\Hardware\UpdateHistory.cshtml" />
+    <Content Include="Views\Hardware\EditDevice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
