@@ -136,13 +136,13 @@
                                                     <i class="fas fa-check"></i>
                                                 </button>
                                             }
-                                           
-                                                <a href="/Hardware/RequestFormView?ReqFormID=@r.ItemArray.GetValue(0).ToString()"
-                                                   class="btn btn-warning btn-sm"
-                                                   title="Request Form Details"
-                                                   target="_blank">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
+
+                                            <a href="/Hardware/RequestFormView?ReqFormID=@r.ItemArray.GetValue(0).ToString()"
+                                               class="btn btn-warning btn-sm"
+                                               title="Request Form Details"
+                                               target="_blank">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
 
 
                                         </div>
@@ -225,38 +225,47 @@
 </div>
 
 <script>
-        function showFileName(event) {
-            var input = event.target;
-            var fileName = input.files.length > 0 ? input.files[0].name : 'No file chosen';
-            document.getElementById('file-name').innerText = fileName;
-        }
 
-        $("#submitFormButton").click(function (e) {
-            e.preventDefault(); 
 
-            var formData = new FormData(document.getElementById('SubmitReqForm'));
+     function showFileName(event) {
+        var input = event.target;
+        var fileName = input.files.length > 0 ? input.files[0].name : 'No file chosen';
+        document.getElementById('file-name').innerText = fileName;
+    }
 
-            $.ajax({
-                url: '@Url.Action("SubmitReqForm", "Hardware")',
-                type: 'POST',
-                data: formData,
-                processData: false, 
-                contentType: false, 
-                success: function (response) {
-                    if (response.success) {
-                        alert(response.message);
-                        $("#RFormModal").modal('hide');
-                        window.location.reload();
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error occurred while submitting the request: " + error);
-                    alert("An error occurred while submitting the form.");
+    $("#submitFormButton").click(function (e) {
+        e.preventDefault();
+
+        var $submitBtn = $(this);
+        $submitBtn.prop('disabled', true).text('Processing');
+
+        var formData = new FormData(document.getElementById('SubmitReqForm'));
+
+        $.ajax({
+            url: '@Url.Action("SubmitReqForm", "Hardware")',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.success) {
+                    alert(response.message);
+                    $("#RFormModal").modal('hide');
+                    window.location.reload();
+                } else {
+                    alert(response.message);
+                    $submitBtn.prop('disabled', false).text('Submit');
                 }
-            });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error occurred while submitting the request: " + error);
+                alert("An error occurred while submitting the form.");
+                $submitBtn.prop('disabled', false).text('Submit');
+            }
         });
+    });
+
+
 </script>
 
 
@@ -338,6 +347,7 @@
                 </form>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -357,30 +367,38 @@
 
 
 <script>
-    document.getElementById("SubmitAssets").addEventListener("submit", function (e) {
-        e.preventDefault();
+        document.getElementById("SubmitAssets").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+        const submitButton = document.getElementById("submitFormButton");
+        submitButton.disabled = true;
+        submitButton.innerText = "Processing";
+
         const formData = new FormData(this);
 
         fetch('/Hardware/SubmitAssets', {
             method: 'POST',
-            body: formData
+        body: formData
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Asset added successfully!");
-                    $('#AddAssetsModal').modal('hide'); 
-                    window.location.reload();
-                } else {
-                    alert("Failed to add asset: " + data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("An error occurred while adding the asset.");
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+            alert("Asset added successfully!");
+        $('#AddAssetsModal').modal('hide');
+        window.location.reload();
+            } else {
+            alert("Failed to add asset: " + data.error);
+        submitButton.disabled = false;
+        submitButton.innerText = "Submit";
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        alert("An error occurred while adding the asset.");
+        submitButton.disabled = false;
+        submitButton.innerText = "Submit";
+        });
     });
-
 </script>
 
 
@@ -420,19 +438,19 @@
 
 <script>
     $("#btnPop").click(function () {
-        var data = $("#ref").val();
-        var sendData = { ReqFormID: data }
-        $.ajax({
-            url: "/Hardware/assestCodeID",
-            methods: "POST",
-            data: sendData,
-            success: function (data) {
-                var AssestNO = data.newAssestNo;
-                $("#assestRCode").val(AssestNO);
-            }
-        })
-
+    var data = $("#ref").val();
+    var sendData = {ReqFormID: data }
+    $.ajax({
+        url: "/Hardware/assestCodeID",
+    methods: "POST",
+    data: sendData,
+    success: function (data) {
+            var AssestNO = data.newAssestNo;
+    $("#assestRCode").val(AssestNO);
+        }
     })
+
+})
 </script>
 
 
@@ -605,21 +623,21 @@
 
                     <div class="row ">
                         <div class="col-12">
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <label class="text-dark fw-bold col">Common Remarks</label>
-                                        <textarea name="AssestRemarks" class="form-control form-control-sm"></textarea>
-                                    </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <label class="text-dark fw-bold col">Common Remarks</label>
+                                    <textarea name="AssestRemarks" class="form-control form-control-sm"></textarea>
                                 </div>
+                            </div>
                         </div>
-                    </div>                                          
+                    </div>
 
-                        <strong><span id="reqformid"></span></strong>
-                        <input type="hidden" id="idNo" name="ReqFormID" />
-                        <div class="modal-footer d-flex justify-content-between">
-                            <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary col-sm-5">Submit</button>
-                        </div>
+                    <strong><span id="reqformid"></span></strong>
+                    <input type="hidden" id="idNo" name="ReqFormID" />
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary col-sm-5" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary col-sm-5">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -633,64 +651,64 @@
 
 <script>
     $(document).on('click', '[data-target="#StatusModal"]', function () {
-        var id = $(this).data('id'); 
-        $('#reqformid').text(id);
-        $('#idNo').val(id); 
-    });
+    var id = $(this).data('id');
+    $('#reqformid').text(id);
+    $('#idNo').val(id);
+});
 </script>
 
 
 <script>
     function filterOptions() {
-        const input = document.getElementById('StatusInput');
-        const filter = input.value.toLowerCase();
-        const select = document.getElementById('StatusSelect');
-        const options = select.options;
+    const input = document.getElementById('StatusInput');
+    const filter = input.value.toLowerCase();
+    const select = document.getElementById('StatusSelect');
+    const options = select.options;
 
-        let hasVisibleOptions = false;
+    let hasVisibleOptions = false;
 
-        for (let i = 0; i < options.length; i++) {
-            const option = options[i];
-            if (option.text.toLowerCase().includes(filter)) {
-                option.style.display = '';
-                hasVisibleOptions = true;
-            } else {
-                option.style.display = 'none';
-            }
+    for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+    if (option.text.toLowerCase().includes(filter)) {
+        option.style.display = '';
+    hasVisibleOptions = true;
+        } else {
+        option.style.display = 'none';
         }
-
-        select.style.display = hasVisibleOptions ? 'block' : 'none';
     }
+
+    select.style.display = hasVisibleOptions ? 'block' : 'none';
+}
 
     function selectOption() {
-        const select = document.getElementById('StatusSelect');
-        const input = document.getElementById('StatusInput');
-        const hiddenInput = document.getElementById('status');
+    const select = document.getElementById('StatusSelect');
+    const input = document.getElementById('StatusInput');
+    const hiddenInput = document.getElementById('status');
 
-       
-        const selectedOption = select.options[select.selectedIndex];
-        if (selectedOption) {
-            input.value = selectedOption.text;
-            hiddenInput.value = selectedOption.value;
-        }
-        select.style.display = 'none';
+
+    const selectedOption = select.options[select.selectedIndex];
+    if (selectedOption) {
+        input.value = selectedOption.text;
+    hiddenInput.value = selectedOption.value;
     }
+    select.style.display = 'none';
+}
 
-  
+
     document.getElementById('StatusInput').addEventListener('focus', function () {
-        const select = document.getElementById('StatusSelect');
-        select.style.display = 'block';
+    const select = document.getElementById('StatusSelect');
+    select.style.display = 'block';
 
-        if (this.value.trim() === '') {
-            const options = select.options;
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].style.display !== 'none') {
-                    select.selectedIndex = i;
-                    break;
-                }
+    if (this.value.trim() === '') {
+        const options = select.options;
+    for (let i = 0; i < options.length; i++) {
+            if (options[i].style.display !== 'none') {
+        select.selectedIndex = i;
+    break;
             }
         }
-    });
+    }
+});
 
     document.getElementById('StatusSelect').addEventListener('click', selectOption);
 
@@ -698,7 +716,7 @@
         setTimeout(() => {
             document.getElementById('StatusSelect').style.display = 'none';
         }, 200);
-    });
+});
 
 </script>
 
@@ -730,7 +748,7 @@
             modal.find('textarea[name="AssestRemaks5"]').val(remarks5);
 
             // Fix date1 conversion to avoid time zone shift
-            var formattedDate1 = date1 ? new Date(date1).toLocaleDateString('en-CA') : ''; 
+            var formattedDate1 = date1 ? new Date(date1).toLocaleDateString('en-CA') : '';
             modal.find('input[name="AssestDate1"]').val(formattedDate1);
 
             var formattedDate2 = date2 ? new Date(date2).toLocaleDateString('en-CA') : '';
@@ -753,7 +771,7 @@
 
             modal.find('#StatusInput').val(selectedText);
         });
-    });
+});
 
 </script>
 
@@ -763,5 +781,5 @@
 <script>
     $(document).ready(function () {
         new DataTable('#example');
-    });
+});
 </script>

@@ -601,15 +601,15 @@
                                         </li>
                                     }
                                     @*@if (programIds.Split(',').Contains("X006") && programRoleStatus["X006"] == 1)
-                                        {
-                                            <li class="nav-item">
-                                                <a href="/Hardware/FaultnSolution" class="nav-link">
-                                                    &nbsp;  &nbsp;&nbsp;  &nbsp;
-                                                    <i class="fas fa-tools">&nbsp;</i>
-                                                    <p>Fault & Solutions</p>
-                                                </a>
-                                            </li>
-                                        }*@
+                    {
+                        <li class="nav-item">
+                            <a href="/Hardware/FaultnSolution" class="nav-link">
+                                &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                <i class="fas fa-tools">&nbsp;</i>
+                                <p>Fault & Solutions</p>
+                            </a>
+                        </li>
+                    }*@
                                 </ul>
                             </li>
                         }
@@ -635,8 +635,34 @@
                             </li>
                         }
 
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-charging-station"></i>
+                            <p>Extra Services<i class="fas fa-angle-left right"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/Extra/qr" class="nav-link">
+                                    &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                    <i class="fas fa-qrcode">&nbsp;</i>
+                                    <p>QR Generator</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/Extra/LabelGenerator" class="nav-link">
+                                    &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                  <i class="fas fa-receipt">&nbsp;</i>
+                                    <p>Lable Generator</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
 
+                      
 
                     </ul>
                 </nav>

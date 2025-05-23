@@ -1,0 +1,75 @@
+@model slbfeHardware.Models.ExtraModel
+
+<style>
+    .label-grid-container {
+        margin: 20px 0;
+    }
+    .label-grid {
+        display: grid;
+        grid-template-columns: repeat(@Model.Columns, 1fr);
+        gap: @(Model.HorizontalSpacing)px @(Model.VerticalSpacing)px;
+    }
+    .label-item {
+        padding: @(Model.LabelPadding)px;
+        text-align: center;
+        font-size: @(Model.FontSize)px;
+        font-weight: bold;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        min-width: 100px;
+    }
+
+    /* Print-specific styles */
+    @@media print {
+        body * {
+            visibility: hidden;
+        }
+        .label-grid-container, .label-grid-container * {
+            visibility: visible;
+        }
+        .label-grid-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
+<div class="mt-3 no-print">
+    <button onclick="window.print()" class="btn btn-default"><i class="fas fa-print"></i> Print Preview</button>
+</div>
+
+@if (Model.LabelGrid.Count > 0)
+{
+    
+    @*<div class="alert alert-success no-print">
+        Generated @Model.Quantity labels starting from @Model.ItemType@(Model.StartNumber.ToString("D4")) to @Model.ItemType@((Model.StartNumber + Model.Quantity - 1).ToString("D4"))
+    </div>*@
+
+    <div class="label-grid-container">
+        <div class="label-grid">
+            @foreach (var row in Model.LabelGrid)
+            {
+                foreach (var label in row)
+                {
+                    <div class="label-item">@label</div>
+                }
+            }
+        </div>
+    </div>
+
+
+}
+else
+{
+    <div class="alert alert-info">
+        Please configure label settings and click "Generate Labels" to see a preview.
+    </div>
+}

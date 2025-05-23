@@ -574,3 +574,239 @@ C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\obj\Releas
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\obj\Release\slbfeHardware.dll
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\obj\Release\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\obj\Release\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\obj\Release\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\obj\Release\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT Add QR\slbfeHardware\obj\Release\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\Rotativa.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\obj\Release\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\obj\Release\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\obj\Release\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\obj\Release\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\BouncyCastle.Cryptography.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\itextsharp.dll
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\BouncyCastle.Cryptography.xml
+C:\Users\Administrator\Desktop\IT 2025_05_09\slbfeHardware\bin\itextsharp.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\BouncyCastle.Cryptography.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\itextsharp.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\Rotativa.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\BouncyCastle.Cryptography.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\itextsharp.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\obj\Release\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\obj\Release\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\obj\Release\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v01\slbfeHardware\obj\Release\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\BouncyCastle.Cryptography.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\itextsharp.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\Rotativa.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\BouncyCastle.Cryptography.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\itextsharp.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\obj\Release\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\obj\Release\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\obj\Release\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v02\slbfeHardware\obj\Release\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\BouncyCastle.Cryptography.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\itextsharp.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\Rotativa.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\BouncyCastle.Cryptography.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\itextsharp.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\obj\Release\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\obj\Release\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\obj\Release\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v03\slbfeHardware\obj\Release\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\BouncyCastle.Cryptography.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\itextsharp.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\Rotativa.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\BouncyCastle.Cryptography.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\itextsharp.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\obj\Release\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\obj\Release\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\obj\Release\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v04\slbfeHardware\obj\Release\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\BouncyCastle.Cryptography.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\itextsharp.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\Rotativa.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\BouncyCastle.Cryptography.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\itextsharp.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\obj\Release\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\obj\Release\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\obj\Release\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v05\slbfeHardware\obj\Release\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\BouncyCastle.Cryptography.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\itextsharp.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\Rotativa.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\BouncyCastle.Cryptography.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\itextsharp.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\obj\Release\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\obj\Release\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\obj\Release\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\obj\Release\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT 2025_05_10 Lable v06\slbfeHardware\obj\Release\slbfeHardware.pdb

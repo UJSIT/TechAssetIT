@@ -1435,11 +1435,62 @@ C:\Users\Administrator\Desktop\TechAssetIT_02_25\slbfeHardware\obj\Debug\slbfeHa
 C:\Users\Administrator\Desktop\TechAssetIT_02_25\slbfeHardware\obj\Debug\slbfeHar.09551444.Up2Date
 C:\Users\Administrator\Desktop\TechAssetIT_02_25\slbfeHardware\obj\Debug\slbfeHardware.dll
 C:\Users\Administrator\Desktop\TechAssetIT_02_25\slbfeHardware\obj\Debug\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT\slbfeHardware\obj\Debug\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT\slbfeHardware\obj\Debug\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT\slbfeHardware\obj\Debug\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT\slbfeHardware\obj\Debug\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT\slbfeHardware\obj\Debug\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\slbfeHardware.dll.config
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\slbfeHardware.pdb
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\EntityFramework.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\QRCoder.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.Providers.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.Razor.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.WebPages.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\EntityFramework.xml
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.Razor.xml
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.WebPages.xml
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\obj\Debug\slbfeHardware.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\obj\Debug\slbfeHardware.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\obj\Debug\slbfeHar.09551444.Up2Date
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\obj\Debug\slbfeHardware.dll
+C:\Users\Administrator\Desktop\IT QR 01\slbfeHardware\obj\Debug\slbfeHardware.pdb
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\slbfeHardware.dll.config
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\slbfeHardware.dll
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\slbfeHardware.pdb
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\EntityFramework.dll
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\QRCoder.dll
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\System.Web.Helpers.dll
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\System.Web.Mvc.dll
 C:\Users\Administrator\Desktop\TechAsset Version 1.0\IT\slbfeHardware\bin\System.Web.Providers.dll

@@ -1002,7 +1002,7 @@ namespace slbfeHardware.Controllers
             mod.HOHistory = HardwareModule.Get_Any_DT(sql);
 
 
-            string sql1 = "SELECT hd.[IT_No], hd.[Serial_No], hd.[INV_No], hd.[QR], sd1.[division] AS Purchased_Division, sd2.[division] AS Current_Location, hd.[Authorized_Officer], CONVERT(VARCHAR, hd.[Installation_Date], 23) AS Installation_Date, ds.[Status] AS CurrentStatus, hd.[activeStatus] FROM [TechAssets].[dbo].[Hardware_Devices] hd LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd1 ON hd.[Purchased_DivisionID] = sd1.[div_index] LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd2 ON hd.[Current_LocationID] = sd2.[div_index] LEFT JOIN [TechAssets].[dbo].[Hardware_DeviceStatus] ds ON hd.[Current_Status] = ds.[StatusID] WHERE [IT_No] = '" + itNO + "'";
+            string sql1 = "SELECT hd.[IT_No], hd.[Serial_No], hd.[INV_No], hd.[QR], sd1.[division] AS Purchased_Division, sd2.[division] AS Current_Location, hd.[Authorized_Officer], CONVERT(VARCHAR, hd.[Installation_Date], 23) AS Installation_Date, ds.[Status] AS CurrentStatus, hd.[activeStatus], hd.[Remarks1] FROM [TechAssets].[dbo].[Hardware_Devices] hd LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd1 ON hd.[Purchased_DivisionID] = sd1.[div_index] LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd2 ON hd.[Current_LocationID] = sd2.[div_index] LEFT JOIN [TechAssets].[dbo].[Hardware_DeviceStatus] ds ON hd.[Current_Status] = ds.[StatusID] WHERE [IT_No] = '" + itNO + "'";
             mod.Dinfor = HardwareModule.Get_Any_DT(sql1);
 
             string sql4 = "SELECT d.[Invoice_Reference], d.[DescriptionCode], d.[IT_No], m.[Invoice_No], CONVERT(VARCHAR, m.Invoice_Date, 23) , m.[PO_No], m.[Name_of_Supplier], m.[GRN_No], m.[GRN_Date], i.[Warranty_Period], i.[unitprice] FROM [TechAssets].[dbo].[Hardware_Devices] d LEFT JOIN [TechAssets].[dbo].[Hardware_Master_Invoice] m ON d.[Invoice_Reference] = m.[Invoice_Reference] LEFT JOIN [TechAssets].[dbo].[Hardware_Inovice_Items] i ON d.[DescriptionCode] = i.[DescriptionCode] WHERE d.[IT_No] = '" + itNO + "'";
@@ -4350,7 +4350,7 @@ namespace slbfeHardware.Controllers
 
         public ActionResult EditDevice()
         {
-            string sql = "SELECT it.Item_Type, d.[Invoice_Reference], d.[IT_No], d.[Serial_No], d.[INV_No], d.[QR], d.Current_Status, ds.[Status] AS Current_Status_Text, d.[activeStatus], sd.[division] AS Purchased_Division_Name, sd_loc.[division] AS Current_Location_Name, d.[id] FROM [TechAssets].[dbo].[Hardware_Devices] d JOIN [TechAssets].[dbo].[Hardware_Inovice_Items] i ON d.[DescriptionCode] = i.[DescriptionCode] INNER JOIN [TechAssets].[dbo].[Hardware_Item_Types] it ON i.Item_Type = it.Item_Type_Code INNER JOIN [TechAssets].[dbo].[Hardware_DeviceStatus] ds ON d.[Current_Status] = ds.[StatusID] LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd ON d.[Purchased_DivisionID] = sd.[div_index] LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd_loc ON d.[Current_LocationID] = sd_loc.[div_index] WHERE d.[activeStatus] = 1";
+            string sql = "SELECT it.Item_Type, d.[Invoice_Reference], d.[IT_No], d.[Serial_No], d.[INV_No], d.[QR], d.Current_Status, ds.[Status] AS Current_Status_Text, d.[activeStatus], sd.[division] AS Purchased_Division_Name, sd_loc.[division] AS Current_Location_Name, d.[id], d.[Remarks1] FROM [TechAssets].[dbo].[Hardware_Devices] d JOIN [TechAssets].[dbo].[Hardware_Inovice_Items] i ON d.[DescriptionCode] = i.[DescriptionCode] INNER JOIN [TechAssets].[dbo].[Hardware_Item_Types] it ON i.Item_Type = it.Item_Type_Code INNER JOIN [TechAssets].[dbo].[Hardware_DeviceStatus] ds ON d.[Current_Status] = ds.[StatusID] LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd ON d.[Purchased_DivisionID] = sd.[div_index] LEFT JOIN [EMMSDB].[dbo].[Staff_Division] sd_loc ON d.[Current_LocationID] = sd_loc.[div_index] WHERE d.[activeStatus] = 1";
 
             EnterItemsModel Inmod = new EnterItemsModel
             {
@@ -4372,7 +4372,7 @@ namespace slbfeHardware.Controllers
             try
             {
                 string sql = "UPDATE [TechAssets].[dbo].[Hardware_Devices] " +
-                             "SET IT_No = @ItNoNew, Serial_No = @SerialNo, INV_No = @InvNo, QR = @QrNo " +
+                             "SET IT_No = @ItNoNew, Serial_No = @SerialNo, INV_No = @InvNo, QR = @QrNo, Remarks1 = @Zerem " +
                              "WHERE id = @Id";
 
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connx"].ConnectionString))
@@ -4384,6 +4384,7 @@ namespace slbfeHardware.Controllers
                         cmd.Parameters.AddWithValue("@SerialNo", model.Zserialno ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@InvNo", model.Zinvno ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@QrNo", model.Zqrno ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Zerem", model.Zerem ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@ItNoNew", model.ZitnoNew);
                         cmd.ExecuteNonQuery();
                     }

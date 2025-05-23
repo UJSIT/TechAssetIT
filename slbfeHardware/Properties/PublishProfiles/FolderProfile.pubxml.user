@@ -4,43 +4,58 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\Administrator\Desktop\New folder</_PublishTargetUrl>
-    <History>True|2025-04-26T07:10:24.9506232Z||;True|2025-04-26T10:49:06.8880951+05:30||;True|2025-04-25T13:39:07.9819667+05:30||;True|2025-04-25T12:37:31.0544307+05:30||;True|2025-04-25T10:37:25.8818012+05:30||;True|2025-04-24T14:36:31.2432085+05:30||;True|2025-04-23T15:11:31.7504598+05:30||;True|2025-04-23T08:28:31.8070721+05:30||;True|2025-02-27T17:11:46.4314911+05:30||;True|2025-02-27T11:58:59.4281008+05:30||;True|2025-02-27T08:48:09.2879572+05:30||;True|2025-02-22T16:03:42.1627747+05:30||;False|2025-02-22T15:52:53.5970698+05:30||;</History>
+    <_PublishTargetUrl>C:\Publish</_PublishTargetUrl>
+    <History>True|2025-05-21T01:04:11.8382170Z;True|2025-05-10T20:21:33.3600302+05:30;True|2025-05-02T16:48:12.2313218+05:30;True|2025-04-30T16:46:01.4565250+05:30;True|2025-04-29T16:07:58.1014483+05:30;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
+    <File Include="App_Browsers/qt.browser">
+      <publishTime>05/10/2025 09:26:53</publishTime>
+    </File>
+    <File Include="bin/BouncyCastle.Cryptography.dll">
+      <publishTime>05/27/2024 12:25:46</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>02/06/2024 11:53:30</publishTime>
+    </File>
+    <File Include="bin/itextsharp.dll">
+      <publishTime>06/13/2024 17:35:22</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>02/06/2024 11:53:34</publishTime>
     </File>
+    <File Include="bin/QRCoder.dll">
+      <publishTime>06/30/2024 16:20:06</publishTime>
+    </File>
+    <File Include="bin/Rotativa.dll">
+      <publishTime>09/29/2017 19:43:30</publishTime>
+    </File>
     <File Include="bin/slbfeHardware.dll">
-      <publishTime>04/26/2025 12:40:20</publishTime>
+      <publishTime>05/21/2025 06:28:00</publishTime>
     </File>
     <File Include="bin/slbfeHardware.pdb">
-      <publishTime>04/26/2025 12:40:20</publishTime>
+      <publishTime>05/21/2025 06:28:00</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
-      <publishTime>02/06/2024 11:53:34</publishTime>
+      <publishTime>01/28/2015 09:34:30</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>02/06/2024 11:53:34</publishTime>
+      <publishTime>01/28/2015 09:32:18</publishTime>
     </File>
     <File Include="bin/System.Web.Providers.dll">
       <publishTime>02/06/2024 11:53:36</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
-      <publishTime>02/06/2024 11:53:34</publishTime>
+      <publishTime>01/28/2015 09:32:32</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Deployment.dll">
-      <publishTime>02/06/2024 11:53:34</publishTime>
+      <publishTime>01/28/2015 09:34:30</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.dll">
-      <publishTime>02/06/2024 11:53:34</publishTime>
+      <publishTime>01/28/2015 09:34:30</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Razor.dll">
-      <publishTime>02/06/2024 11:53:34</publishTime>
+      <publishTime>01/28/2015 09:34:30</publishTime>
     </File>
     <File Include="Content/ajax%28search%29.css">
       <publishTime>06/28/2024 14:53:24</publishTime>
@@ -297,9 +312,6 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/Icon/All in One.png">
       <publishTime>10/29/2024 16:44:06</publishTime>
     </File>
-    <File Include="Content/Icon/AllInOne.png">
-      <publishTime>10/29/2024 16:44:06</publishTime>
-    </File>
     <File Include="Content/Icon/BarcodeReader.png">
       <publishTime>10/29/2024 16:30:51</publishTime>
     </File>
@@ -378,29 +390,11 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/ifyes.js">
       <publishTime>08/29/2024 11:42:38</publishTime>
     </File>
-    <File Include="Content/images/bg1.jpg">
-      <publishTime>02/06/2024 13:34:10</publishTime>
-    </File>
     <File Include="Content/images/bg2.jpg">
       <publishTime>02/15/2024 09:54:34</publishTime>
     </File>
-    <File Include="Content/images/bg3.jpg">
-      <publishTime>02/09/2024 09:03:44</publishTime>
-    </File>
-    <File Include="Content/images/bg4.jpg">
-      <publishTime>02/09/2024 10:27:44</publishTime>
-    </File>
     <File Include="Content/images/bg5.jpg">
       <publishTime>02/09/2024 10:49:40</publishTime>
-    </File>
-    <File Include="Content/images/bur1.jpg">
-      <publishTime>03/20/2024 14:10:14</publishTime>
-    </File>
-    <File Include="Content/images/ICONMY.gif">
-      <publishTime>07/30/2024 18:39:24</publishTime>
-    </File>
-    <File Include="Content/images/img1.jpg">
-      <publishTime>04/08/2024 11:42:12</publishTime>
     </File>
     <File Include="Content/JavaScript1.js">
       <publishTime>07/19/2024 08:33:24</publishTime>
@@ -7003,7 +6997,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/06/2024 11:53:26</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>07/24/2024 16:09:26</publishTime>
+      <publishTime>05/10/2025 09:52:43</publishTime>
+    </File>
+    <File Include="Rotativa/help-wkhtmltoimage.txt">
+      <publishTime>05/10/2025 09:26:53</publishTime>
+    </File>
+    <File Include="Rotativa/help-wkhtmltopdf.txt">
+      <publishTime>05/10/2025 09:26:53</publishTime>
+    </File>
+    <File Include="Rotativa/wkhtmltoimage.exe">
+      <publishTime>05/10/2025 09:26:52</publishTime>
+    </File>
+    <File Include="Rotativa/wkhtmltopdf.exe">
+      <publishTime>05/10/2025 09:26:52</publishTime>
     </File>
     <File Include="Scripts/Hardware/AddSupplier.js">
       <publishTime>04/02/2024 16:31:50</publishTime>
@@ -7116,6 +7122,18 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Account/UserRoleAssign.cshtml">
       <publishTime>02/26/2025 13:17:03</publishTime>
     </File>
+    <File Include="Views/Extra/LabelGenerator.cshtml">
+      <publishTime>05/10/2025 19:58:31</publishTime>
+    </File>
+    <File Include="Views/Extra/qr.cshtml">
+      <publishTime>05/02/2025 16:42:47</publishTime>
+    </File>
+    <File Include="Views/Extra/_LabelPreview.cshtml">
+      <publishTime>05/10/2025 19:44:59</publishTime>
+    </File>
+    <File Include="Views/Extra/_LabelPrint.cshtml">
+      <publishTime>05/10/2025 19:21:05</publishTime>
+    </File>
     <File Include="Views/Hardware/AddBrand.cshtml">
       <publishTime>02/26/2025 13:23:04</publishTime>
     </File>
@@ -7150,7 +7168,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/26/2025 13:26:20</publishTime>
     </File>
     <File Include="Views/Hardware/CreateAssestReqForm.cshtml">
-      <publishTime>02/26/2025 13:26:20</publishTime>
+      <publishTime>05/09/2025 19:44:23</publishTime>
     </File>
     <File Include="Views/Hardware/CreateInvoice.cshtml">
       <publishTime>04/25/2025 10:36:34</publishTime>
@@ -7162,7 +7180,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/26/2025 13:26:19</publishTime>
     </File>
     <File Include="Views/Hardware/DevicesFullView.cshtml">
-      <publishTime>02/26/2025 13:26:13</publishTime>
+      <publishTime>04/30/2025 16:42:42</publishTime>
     </File>
     <File Include="Views/Hardware/DevicesInInvoice.cshtml">
       <publishTime>02/26/2025 13:27:37</publishTime>
@@ -7173,14 +7191,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Hardware/DevicesView.cshtml">
       <publishTime>02/26/2025 13:27:37</publishTime>
     </File>
-    <File Include="Views/Hardware/Dispose.cshtml">
-      <publishTime>09/01/2024 13:14:46</publishTime>
-    </File>
-    <File Include="Views/Hardware/DisposeFilterView.cshtml">
-      <publishTime>01/23/2025 16:18:06</publishTime>
-    </File>
     <File Include="Views/Hardware/EditDevice.cshtml">
-      <publishTime>04/25/2025 13:37:13</publishTime>
+      <publishTime>04/30/2025 16:41:31</publishTime>
     </File>
     <File Include="Views/Hardware/EditDevices.cshtml">
       <publishTime>02/26/2025 13:27:59</publishTime>
@@ -7218,11 +7230,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Hardware/Index.cshtml">
       <publishTime>09/02/2024 06:19:14</publishTime>
     </File>
-    <File Include="Views/Hardware/InOutSideRepair.cshtml">
-      <publishTime>01/14/2025 14:48:47</publishTime>
-    </File>
     <File Include="Views/Hardware/InvDataView.cshtml">
-      <publishTime>02/26/2025 13:33:07</publishTime>
+      <publishTime>05/21/2025 06:33:18</publishTime>
     </File>
     <File Include="Views/Hardware/InvData_FullView.cshtml">
       <publishTime>02/26/2025 13:29:19</publishTime>
@@ -7305,12 +7314,6 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Hardware/UpdateSpec.cshtml">
       <publishTime>02/26/2025 13:33:07</publishTime>
     </File>
-    <File Include="Views/Hardware/UserLogin.cshtml">
-      <publishTime>08/30/2024 16:40:10</publishTime>
-    </File>
-    <File Include="Views/Hardware/UserRoleAssign.cshtml">
-      <publishTime>08/30/2024 17:42:36</publishTime>
-    </File>
     <File Include="Views/Hardware/ViewDisposeBulk.cshtml">
       <publishTime>02/26/2025 13:33:07</publishTime>
     </File>
@@ -7323,11 +7326,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>02/06/2024 11:53:26</publishTime>
     </File>
-    <File Include="Views/Shared/_Layout - Copy.cshtml">
-      <publishTime>09/30/2024 12:10:08</publishTime>
-    </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/23/2025 14:14:19</publishTime>
+      <publishTime>05/10/2025 09:58:37</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>04/26/2025 12:23:02</publishTime>
@@ -7336,7 +7336,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/06/2024 11:53:26</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/26/2025 12:40:21</publishTime>
+      <publishTime>05/21/2025 06:34:09</publishTime>
     </File>
   </ItemGroup>
 </Project>

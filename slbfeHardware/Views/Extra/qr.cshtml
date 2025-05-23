@@ -1,0 +1,141 @@
+@model slbfeHardware.Models.ExtraModel
+@{
+    ViewBag.Title = "QR Code Generator";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-8">
+                <div class="col-sm-6">
+                    <h3 class="mb-0"><b>QR Code Generator</b></h3>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "Hardware")">Home</a></li>
+                    <li class="breadcrumb-item active">QR Code Generator</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-info">
+
+                <div class="card-body">
+
+                    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "qrForm" }))
+                    {
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <div>
+                                        <label>Enter text for QR code:</label>
+                                        @Html.TextAreaFor(m => m.QrText, new { @class = "form-control", id = "QrText", placeholder = "Enter text here", required = "required", rows = 4 })
+
+                                    </div>
+
+                                    <hr />
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Foreground Color:</label>
+                                            @Html.TextBoxFor(m => m.ForegroundColor, new { @type = "color", @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Background Color:</label>
+                                            @Html.TextBoxFor(m => m.BackgroundColor, new { @type = "color", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Pixels Per Module (Size):</label>
+                                            @Html.DropDownListFor(m => m.PixelsPerModule,
+                                                new SelectList(new[] { 2, 4, 6, 8 }.Select(x => new { Value = x, Text = x }), "Value", "Text"),
+                                                "Select size",
+                                                new { @class = "form-control" })
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label>Error Correction Level:</label>
+                                            @Html.DropDownListFor(m => m.ErrorCorrection, new SelectList(new[]
+                                            {
+                                                new { Value = "L", Text = "L - Low (7% error correction)" },
+                                                new { Value = "M", Text = "M - Medium (15% error correction)" },
+                                                new { Value = "Q", Text = "Q - Quartile (25% error correction)" },
+                                                new { Value = "H", Text = "H - High (30% error correction)" }
+                                            }, "Value", "Text"), "Select ECC", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-1">
+                                </div>
+                                <div class="col-md-5 right">
+                                    <div id="qrPreview" class="text-center mt-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />   
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    <script>
+        function generateQrCode() {
+            $.ajax({
+                url: "@Url.Action("GenerateQrAjax", "Extra")",
+                method: "POST",
+                data: $("#qrForm").serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        $("#qrPreview").html(`
+                            <h5 class="text-success fw-bold mb-3">QR Code Preview</h5>
+                            <img src="${response.image}" alt="QR Code" class="img-thumbnail" style="max-width: 220px;" />
+                            <div class="mt-3">
+                                <a href="@Url.Action("DownloadQr", "Extra")" class="btn btn-success btn-sm">
+                                    <i class="bi bi-download"></i> Download QR Code
+                                </a>
+                            </div>
+                        `);
+                    } else {
+                        $("#qrPreview").html(`<div class="text-danger">${response.message}</div>`);
+                    }
+                },
+                error: function () {
+                    $("#qrPreview").html(`<div class="text-danger">An error occurred while generating the QR code.</div>`);
+                }
+            });
+        }
+
+        $(function () {
+            $("#qrForm input, #qrForm textarea, #qrForm select").on("change input", function () {
+                generateQrCode();
+            });
+            if ($("#QrText").val()) {
+                generateQrCode();
+            }
+        });
+    </script>
+}

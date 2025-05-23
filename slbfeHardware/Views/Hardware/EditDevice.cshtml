@@ -78,7 +78,8 @@
                                                         data-eid="@r.ItemArray.GetValue(11).ToString().Trim()"
                                                         data-eserialno="@r.ItemArray.GetValue(3).ToString().Trim()"
                                                         data-einvno="@r.ItemArray.GetValue(4).ToString().Trim()"
-                                                        data-eqrno="@r.ItemArray.GetValue(5).ToString().Trim()">
+                                                        data-eqrno="@r.ItemArray.GetValue(5).ToString().Trim()"
+                                                         data-erem="@r.ItemArray.GetValue(12).ToString().Trim()">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
 
@@ -135,7 +136,7 @@
 
             <div class="modal-body">
                 <form id="EditForm">
-                    <input type="hidden" id="Zitno2" name="Zitno" />                   
+                    <input type="hidden" id="Zitno2" name="Zitno" />
 
                     <div class="form-group">
                         <label for="Zserialno">IT No&nbsp;<span style="color: red;">*</span></label>
@@ -155,6 +156,11 @@
                     <div class="form-group">
                         <label for="Zqrno">QR</label>
                         <input type="text" class="form-control" id="Zqrno" name="Zqrno">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Zerem">Location Remaks</label>
+                        <input type="text" class="form-control" id="Zerem" name="Zerem">
                     </div>
                 </form>
             </div>
@@ -179,6 +185,8 @@
             $('#Zserialno').val(button.data('eserialno'));
             $('#Zinvno').val(button.data('einvno'));
             $('#Zqrno').val(button.data('eqrno'));
+            $('#Zerem').val(button.data('erem'));
+            
         });
 
         $('#saveEdit').click(function () {

@@ -325,6 +325,7 @@ namespace slbfeHardware.Models
         public string Zinvno { get; set; }
         public string Zqrno { get; set; }
 
+        public string Zerem { get; set; }
 
 
         public List<SelectListItem> CompanySelectList { get; set; }
